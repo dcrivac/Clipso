@@ -1618,52 +1618,68 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // Header
-            VStack(spacing: 8) {
-                HStack {
-                    Image(systemName: "doc.on.clipboard.fill")
-                        .font(.title2)
-                        .foregroundColor(.blue)
-                    Text("Clipboard Manager")
-                        .font(.headline)
+            // Header - Simplified & Minimal
+            VStack(spacing: 12) {
+                HStack(spacing: 12) {
+                    // Icon with count badge
+                    ZStack(alignment: .topTrailing) {
+                        Image(systemName: "doc.on.clipboard.fill")
+                            .font(.title3)
+                            .foregroundColor(.blue)
+
+                        if items.count > 0 {
+                            Text("\(items.count)")
+                                .font(.system(size: 9, weight: .semibold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 2)
+                                .background(Color.blue)
+                                .clipShape(Capsule())
+                                .offset(x: 8, y: -4)
+                        }
+                    }
+
                     Spacer()
-                    
+
+                    // Settings button with hover effect
                     Button(action: { showingSettings = true }) {
-                        Image(systemName: "gear")
+                        Image(systemName: "gearshape.fill")
+                            .font(.body)
                             .foregroundColor(.secondary)
                     }
                     .buttonStyle(.plain)
+                    .help("Settings")
                     .popover(isPresented: $showingSettings) {
                         SettingsView()
                             .frame(width: 400, height: 500)
                     }
-                    
-                    Text("\(items.count)")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
                 }
-                .padding(.horizontal)
-                .padding(.top, 12)
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
                 
-                // Search bar
-                HStack {
+                // Search bar - Refined
+                HStack(spacing: 8) {
                     Image(systemName: "magnifyingglass")
+                        .font(.system(size: 13))
                         .foregroundColor(.secondary)
-                    TextField("Search (includes OCR text)...", text: $searchText)
+                    TextField("Search clipboard...", text: $searchText)
                         .textFieldStyle(.plain)
-                    
+                        .font(.system(size: 13))
+
                     if !searchText.isEmpty {
                         Button(action: { searchText = "" }) {
                             Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 13))
                                 .foregroundColor(.secondary)
                         }
                         .buttonStyle(.plain)
                     }
                 }
-                .padding(8)
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(8)
-                .padding(.horizontal)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 7)
+                .background(Color.gray.opacity(0.08))
+                .cornerRadius(10)
+                .padding(.horizontal, 16)
 
                 // Search mode picker (only show when semantic search enabled and searching)
                 if settings.enableSemanticSearch && !searchText.isEmpty {
@@ -1708,15 +1724,25 @@ struct ContentView: View {
                     .padding(.vertical, 4)
                 }
 
-                // Category filters
+                // Category filters - Grouped Chips
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) {
-                        CategoryButton(title: "All", icon: "square.grid.2x2", isSelected: selectedCategory == nil) {
+                    HStack(spacing: 6) {
+                        // All button
+                        CategoryChip(
+                            title: "All",
+                            icon: "circle.grid.2x2",
+                            isSelected: selectedCategory == nil
+                        ) {
                             selectedCategory = nil
                         }
-                        
+
+                        Divider()
+                            .frame(height: 20)
+                            .padding(.horizontal, 4)
+
+                        // Individual category chips - more compact
                         ForEach(ClipboardCategory.allCases, id: \.self) { category in
-                            CategoryButton(
+                            CategoryChip(
                                 title: category.displayName,
                                 icon: category.icon,
                                 color: category.color,
@@ -1726,9 +1752,10 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 4)
                 }
-                .padding(.bottom, 8)
+                .padding(.bottom, 4)
             }
             .background(Color(NSColor.windowBackgroundColor))
             
@@ -2252,7 +2279,7 @@ struct CategoryButton: View {
     var color: Color = .blue
     let isSelected: Bool
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 4) {
@@ -2271,6 +2298,32 @@ struct CategoryButton: View {
     }
 }
 
+// MARK: - Category Chip (Compact)
+struct CategoryChip: View {
+    let title: String
+    let icon: String
+    var color: Color = .blue
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 3) {
+                Image(systemName: icon)
+                    .font(.system(size: 11))
+                Text(title)
+                    .font(.system(size: 11, weight: isSelected ? .medium : .regular))
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 5)
+            .background(isSelected ? color : Color.gray.opacity(0.12))
+            .foregroundColor(isSelected ? .white : .primary)
+            .cornerRadius(8)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 // MARK: - Clipboard Item Row (Enhanced)
 struct ClipboardItemRow: View {
     let item: ClipboardItemEntity
@@ -2278,84 +2331,97 @@ struct ClipboardItemRow: View {
     @State private var isHovered = false
     
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
+        HStack(alignment: .top, spacing: 10) {
+            // Compact icon
             Image(systemName: item.clipboardCategory.icon)
-                .font(.title3)
+                .font(.system(size: 14))
                 .foregroundColor(item.clipboardCategory.color)
-                .frame(width: 24)
-            
-            VStack(alignment: .leading, spacing: 4) {
+                .frame(width: 20)
+
+            VStack(alignment: .leading, spacing: 3) {
                 if let image = item.displayImage {
                     Image(nsImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxHeight: 100)
+                        .frame(maxHeight: 80)
                         .cornerRadius(4)
-                    
+
                     if let ocrText = item.ocrText, !ocrText.isEmpty {
                         Text("OCR: \(ocrText)")
-                            .font(.caption)
+                            .font(.system(size: 11))
                             .foregroundColor(.secondary)
-                            .lineLimit(2)
+                            .lineLimit(1)
                     }
                 } else {
                     Text(item.displayContent)
-                        .lineLimit(3)
-                        .font(.system(.body, design: item.clipboardCategory == .code ? .monospaced : .default))
+                        .lineLimit(2)
+                        .font(.system(size: 13, design: item.clipboardCategory == .code ? .monospaced : .default))
                 }
-                
-                HStack(spacing: 8) {
-                    Text(item.clipboardCategory.displayName)
-                        .font(.caption2)
-                        .foregroundColor(item.clipboardCategory.color)
-                    
+
+                // Compact metadata row
+                HStack(spacing: 6) {
+                    // Category badge
+                    HStack(spacing: 2) {
+                        Image(systemName: item.clipboardCategory.icon)
+                            .font(.system(size: 9))
+                        Text(item.clipboardCategory.displayName)
+                            .font(.system(size: 9, weight: .medium))
+                    }
+                    .foregroundColor(item.clipboardCategory.color)
+
                     if let app = item.sourceApp {
                         Text("•")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
+                            .font(.system(size: 9))
+                            .foregroundColor(.secondary.opacity(0.5))
                         Text(app)
-                            .font(.caption2)
+                            .font(.system(size: 9))
                             .foregroundColor(.secondary)
                     }
-                    
-                    if item.isEncrypted {
-                        Image(systemName: "lock.fill")
-                            .font(.caption2)
-                            .foregroundColor(.green)
+
+                    // Badges - only show on hover or when important
+                    if isHovered || item.isEncrypted {
+                        if item.isEncrypted {
+                            Image(systemName: "lock.fill")
+                                .font(.system(size: 9))
+                                .foregroundColor(.green)
+                        }
+
+                        if item.ocrText != nil {
+                            Image(systemName: "doc.text.viewfinder")
+                                .font(.system(size: 9))
+                                .foregroundColor(.blue)
+                        }
                     }
-                    
-                    if item.ocrText != nil {
-                        Image(systemName: "doc.text.viewfinder")
-                            .font(.caption2)
-                            .foregroundColor(.blue)
-                    }
-                    
+
                     Spacer()
-                    
+
                     Text(timeAgo(from: item.timestamp))
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
+                        .font(.system(size: 9))
+                        .foregroundColor(.secondary.opacity(0.7))
                 }
             }
-            
+
             Spacer()
-            
+
+            // Compact hover actions
             if isHovered {
-                VStack(spacing: 4) {
+                HStack(spacing: 6) {
                     Button(action: {
                         copyToClipboard(item, smart: false)
                     }) {
                         Image(systemName: "doc.on.doc")
+                            .font(.system(size: 12))
                             .foregroundColor(.blue)
                     }
                     .buttonStyle(.plain)
                     .help("Copy")
-                    
+
                     if settings.enableSmartPaste {
                         Button(action: {
                             copyToClipboard(item, smart: true)
                         }) {
                             Image(systemName: "wand.and.stars")
+                                .font(.system(size: 12))
                                 .foregroundColor(.purple)
                         }
                         .buttonStyle(.plain)
@@ -2364,8 +2430,10 @@ struct ClipboardItemRow: View {
                 }
             }
         }
-        .padding(12)
-        .background(isHovered ? Color.blue.opacity(0.05) : Color.clear)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(isHovered ? Color.blue.opacity(0.04) : Color.clear)
+        .cornerRadius(6)
         .onHover { hovering in
             isHovered = hovering
         }
