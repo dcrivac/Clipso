@@ -1,0 +1,129 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#F9FAFB;stop-opacity:0.95" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="150" fill="white" opacity="0.05"/>
+  <circle cx="1100" cy="530" r="200" fill="white" opacity="0.05"/>
+  <circle cx="200" cy="500" r="100" fill="white" opacity="0.08"/>
+  <circle cx="1000" cy="100" r="120" fill="white" opacity="0.06"/>
+
+  <!-- Main content card -->
+  <rect x="100" y="100" width="1000" height="430" rx="24" fill="url(#cardGradient)" filter="url(#glow)"/>
+
+  <!-- Logo -->
+  <g transform="translate(140, 140)">
+    <rect width="80" height="80" rx="20" fill="url(#bgGradient)"/>
+    <rect x="20" y="24" width="40" height="4" rx="2" fill="white"/>
+    <rect x="20" y="36" width="40" height="4" rx="2" fill="white"/>
+    <rect x="20" y="48" width="28" height="4" rx="2" fill="white"/>
+    <circle cx="68" cy="20" r="12" fill="#10B981"/>
+  </g>
+
+  <!-- Title -->
+  <text x="260" y="175" font-family="Inter, -apple-system, sans-serif" font-size="48" font-weight="800" fill="#111827">
+    ClipboardManager
+  </text>
+
+  <!-- Subtitle -->
+  <text x="260" y="215" font-family="Inter, -apple-system, sans-serif" font-size="28" font-weight="600" fill="#6366F1">
+    The First Truly Intelligent Clipboard for Mac
+  </text>
+
+  <!-- Feature highlights -->
+  <g transform="translate(160, 280)">
+    <!-- Feature 1 -->
+    <g>
+      <circle cx="12" cy="12" r="8" fill="#10B981"/>
+      <path d="M8 12 L11 15 L16 9" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <text x="32" y="18" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#111827">
+        AI-Powered Semantic Search
+      </text>
+    </g>
+
+    <!-- Feature 2 -->
+    <g transform="translate(0, 50)">
+      <circle cx="12" cy="12" r="8" fill="#10B981"/>
+      <path d="M8 12 L11 15 L16 9" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <text x="32" y="18" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#111827">
+        Auto Context Detection
+      </text>
+    </g>
+
+    <!-- Feature 3 -->
+    <g transform="translate(0, 100)">
+      <circle cx="12" cy="12" r="8" fill="#10B981"/>
+      <path d="M8 12 L11 15 L16 9" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <text x="32" y="18" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#111827">
+        100% Private • No Cloud
+      </text>
+    </g>
+
+    <!-- Feature 4 -->
+    <g transform="translate(450, 0)">
+      <circle cx="12" cy="12" r="8" fill="#10B981"/>
+      <path d="M8 12 L11 15 L16 9" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <text x="32" y="18" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#111827">
+        Built-in OCR
+      </text>
+    </g>
+
+    <!-- Feature 5 -->
+    <g transform="translate(450, 50)">
+      <circle cx="12" cy="12" r="8" fill="#10B981"/>
+      <path d="M8 12 L11 15 L16 9" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <text x="32" y="18" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#111827">
+        Free & Open Source
+      </text>
+    </g>
+
+    <!-- Feature 6 -->
+    <g transform="translate(450, 100)">
+      <circle cx="12" cy="12" r="8" fill="#10B981"/>
+      <path d="M8 12 L11 15 L16 9" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <text x="32" y="18" font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#111827">
+        macOS 13.0+
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom CTA -->
+  <g transform="translate(160, 480)">
+    <text x="0" y="0" font-family="Inter, -apple-system, sans-serif" font-size="20" font-weight="500" fill="#6B7280">
+      github.com/dcrivac/ClipboardManager
+    </text>
+  </g>
+
+  <!-- Badge -->
+  <g transform="translate(880, 160)">
+    <rect width="180" height="50" rx="25" fill="#10B981"/>
+    <text x="90" y="32" font-family="Inter, -apple-system, sans-serif" font-size="20" font-weight="700" fill="white" text-anchor="middle">
+      FREE FOREVER
+    </text>
+  </g>
+
+  <!-- Decorative search icon -->
+  <g transform="translate(920, 360)" opacity="0.15">
+    <circle cx="30" cy="30" r="25" stroke="#6366F1" stroke-width="6" fill="none"/>
+    <line x1="48" y1="48" x2="70" y2="70" stroke="#6366F1" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>
