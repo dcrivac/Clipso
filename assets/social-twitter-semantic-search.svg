@@ -1,0 +1,89 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgTwitter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgTwitter)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="200" fill="white" opacity="0.05"/>
+  <circle cx="1100" cy="575" r="250" fill="white" opacity="0.05"/>
+
+  <!-- Main content -->
+  <g transform="translate(100, 150)">
+    <!-- Title -->
+    <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="72" font-weight="900" fill="white">
+      Search by Meaning,
+    </text>
+    <text x="0" y="85" font-family="-apple-system, sans-serif" font-size="72" font-weight="900" fill="white">
+      Not Just Keywords
+    </text>
+
+    <!-- Comparison -->
+    <g transform="translate(0, 170)">
+      <!-- Traditional -->
+      <rect width="480" height="100" rx="12" fill="rgba(255,255,255,0.1)"/>
+      <text x="20" y="35" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="rgba(255,255,255,0.6)">
+        Traditional Clipboard
+      </text>
+      <text x="20" y="65" font-family="-apple-system, sans-serif" font-size="24" font-weight="700" fill="white">
+        Search: "AI"
+      </text>
+      <text x="440" y="65" font-family="-apple-system, sans-serif" font-size="32" font-weight="800" fill="#EF4444" text-anchor="end">
+        0 results
+      </text>
+
+      <!-- ClipboardManager -->
+      <g transform="translate(520, 0)">
+        <rect width="480" height="100" rx="12" fill="rgba(255,255,255,0.25)"/>
+        <text x="20" y="35" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="white">
+          ClipboardManager
+        </text>
+        <text x="20" y="65" font-family="-apple-system, sans-serif" font-size="24" font-weight="700" fill="white">
+          Search: "AI"
+        </text>
+        <text x="440" y="65" font-family="-apple-system, sans-serif" font-size="32" font-weight="800" fill="#10B981" text-anchor="end">
+          8 results ✓
+        </text>
+      </g>
+    </g>
+
+    <!-- Examples -->
+    <g transform="translate(520, 295)">
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="16" font-weight="600" fill="rgba(255,255,255,0.8)">
+        Finds:
+      </text>
+      <text x="0" y="30" font-family="-apple-system, sans-serif" font-size="18" fill="white">
+        • "machine learning tutorial"
+      </text>
+      <text x="0" y="60" font-family="-apple-system, sans-serif" font-size="18" fill="white">
+        • "neural networks guide"
+      </text>
+      <text x="0" y="90" font-family="-apple-system, sans-serif" font-size="18" fill="white">
+        • "deep learning with Python"
+      </text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(100, 595)">
+    <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="28" font-weight="700" fill="white">
+      ClipboardManager
+    </text>
+    <text x="320" y="0" font-family="-apple-system, sans-serif" font-size="22" fill="rgba(255,255,255,0.8)">
+      100% Private • Free Forever
+    </text>
+  </g>
+
+  <!-- Logo -->
+  <g transform="translate(1050, 530)">
+    <rect width="100" height="100" rx="25" fill="white" opacity="0.15"/>
+    <rect x="20" y="32" width="60" height="8" rx="4" fill="white"/>
+    <rect x="20" y="48" width="60" height="8" rx="4" fill="white"/>
+    <rect x="20" y="64" width="40" height="8" rx="4" fill="white"/>
+  </g>
+</svg>

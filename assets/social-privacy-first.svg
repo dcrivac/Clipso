@@ -1,0 +1,69 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="privacyBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <radialGradient id="shieldGlow">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#privacyBg)"/>
+
+  <!-- Shield glow -->
+  <circle cx="600" cy="337" r="300" fill="url(#shieldGlow)"/>
+
+  <!-- Shield -->
+  <g transform="translate(450, 180)">
+    <path d="M150 20 L280 80 L280 160 Q280 240 150 300 Q20 240 20 160 L20 80 Z"
+          fill="white" opacity="0.15" stroke="white" stroke-width="4"/>
+    <path d="M150 60 L250 100 L250 160 Q250 220 150 270 Q50 220 50 160 L50 100 Z"
+          fill="white" opacity="0.25"/>
+
+    <!-- Check mark -->
+    <path d="M100 140 L130 170 L200 100" stroke="white" stroke-width="12" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Text -->
+  <g transform="translate(100, 500)">
+    <text x="500" y="0" font-family="-apple-system, sans-serif" font-size="64" font-weight="900" fill="white" text-anchor="middle">
+      Your Data Never Leaves Your Mac
+    </text>
+
+    <g transform="translate(0, 80)">
+      <!-- Column 1 -->
+      <g>
+        <circle cx="15" cy="-10" r="6" fill="white"/>
+        <text x="35" y="0" font-family="-apple-system, sans-serif" font-size="24" font-weight="600" fill="white">
+          0 network requests
+        </text>
+      </g>
+
+      <!-- Column 2 -->
+      <g transform="translate(340, 0)">
+        <circle cx="15" cy="-10" r="6" fill="white"/>
+        <text x="35" y="0" font-family="-apple-system, sans-serif" font-size="24" font-weight="600" fill="white">
+          0 cloud storage
+        </text>
+      </g>
+
+      <!-- Column 3 -->
+      <g transform="translate(670, 0)">
+        <circle cx="15" cy="-10" r="6" fill="white"/>
+        <text x="35" y="0" font-family="-apple-system, sans-serif" font-size="24" font-weight="600" fill="white">
+          0 compromises
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(600, 645)">
+    <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="24" font-weight="700" fill="white" text-anchor="middle">
+      ClipboardManager • 100% Local AI
+    </text>
+  </g>
+</svg>

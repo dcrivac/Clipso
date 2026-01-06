@@ -1,0 +1,159 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pricingBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1F2937"/>
+      <stop offset="100%" style="stop-color:#111827"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#pricingBg)"/>
+
+  <!-- Title -->
+  <text x="600" y="100" font-family="-apple-system, sans-serif" font-size="56" font-weight="900" fill="white" text-anchor="middle">
+    Clipboard Managers: The Real Cost
+  </text>
+
+  <!-- Cards -->
+  <g transform="translate(100, 180)">
+    <!-- Card 1: Paste -->
+    <g>
+      <rect width="230" height="320" rx="16" fill="#27272A" stroke="#3F3F46" stroke-width="2"/>
+      <text x="115" y="50" font-family="-apple-system, sans-serif" font-size="24" font-weight="700" fill="white" text-anchor="middle">
+        Paste
+      </text>
+      <text x="115" y="85" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF" text-anchor="middle">
+        Popular Choice
+      </text>
+
+      <text x="115" y="150" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#EF4444" text-anchor="middle">
+        $15
+      </text>
+      <text x="115" y="180" font-family="-apple-system, sans-serif" font-size="18" fill="#9CA3AF" text-anchor="middle">
+        per year
+      </text>
+
+      <g transform="translate(30, 220)">
+        <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF">
+          ✓ Basic search
+        </text>
+        <text x="0" y="25" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF">
+          ✗ Semantic AI
+        </text>
+        <text x="0" y="50" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF">
+          ✗ Private (iCloud)
+        </text>
+      </g>
+    </g>
+
+    <!-- Card 2: Copied -->
+    <g transform="translate(270, 0)">
+      <rect width="230" height="320" rx="16" fill="#27272A" stroke="#3F3F46" stroke-width="2"/>
+      <text x="115" y="50" font-family="-apple-system, sans-serif" font-size="24" font-weight="700" fill="white" text-anchor="middle">
+        Copied
+      </text>
+      <text x="115" y="85" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF" text-anchor="middle">
+        Affordable
+      </text>
+
+      <text x="115" y="150" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#EF4444" text-anchor="middle">
+        $10
+      </text>
+      <text x="115" y="180" font-family="-apple-system, sans-serif" font-size="18" fill="#9CA3AF" text-anchor="middle">
+        per year
+      </text>
+
+      <g transform="translate(30, 220)">
+        <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF">
+          ✓ Basic search
+        </text>
+        <text x="0" y="25" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF">
+          ✗ Semantic AI
+        </text>
+        <text x="0" y="50" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF">
+          ✗ Private (cloud)
+        </text>
+      </g>
+    </g>
+
+    <!-- Card 3: Maccy -->
+    <g transform="translate(540, 0)">
+      <rect width="230" height="320" rx="16" fill="#27272A" stroke="#3F3F46" stroke-width="2"/>
+      <text x="115" y="50" font-family="-apple-system, sans-serif" font-size="24" font-weight="700" fill="white" text-anchor="middle">
+        Maccy
+      </text>
+      <text x="115" y="85" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF" text-anchor="middle">
+        Open Source
+      </text>
+
+      <text x="115" y="150" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#10B981" text-anchor="middle">
+        $0
+      </text>
+      <text x="115" y="180" font-family="-apple-system, sans-serif" font-size="18" fill="#9CA3AF" text-anchor="middle">
+        forever
+      </text>
+
+      <g transform="translate(30, 220)">
+        <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF">
+          ✓ Basic search
+        </text>
+        <text x="0" y="25" font-family="-apple-system, sans-serif" font-size="14" fill="#9CA3AF">
+          ✗ Semantic AI
+        </text>
+        <text x="0" y="50" font-family="-apple-system, sans-serif" font-size="14" fill="#10B981">
+          ✓ Private (local)
+        </text>
+      </g>
+    </g>
+
+    <!-- Card 4: ClipboardManager (Featured) -->
+    <g transform="translate(810, -20)">
+      <!-- Glow effect -->
+      <rect x="-4" y="-4" width="238" height="368" rx="18" fill="none" stroke="#6366F1" stroke-width="4" opacity="0.5"/>
+
+      <rect width="230" height="360" rx="16" fill="#1E1B4B" stroke="#6366F1" stroke-width="2"/>
+
+      <!-- Badge -->
+      <rect x="60" y="15" width="110" height="28" rx="14" fill="#6366F1"/>
+      <text x="115" y="33" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle">
+        BEST VALUE
+      </text>
+
+      <text x="115" y="80" font-family="-apple-system, sans-serif" font-size="28" font-weight="900" fill="white" text-anchor="middle">
+        ClipboardManager
+      </text>
+      <text x="115" y="110" font-family="-apple-system, sans-serif" font-size="14" fill="#A5B4FC" text-anchor="middle">
+        The Smart Choice
+      </text>
+
+      <text x="115" y="175" font-family="-apple-system, sans-serif" font-size="56" font-weight="900" fill="#10B981" text-anchor="middle">
+        $0
+      </text>
+      <text x="115" y="210" font-family="-apple-system, sans-serif" font-size="20" font-weight="600" fill="#10B981" text-anchor="middle">
+        forever
+      </text>
+
+      <g transform="translate(30, 250)">
+        <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="15" font-weight="600" fill="#10B981">
+          ✓ Semantic AI search
+        </text>
+        <text x="0" y="28" font-family="-apple-system, sans-serif" font-size="15" font-weight="600" fill="#10B981">
+          ✓ Context detection
+        </text>
+        <text x="0" y="56" font-family="-apple-system, sans-serif" font-size="15" font-weight="600" fill="#10B981">
+          ✓ 100% private
+        </text>
+        <text x="0" y="84" font-family="-apple-system, sans-serif" font-size="15" font-weight="600" fill="#10B981">
+          ✓ Open source
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(600, 630)">
+    <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="22" font-weight="600" fill="white" text-anchor="middle">
+      github.com/dcrivac/ClipboardManager
+    </text>
+  </g>
+</svg>
