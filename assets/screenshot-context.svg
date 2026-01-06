@@ -1,0 +1,233 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgContext" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EEF2FF"/>
+      <stop offset="100%" style="stop-color:#F3E8FF"/>
+    </linearGradient>
+    <filter id="cardShadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="0" dy="2"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.15"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgContext)"/>
+
+  <!-- Title -->
+  <text x="600" y="60" font-family="-apple-system, sans-serif" font-size="32" font-weight="800" fill="#111827" text-anchor="middle">
+    Automatic Context Detection
+  </text>
+  <text x="600" y="95" font-family="-apple-system, sans-serif" font-size="16" fill="#6B7280" text-anchor="middle">
+    Your clipboard items automatically organized into projects based on app patterns and content similarity
+  </text>
+
+  <!-- Project Card 1 -->
+  <g transform="translate(80, 140)">
+    <rect width="330" height="180" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <!-- Header -->
+    <rect x="20" y="20" width="180" height="32" rx="16" fill="#DBEAFE"/>
+    <text x="110" y="41" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#1E40AF" text-anchor="middle">
+      Design System
+    </text>
+
+    <text x="290" y="41" font-family="-apple-system, sans-serif" font-size="13" font-weight="500" fill="#9CA3AF" text-anchor="end">
+      24 items
+    </text>
+
+    <!-- Apps used -->
+    <text x="20" y="75" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#6B7280" text-transform="uppercase" letter-spacing="1">
+      Apps Used
+    </text>
+
+    <g transform="translate(20, 85)">
+      <rect width="36" height="36" rx="8" fill="#FF61F6"/>
+      <text x="18" y="25" font-family="-apple-system, sans-serif" font-size="20" fill="#FFF" text-anchor="middle">F</text>
+    </g>
+    <g transform="translate(66, 85)">
+      <rect width="36" height="36" rx="8" fill="#007ACC"/>
+      <text x="18" y="25" font-family="-apple-system, sans-serif" font-size="18" fill="#FFF" text-anchor="middle">VS</text>
+    </g>
+    <g transform="translate(112, 85)">
+      <rect width="36" height="36" rx="8" fill="#00A4EF"/>
+      <text x="18" y="25" font-family="-apple-system, sans-serif" font-size="20" fill="#FFF" text-anchor="middle">S</text>
+    </g>
+
+    <!-- Sample items -->
+    <text x="20" y="145" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#6B7280" text-transform="uppercase" letter-spacing="1">
+      Recent
+    </text>
+    <text x="20" y="165" font-family="-apple-system, sans-serif" font-size="12" fill="#111827">
+      • Color palette: #6366F1, #8B5CF6...
+    </text>
+  </g>
+
+  <!-- Project Card 2 -->
+  <g transform="translate(435, 140)">
+    <rect width="330" height="180" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <!-- Header -->
+    <rect x="20" y="20" width="180" height="32" rx="16" fill="#D1FAE5"/>
+    <text x="110" y="41" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#065F46" text-anchor="middle">
+      API Integration
+    </text>
+
+    <text x="290" y="41" font-family="-apple-system, sans-serif" font-size="13" font-weight="500" fill="#9CA3AF" text-anchor="end">
+      15 items
+    </text>
+
+    <!-- Apps used -->
+    <text x="20" y="75" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#6B7280" text-transform="uppercase" letter-spacing="1">
+      Apps Used
+    </text>
+
+    <g transform="translate(20, 85)">
+      <rect width="36" height="36" rx="8" fill="#147EFB"/>
+      <text x="18" y="25" font-family="-apple-system, sans-serif" font-size="20" fill="#FFF" text-anchor="middle">X</text>
+    </g>
+    <g transform="translate(66, 85)">
+      <rect width="36" height="36" rx="8" fill="#000000"/>
+      <text x="18" y="25" font-family="-apple-system, sans-serif" font-size="20" fill="#FFF" text-anchor="middle">$</text>
+    </g>
+    <g transform="translate(112, 85)">
+      <rect width="36" height="36" rx="8" fill="#FF6C37"/>
+      <text x="18" y="25" font-family="-apple-system, sans-serif" font-size="20" fill="#FFF" text-anchor="middle">P</text>
+    </g>
+
+    <!-- Sample items -->
+    <text x="20" y="145" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#6B7280" text-transform="uppercase" letter-spacing="1">
+      Recent
+    </text>
+    <text x="20" y="165" font-family="-apple-system, sans-serif" font-size="12" fill="#111827">
+      • func fetchUserData() async throws
+    </text>
+  </g>
+
+  <!-- Project Card 3 -->
+  <g transform="translate(790, 140)">
+    <rect width="330" height="180" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <!-- Header -->
+    <rect x="20" y="20" width="140" height="32" rx="16" fill="#FEE2E2"/>
+    <text x="90" y="41" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#991B1B" text-anchor="middle">
+      Bug Fixes
+    </text>
+
+    <text x="290" y="41" font-family="-apple-system, sans-serif" font-size="13" font-weight="500" fill="#9CA3AF" text-anchor="end">
+      8 items
+    </text>
+
+    <!-- Apps used -->
+    <text x="20" y="75" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#6B7280" text-transform="uppercase" letter-spacing="1">
+      Apps Used
+    </text>
+
+    <g transform="translate(20, 85)">
+      <rect width="36" height="36" rx="8" fill="#F05032"/>
+      <text x="18" y="25" font-family="-apple-system, sans-serif" font-size="20" fill="#FFF" text-anchor="middle">G</text>
+    </g>
+    <g transform="translate(66, 85)">
+      <rect width="36" height="36" rx="8" fill="#147EFB"/>
+      <text x="18" y="25" font-family="-apple-system, sans-serif" font-size="20" fill="#FFF" text-anchor="middle">X</text>
+    </g>
+
+    <!-- Sample items -->
+    <text x="20" y="145" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#6B7280" text-transform="uppercase" letter-spacing="1">
+      Recent
+    </text>
+    <text x="20" y="165" font-family="-apple-system, sans-serif" font-size="12" fill="#111827">
+      • Fixed memory leak in monitor
+    </text>
+  </g>
+
+  <!-- Detection Algorithms -->
+  <g transform="translate(80, 360)">
+    <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="24" font-weight="700" fill="#111827">
+      How Context Detection Works
+    </text>
+
+    <!-- Algorithm 1 -->
+    <g transform="translate(0, 40)">
+      <rect width="340" height="140" rx="12" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+
+      <g transform="translate(20, 20)">
+        <circle cx="20" cy="20" r="20" fill="#EEF2FF"/>
+        <text x="20" y="28" font-family="-apple-system, sans-serif" font-size="20" fill="#6366F1" text-anchor="middle">📱</text>
+      </g>
+
+      <text x="60" y="35" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#111827">
+        App Pattern Recognition
+      </text>
+
+      <text x="20" y="70" font-family="-apple-system, sans-serif" font-size="13" fill="#6B7280">
+        <tspan x="20" dy="0">Detects common app combinations</tspan>
+        <tspan x="20" dy="20">(e.g., Xcode + Terminal + Safari)</tspan>
+        <tspan x="20" dy="20">3+ app matches = likely same project</tspan>
+      </text>
+    </g>
+
+    <!-- Algorithm 2 -->
+    <g transform="translate(365, 40)">
+      <rect width="340" height="140" rx="12" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+
+      <g transform="translate(20, 20)">
+        <circle cx="20" cy="20" r="20" fill="#EEF2FF"/>
+        <text x="20" y="28" font-family="-apple-system, sans-serif" font-size="20" fill="#6366F1" text-anchor="middle">⏰</text>
+      </g>
+
+      <text x="60" y="35" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#111827">
+        Time Window Clustering
+      </text>
+
+      <text x="20" y="70" font-family="-apple-system, sans-serif" font-size="13" fill="#6B7280">
+        <tspan x="20" dy="0">Groups items copied within</tspan>
+        <tspan x="20" dy="20">30-minute windows</tspan>
+        <tspan x="20" dy="20">Merges adjacent windows if similar</tspan>
+      </text>
+    </g>
+
+    <!-- Algorithm 3 -->
+    <g transform="translate(730, 40)">
+      <rect width="340" height="140" rx="12" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+
+      <g transform="translate(20, 20)">
+        <circle cx="20" cy="20" r="20" fill="#EEF2FF"/>
+        <text x="20" y="28" font-family="-apple-system, sans-serif" font-size="20" fill="#6366F1" text-anchor="middle">🧠</text>
+      </g>
+
+      <text x="60" y="35" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#111827">
+        Content Similarity
+      </text>
+
+      <text x="20" y="70" font-family="-apple-system, sans-serif" font-size="13" fill="#6B7280">
+        <tspan x="20" dy="0">Computes semantic similarity</tspan>
+        <tspan x="20" dy="20">Hierarchical clustering at 0.75</tspan>
+        <tspan x="20" dy="20">threshold creates project groups</tspan>
+      </text>
+    </g>
+  </g>
+
+  <!-- Benefits -->
+  <g transform="translate(80, 600)">
+    <rect width="1040" height="120" rx="12" fill="#F0FDF4" stroke="#10B981" stroke-width="2"/>
+
+    <g transform="translate(30, 30)">
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="18" font-weight="700" fill="#065F46">
+        ✨ The Result: Zero Manual Organization
+      </text>
+
+      <text x="0" y="35" font-family="-apple-system, sans-serif" font-size="14" fill="#047857">
+        <tspan x="0" dy="0">• Your clipboard automatically groups related items into color-coded projects</tspan>
+        <tspan x="0" dy="22">• Context scores help surface relevant items when you need them</tspan>
+        <tspan x="0" dy="22">• Find related items instantly without searching</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

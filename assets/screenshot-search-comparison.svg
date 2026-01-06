@@ -1,0 +1,150 @@
+<svg width="1400" height="700" viewBox="0 0 1400 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="searchBg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FEF3C7"/>
+      <stop offset="50%" style="stop-color:#FDE68A"/>
+      <stop offset="100%" style="stop-color:#FEF3C7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="700" fill="#FFFBEB"/>
+
+  <!-- Title -->
+  <text x="700" y="60" font-family="-apple-system, sans-serif" font-size="36" font-weight="800" fill="#111827" text-anchor="middle">
+    Keyword vs. Semantic Search
+  </text>
+
+  <!-- Divider -->
+  <line x1="700" y1="100" x2="700" y2="650" stroke="#E5E7EB" stroke-width="3" stroke-dasharray="10,5"/>
+
+  <!-- Left Side - Keyword Search (Traditional) -->
+  <g transform="translate(50, 120)">
+    <rect width="580" height="60" rx="8" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="2"/>
+    <text x="20" y="40" font-family="-apple-system, sans-serif" font-size="18" fill="#6B7280">
+      🔍 Search: "artificial intelligence"
+    </text>
+    <rect x="480" y="18" width="80" height="24" rx="12" fill="#9CA3AF"/>
+    <text x="520" y="35" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#FFF" text-anchor="middle">
+      KEYWORD
+    </text>
+  </g>
+
+  <text x="340" y="230" font-family="-apple-system, sans-serif" font-size="20" font-weight="700" fill="#6B7280" text-anchor="middle">
+    Traditional Clipboard Manager
+  </text>
+
+  <!-- Left Results -->
+  <g transform="translate(50, 260)">
+    <!-- Result 1 -->
+    <rect width="580" height="70" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+    <circle cx="30" cy="35" r="8" fill="#10B981"/>
+    <text x="50" y="30" font-family="-apple-system, sans-serif" font-size="14" fill="#111827">
+      What is artificial intelligence and how does it work?
+    </text>
+    <text x="50" y="50" font-family="-apple-system, sans-serif" font-size="11" fill="#059669" font-weight="600">
+      ✓ Exact keyword match
+    </text>
+
+    <!-- Result 2 - Empty state -->
+    <g transform="translate(0, 90)">
+      <rect width="580" height="240" rx="8" fill="#FAFAFA" stroke="#E5E7EB" stroke-width="1.5" stroke-dasharray="5,5"/>
+      <text x="290" y="80" font-family="-apple-system, sans-serif" font-size="16" fill="#9CA3AF" text-anchor="middle">
+        No more results
+      </text>
+      <text x="290" y="110" font-family="-apple-system, sans-serif" font-size="13" fill="#D1D5DB" text-anchor="middle">
+        Items with different wording won't be found
+      </text>
+
+      <g transform="translate(150, 140)">
+        <rect width="280" height="50" rx="6" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1"/>
+        <text x="20" y="22" font-family="-apple-system, sans-serif" font-size="12" fill="#991B1B">
+          ✗ "machine learning tutorial" - missed
+        </text>
+        <text x="20" y="38" font-family="-apple-system, sans-serif" font-size="12" fill="#991B1B">
+          ✗ "neural networks guide" - missed
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right Side - Semantic Search (ClipboardManager) -->
+  <g transform="translate(770, 120)">
+    <rect width="580" height="60" rx="8" fill="url(#searchBg)" stroke="#F59E0B" stroke-width="2"/>
+    <text x="20" y="40" font-family="-apple-system, sans-serif" font-size="18" fill="#92400E">
+      🧠 Search: "artificial intelligence"
+    </text>
+    <rect x="470" y="18" width="90" height="24" rx="12" fill="#F59E0B"/>
+    <text x="515" y="35" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#FFF" text-anchor="middle">
+      SEMANTIC
+    </text>
+  </g>
+
+  <text x="1060" y="230" font-family="-apple-system, sans-serif" font-size="20" font-weight="700" fill="#111827" text-anchor="middle">
+    ClipboardManager with AI
+  </text>
+
+  <!-- Right Results -->
+  <g transform="translate(770, 260)">
+    <!-- Result 1 -->
+    <rect width="580" height="70" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+    <circle cx="30" cy="35" r="8" fill="#10B981"/>
+    <text x="50" y="30" font-family="-apple-system, sans-serif" font-size="14" fill="#111827">
+      What is artificial intelligence and how does it work?
+    </text>
+    <text x="50" y="50" font-family="-apple-system, sans-serif" font-size="11" fill="#059669" font-weight="600">
+      ✓ Exact match • Relevance: 100%
+    </text>
+
+    <!-- Result 2 -->
+    <g transform="translate(0, 85)">
+      <rect width="580" height="70" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+      <circle cx="30" cy="35" r="8" fill="#10B981"/>
+      <text x="50" y="30" font-family="-apple-system, sans-serif" font-size="14" fill="#111827">
+        Machine learning tutorial: building your first model
+      </text>
+      <text x="50" y="50" font-family="-apple-system, sans-serif" font-size="11" fill="#059669" font-weight="600">
+        ✓ Semantic match • Relevance: 87%
+      </text>
+    </g>
+
+    <!-- Result 3 -->
+    <g transform="translate(0, 170)">
+      <rect width="580" height="70" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+      <circle cx="30" cy="35" r="8" fill="#10B981"/>
+      <text x="50" y="30" font-family="-apple-system, sans-serif" font-size="14" fill="#111827">
+        Understanding neural networks and deep learning
+      </text>
+      <text x="50" y="50" font-family="-apple-system, sans-serif" font-size="11" fill="#059669" font-weight="600">
+        ✓ Semantic match • Relevance: 84%
+      </text>
+    </g>
+
+    <!-- Result 4 -->
+    <g transform="translate(0, 255)">
+      <rect width="580" height="70" rx="8" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+      <circle cx="30" cy="35" r="8" fill="#F59E0B"/>
+      <text x="50" y="30" font-family="-apple-system, sans-serif" font-size="14" fill="#111827">
+        https://www.tensorflow.org/tutorials
+      </text>
+      <text x="50" y="50" font-family="-apple-system, sans-serif" font-size="11" fill="#D97706" font-weight="600">
+        ✓ Semantic match • Relevance: 76%
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom comparison -->
+  <g transform="translate(50, 620)">
+    <rect width="580" height="50" rx="8" fill="#FEE2E2"/>
+    <text x="290" y="32" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#991B1B" text-anchor="middle">
+      ❌ Found 1 result - Missed 3 relevant items
+    </text>
+  </g>
+
+  <g transform="translate(770, 620)">
+    <rect width="580" height="50" rx="8" fill="#D1FAE5"/>
+    <text x="290" y="32" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#065F46" text-anchor="middle">
+      ✅ Found 4 results - Understands meaning & context
+    </text>
+  </g>
+</svg>
