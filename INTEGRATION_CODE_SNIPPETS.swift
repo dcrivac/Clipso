@@ -48,7 +48,7 @@ private func setupMenuBarMenu() {
 
     // Quit
     menu.addItem(NSMenuItem(
-        title: "Quit ClipboardManager",
+        title: "Quit Clipso",
         action: #selector(NSApplication.terminate(_:)),
         keyEquivalent: "q"
     ))

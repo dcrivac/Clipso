@@ -1,20 +1,20 @@
-# Release Build Guide for ClipboardManager
+# Release Build Guide for Clipso
 
 ## Overview
 
-This guide walks you through creating a production-ready release build of ClipboardManager for distribution.
+This guide walks you through creating a production-ready release build of Clipso for distribution.
 
 ## Prerequisites
 
 - Xcode installed
-- ClipboardManager project building successfully
+- Clipso project building successfully
 - (Optional) Apple Developer ID for code signing
 
 ## Step 1: Archive the App in Xcode
 
 ### Using Xcode GUI:
 
-1. **Open Xcode** with ClipboardManager project
+1. **Open Xcode** with Clipso project
 
 2. **Select "Any Mac" as destination:**
    - Top bar → Select scheme dropdown
@@ -36,11 +36,11 @@ This guide walks you through creating a production-ready release build of Clipbo
 
 6. **Export Options:**
    - Click **"Export"**
-   - Choose save location (e.g., Desktop/ClipboardManager-Release)
+   - Choose save location (e.g., Desktop/Clipso-Release)
    - Click **"Export"**
 
 7. **Result:**
-   - You now have: `ClipboardManager.app`
+   - You now have: `Clipso.app`
    - Located in your export folder
 
 ## Step 2: Create DMG for Distribution (Recommended)
@@ -54,20 +54,20 @@ brew install create-dmg
 
 Create DMG:
 ```bash
-cd /Users/crivac/Projects/ClipboardManager
+cd /Users/crivac/Projects/Clipso
 
 # Create DMG with your exported .app
 create-dmg \
-  --volname "ClipboardManager" \
+  --volname "Clipso" \
   --volicon "assets/logo.svg" \
   --window-pos 200 120 \
   --window-size 600 400 \
   --icon-size 100 \
-  --icon "ClipboardManager.app" 175 120 \
-  --hide-extension "ClipboardManager.app" \
+  --icon "Clipso.app" 175 120 \
+  --hide-extension "Clipso.app" \
   --app-drop-link 425 120 \
-  "ClipboardManager-v1.0.0.dmg" \
-  "/path/to/exported/ClipboardManager.app"
+  "Clipso-v1.0.0.dmg" \
+  "/path/to/exported/Clipso.app"
 ```
 
 ### Option B: Manual DMG Creation
@@ -75,7 +75,7 @@ create-dmg \
 1. **Create folder with app:**
    ```bash
    mkdir -p DMG-Contents
-   cp -R /path/to/exported/ClipboardManager.app DMG-Contents/
+   cp -R /path/to/exported/Clipso.app DMG-Contents/
    ln -s /Applications DMG-Contents/Applications
    ```
 
@@ -83,7 +83,7 @@ create-dmg \
    - Open **Disk Utility**
    - File → New Image → Image from Folder
    - Select `DMG-Contents` folder
-   - Save as: `ClipboardManager-v1.0.0.dmg`
+   - Save as: `Clipso-v1.0.0.dmg`
    - Image Format: **compressed**
    - Encryption: **none**
    - Click **Save**
@@ -99,11 +99,11 @@ create-dmg \
 
 1. **Mount the DMG:**
    ```bash
-   open ClipboardManager-v1.0.0.dmg
+   open Clipso-v1.0.0.dmg
    ```
 
 2. **Drag to Applications:**
-   - Drag ClipboardManager.app to Applications folder
+   - Drag Clipso.app to Applications folder
 
 3. **Run the app:**
    - Open from Applications
@@ -127,29 +127,29 @@ create-dmg \
 1. **Sign the app:**
    ```bash
    codesign --force --deep --sign "Developer ID Application: Your Name" \
-     /path/to/ClipboardManager.app
+     /path/to/Clipso.app
    ```
 
 2. **Verify signature:**
    ```bash
-   codesign --verify --verbose /path/to/ClipboardManager.app
-   spctl --assess --verbose /path/to/ClipboardManager.app
+   codesign --verify --verbose /path/to/Clipso.app
+   spctl --assess --verbose /path/to/Clipso.app
    ```
 
 3. **Notarize (for distribution):**
    ```bash
    # Create a zip for notarization
-   ditto -c -k --keepParent ClipboardManager.app ClipboardManager.zip
+   ditto -c -k --keepParent Clipso.app Clipso.zip
 
    # Submit for notarization
-   xcrun notarytool submit ClipboardManager.zip \
+   xcrun notarytool submit Clipso.zip \
      --apple-id "your@email.com" \
      --team-id "YOUR_TEAM_ID" \
      --password "app-specific-password"
 
    # Wait for approval (5-10 minutes)
    # Then staple the ticket
-   xcrun stapler staple ClipboardManager.app
+   xcrun stapler staple Clipso.app
    ```
 
 ### Without Apple Developer ID:
@@ -166,18 +166,18 @@ This is normal for unsigned apps from outside the Mac App Store.
 
 1. **Rename DMG with version:**
    ```bash
-   mv ClipboardManager-v1.0.0.dmg ClipboardManager-v1.0.0-macOS.dmg
+   mv Clipso-v1.0.0.dmg Clipso-v1.0.0-macOS.dmg
    ```
 
 2. **Calculate checksum:**
    ```bash
-   shasum -a 256 ClipboardManager-v1.0.0-macOS.dmg > ClipboardManager-v1.0.0-macOS.dmg.sha256
+   shasum -a 256 Clipso-v1.0.0-macOS.dmg > Clipso-v1.0.0-macOS.dmg.sha256
    ```
 
 3. **Create release notes:**
    Create `RELEASE_NOTES.md`:
    ```markdown
-   # ClipboardManager v1.0.0
+   # Clipso v1.0.0
 
    ## 🎉 First Release - AI-Powered Clipboard Manager
 
@@ -192,9 +192,9 @@ This is normal for unsigned apps from outside the Mac App Store.
    - Global hotkey (Cmd+Shift+V)
 
    ### 📦 Installation
-   1. Download `ClipboardManager-v1.0.0-macOS.dmg`
+   1. Download `Clipso-v1.0.0-macOS.dmg`
    2. Open the DMG
-   3. Drag ClipboardManager to Applications
+   3. Drag Clipso to Applications
    4. Right-click → Open (first time only)
 
    ### 💰 Pricing
@@ -206,8 +206,8 @@ This is normal for unsigned apps from outside the Mac App Store.
    - Apple Silicon or Intel Mac
 
    ### 🔗 Links
-   - Landing Page: https://dcrivac.github.io/ClipboardManager
-   - Documentation: https://github.com/dcrivac/ClipboardManager
+   - Landing Page: https://dcrivac.github.io/Clipso
+   - Documentation: https://github.com/dcrivac/Clipso
    - Support: Open an issue on GitHub
    ```
 
@@ -216,7 +216,7 @@ This is normal for unsigned apps from outside the Mac App Store.
 ### Via GitHub Web Interface:
 
 1. **Go to repository:**
-   https://github.com/dcrivac/ClipboardManager
+   https://github.com/dcrivac/Clipso
 
 2. **Create new release:**
    - Click "Releases" (right sidebar)
@@ -224,13 +224,13 @@ This is normal for unsigned apps from outside the Mac App Store.
 
 3. **Fill in release details:**
    - Tag: `v1.0.0`
-   - Title: `ClipboardManager v1.0.0 - AI-Powered Clipboard Manager`
+   - Title: `Clipso v1.0.0 - AI-Powered Clipboard Manager`
    - Description: Paste contents of `RELEASE_NOTES.md`
 
 4. **Upload files:**
    - Drag and drop:
-     - `ClipboardManager-v1.0.0-macOS.dmg`
-     - `ClipboardManager-v1.0.0-macOS.dmg.sha256`
+     - `Clipso-v1.0.0-macOS.dmg`
+     - `Clipso-v1.0.0-macOS.dmg.sha256`
 
 5. **Publish:**
    - Check "Set as the latest release"
@@ -247,9 +247,9 @@ gh auth login
 
 # Create release
 gh release create v1.0.0 \
-  ClipboardManager-v1.0.0-macOS.dmg \
-  ClipboardManager-v1.0.0-macOS.dmg.sha256 \
-  --title "ClipboardManager v1.0.0" \
+  Clipso-v1.0.0-macOS.dmg \
+  Clipso-v1.0.0-macOS.dmg.sha256 \
+  --title "Clipso v1.0.0" \
   --notes-file RELEASE_NOTES.md
 ```
 
@@ -259,10 +259,10 @@ Update landing page download links to point to GitHub release:
 
 ```html
 <!-- Change from: -->
-<a href="https://github.com/dcrivac/ClipboardManager/releases">Download Free</a>
+<a href="https://github.com/dcrivac/Clipso/releases">Download Free</a>
 
 <!-- To: -->
-<a href="https://github.com/dcrivac/ClipboardManager/releases/download/v1.0.0/ClipboardManager-v1.0.0-macOS.dmg">Download Free</a>
+<a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.0/Clipso-v1.0.0-macOS.dmg">Download Free</a>
 ```
 
 ## Quick Command Summary
@@ -273,20 +273,20 @@ Update landing page download links to point to GitHub release:
 
 # 2. Create DMG
 create-dmg \
-  --volname "ClipboardManager" \
+  --volname "Clipso" \
   --window-size 600 400 \
   --app-drop-link 425 120 \
-  "ClipboardManager-v1.0.0.dmg" \
-  "/path/to/ClipboardManager.app"
+  "Clipso-v1.0.0.dmg" \
+  "/path/to/Clipso.app"
 
 # 3. Calculate checksum
-shasum -a 256 ClipboardManager-v1.0.0.dmg > ClipboardManager-v1.0.0.dmg.sha256
+shasum -a 256 Clipso-v1.0.0.dmg > Clipso-v1.0.0.dmg.sha256
 
 # 4. Create GitHub release
 gh release create v1.0.0 \
-  ClipboardManager-v1.0.0-macOS.dmg \
-  ClipboardManager-v1.0.0-macOS.dmg.sha256 \
-  --title "ClipboardManager v1.0.0" \
+  Clipso-v1.0.0-macOS.dmg \
+  Clipso-v1.0.0-macOS.dmg.sha256 \
+  --title "Clipso v1.0.0" \
   --notes-file RELEASE_NOTES.md
 ```
 
@@ -308,7 +308,7 @@ gh release create v1.0.0 \
 
 ### Users get "App is damaged" warning:
 - This happens with unsigned apps on macOS 12+
-- Users can fix with: `xattr -cr /Applications/ClipboardManager.app`
+- Users can fix with: `xattr -cr /Applications/Clipso.app`
 - Or get code signed with Developer ID
 
 ## Next Steps

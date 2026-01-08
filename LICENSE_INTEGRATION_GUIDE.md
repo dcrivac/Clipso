@@ -1,6 +1,6 @@
 # LicenseManager Integration Guide
 
-This guide shows you exactly where to add code to integrate the freemium licensing system into ClipboardManager.
+This guide shows you exactly where to add code to integrate the freemium licensing system into Clipso.
 
 ## Overview
 
@@ -14,7 +14,7 @@ We'll integrate LicenseManager into:
 
 ## Step 1: Update AppDelegate (Add License Menu Items)
 
-### Location: `ClipboardManagerApp.swift` - Line ~36-80 (in `applicationDidFinishLaunching`)
+### Location: `ClipsoApp.swift` - Line ~36-80 (in `applicationDidFinishLaunching`)
 
 ### Add this code AFTER creating the popover (around line 59):
 
@@ -91,7 +91,7 @@ private func setupMenuBarMenu() {
 
     // Quit
     menu.addItem(NSMenuItem(
-        title: "Quit ClipboardManager",
+        title: "Quit Clipso",
         action: #selector(NSApplication.terminate(_:)),
         keyEquivalent: "q"
     ))
@@ -131,7 +131,7 @@ private func setupMenuBarMenu() {
 
 ## Step 2: Update ContentView (Gate AI Features)
 
-### Location: `ClipboardManagerApp.swift` - Line ~1609 (ContentView struct)
+### Location: `ClipsoApp.swift` - Line ~1609 (ContentView struct)
 
 ### Add LicenseManager and state variables at the top of ContentView:
 
@@ -199,7 +199,7 @@ var body: some View {
 
 ## Step 3: Update SettingsManager (Apply Limits)
 
-### Location: `ClipboardManagerApp.swift` - Line ~287 (SettingsManager class)
+### Location: `ClipsoApp.swift` - Line ~287 (SettingsManager class)
 
 ### Update the computed properties to respect license limits:
 
@@ -236,7 +236,7 @@ class SettingsManager: ObservableObject {
 
 ## Step 4: Update ClipboardMonitor (Enforce Limits)
 
-### Location: `ClipboardManagerApp.swift` - Find ClipboardMonitor class (~line 506)
+### Location: `ClipsoApp.swift` - Find ClipboardMonitor class (~line 506)
 
 ### Find the `clipboardChanged()` method and add limit enforcement:
 
@@ -285,7 +285,7 @@ private func enforceItemLimit() {
 
 ## Step 5: Update SettingsView (Show License Status)
 
-### Location: `ClipboardManagerApp.swift` - Find SettingsView (~line 984)
+### Location: `ClipsoApp.swift` - Find SettingsView (~line 984)
 
 ### Add license status section at the top of settings:
 
@@ -421,7 +421,7 @@ After integration, test these scenarios:
 ## Summary of Changes
 
 **Files Modified:**
-1. `ClipboardManagerApp.swift` - Added license menu, feature gating, limits
+1. `ClipsoApp.swift` - Added license menu, feature gating, limits
 
 **New Files:**
 1. `LicenseManager.swift` - License validation and feature gating
@@ -442,7 +442,7 @@ After integration, test these scenarios:
 ## Next Steps
 
 1. Add LicenseManager.swift to Xcode project ✅ (in progress)
-2. Apply these code changes to ClipboardManagerApp.swift
+2. Apply these code changes to ClipsoApp.swift
 3. Build and test (⌘B)
 4. Test free user flow
 5. Get Paddle credentials and test checkout

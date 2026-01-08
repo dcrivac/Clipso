@@ -1,9 +1,9 @@
-# ClipboardManager Demo Video Script
+# Clipso Demo Video Script
 
 ## Overview
 **Duration**: 2-3 minutes
 **Style**: Clean screen recording with voiceover, calm background music
-**Goal**: Show the "wow" moments that make ClipboardManager clearly better than traditional clipboard managers
+**Goal**: Show the "wow" moments that make Clipso clearly better than traditional clipboard managers
 
 ---
 
@@ -36,12 +36,12 @@
 ### SCENE 2: The Solution (0:15 - 0:25)
 
 **Visual**:
-- Logo animation: ClipboardManager logo fades in with subtle glow
+- Logo animation: Clipso logo fades in with subtle glow
 - Tagline appears: "The First Truly Intelligent Clipboard for Mac"
-- Quick feature icons fly in: 🧠 AI • 🔒 Private • 💰 Free
+- Quick feature icons fly in: 🧠 AI • 🔒 Private • 💰 $7.99/yr
 
 **Voiceover**:
-> "Meet ClipboardManager - the first clipboard for Mac with true AI intelligence. And it's completely free."
+> "Meet Clipso - the first clipboard for Mac with true AI intelligence. Free tier available, or Premium for just $7.99 a year."
 
 **Music**: Transition to upbeat, optimistic music
 
@@ -68,10 +68,10 @@
    - Hover over first result - show "Semantic Match: 89%" tooltip
    - Side-by-side comparison appears showing:
      - LEFT: "Traditional Clipboard: 0 results ❌"
-     - RIGHT: "ClipboardManager: 3 results ✅"
+     - RIGHT: "Clipso: 3 results ✅"
 
 **Voiceover**:
-> "Watch this. I'll copy a few items about machine learning and neural networks. [pause] Now, instead of remembering exact keywords, I just search for 'artificial intelligence'... and ClipboardManager finds them all. That's semantic search in action - it understands what you mean, not just what you type."
+> "Watch this. I'll copy a few items about machine learning and neural networks. [pause] Now, instead of remembering exact keywords, I just search for 'artificial intelligence'... and Clipso finds them all. That's semantic search in action - it understands what you mean, not just what you type."
 
 **On-screen text**:
 - "Semantic AI Search"
@@ -102,7 +102,7 @@
    - Show context score dots (green/orange/gray)
 
 **Voiceover**:
-> "Here's where it gets really smart. As you work, ClipboardManager automatically detects patterns - which apps you're using, when you copied things, and how they relate to each other. Without any manual tagging, your clipboard organizes itself into color-coded projects. Click any item, and it shows you related content instantly."
+> "Here's where it gets really smart. As you work, Clipso automatically detects patterns - which apps you're using, when you copied things, and how they relate to each other. Without any manual tagging, your clipboard organizes itself into color-coded projects. Click any item, and it shows you related content instantly."
 
 **On-screen text**:
 - "Automatic Context Detection"
@@ -116,7 +116,7 @@
 
 1. **Network Monitor (1:30-1:40)**:
    - Show macOS Activity Monitor or Little Snitch
-   - Highlight ClipboardManager in process list
+   - Highlight Clipso in process list
    - Show "0 KB sent" network stats
    - Network activity graph flat/zero
 
@@ -176,21 +176,22 @@ Quick cuts showing features in action (3-4 seconds each):
 - Show comparison table from landing page
 - Highlight key differences:
 
-| Feature | ClipboardManager | Others |
+| Feature | Clipso | Others |
 |---------|-----------------|--------|
 | Semantic AI Search | ✅ | ❌ |
 | Auto Context Detection | ✅ | ❌ |
 | 100% Private | ✅ | ❌ |
-| Price | FREE | $10-15/year |
+| Price | Free or $7.99/yr | $10-15/year |
 
-- Zoom into "FREE" vs "$14.99/year"
+- Zoom into "$7.99/year" vs "$14.99/year"
 
 **Voiceover**:
-> "Unlike Paste, Copied, or other clipboard managers that cost fifteen dollars a year and send your data to the cloud, ClipboardManager is completely free, open source, and keeps everything local."
+> "Unlike Paste or Copied that cost ten to fifteen dollars a year and send your data to the cloud, Clipso offers a generous free tier or Premium for just $7.99/year—47% cheaper with superior privacy. Everything stays local."
 
 **On-screen text**:
-- "Free Forever"
-- "Open Source"
+- "Free Tier: 10 AI searches/day"
+- "Premium: $7.99/year"
+- "47% cheaper than Paste"
 
 ---
 
@@ -215,7 +216,7 @@ Quick cuts showing features in action (3-4 seconds each):
 > "Getting started takes 30 seconds. Download from GitHub, drag to Applications, and you're done. Your clipboard just got a whole lot smarter."
 
 **On-screen text**:
-- "github.com/dcrivac/ClipboardManager"
+- "github.com/dcrivac/Clipso"
 - "Free Download • macOS 13.0+"
 
 ---
@@ -230,11 +231,11 @@ Quick cuts showing features in action (3-4 seconds each):
   - 📝 Read the docs
 
 **Voiceover**:
-> "ClipboardManager. The clipboard you've been waiting for."
+> "Clipso. The clipboard you've been waiting for."
 
 **End card text**:
 ```
-ClipboardManager
+Clipso
 The First Truly Intelligent Clipboard for Mac
 
 ✨ AI-Powered Semantic Search
@@ -242,7 +243,7 @@ The First Truly Intelligent Clipboard for Mac
 🔒 100% Private
 💰 Free & Open Source
 
-Download: github.com/dcrivac/ClipboardManager
+Download: github.com/dcrivac/Clipso
 ```
 
 **Music**: Gentle fadeout
@@ -332,7 +333,7 @@ Download: github.com/dcrivac/ClipboardManager
 For Twitter, Instagram, LinkedIn:
 
 **Script**:
-> "Tired of searching through clipboard history? ClipboardManager uses AI to understand meaning, not just keywords. Search 'coffee recipes' and find 'espresso brewing guide'. Automatic project organization. 100% private. Completely free. Download now."
+> "Tired of searching through clipboard history? Clipso uses AI to understand meaning, not just keywords. Search 'coffee recipes' and find 'espresso brewing guide'. Automatic project organization. 100% private. Completely free. Download now."
 
 **Structure**:
 - 0-5s: Hook (problem)
@@ -368,7 +369,7 @@ Extract these for social media:
 
 ### Clip 3: Before/After (12s)
 - Traditional clipboard: messy list
-- ClipboardManager: organized projects
+- Clipso: organized projects
 - Text: "Stop organizing. Start working."
 
 ---
@@ -376,13 +377,13 @@ Extract these for social media:
 ## YouTube Optimization
 
 ### Title Options:
-1. "ClipboardManager: AI-Powered Clipboard for Mac (Free & Open Source)"
+1. "Clipso: AI-Powered Clipboard for Mac (Free & Open Source)"
 2. "The First Clipboard Manager with Semantic AI Search"
 3. "I Built an Intelligent Clipboard for Mac - Here's How It Works"
 
 ### Description Template:
 ```
-ClipboardManager is the first truly intelligent clipboard manager for macOS, featuring semantic AI search and automatic context detection.
+Clipso is the first truly intelligent clipboard manager for macOS, featuring semantic AI search and automatic context detection.
 
 🔥 Key Features:
 • Semantic Search - Find by meaning, not keywords
@@ -400,8 +401,8 @@ ClipboardManager is the first truly intelligent clipboard manager for macOS, fea
 2:25 - Getting Started
 
 🔗 Links:
-Download: https://github.com/dcrivac/ClipboardManager/releases
-Documentation: https://github.com/dcrivac/ClipboardManager
+Download: https://github.com/dcrivac/Clipso/releases
+Documentation: https://github.com/dcrivac/Clipso
 Website: [your landing page URL]
 
 💻 System Requirements:

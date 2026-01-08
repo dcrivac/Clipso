@@ -1,4 +1,4 @@
-# Paddle Setup Checklist for ClipboardManager
+# Paddle Setup Checklist for Clipso
 
 ## ✅ Completed
 
@@ -44,7 +44,7 @@
 #### Product 1: Lifetime Pro (Launch Special)
 1. Go to Catalog → Products → "+ New Product"
 2. Fill in details:
-   - **Product Name:** ClipboardManager Pro - Lifetime License
+   - **Product Name:** Clipso Pro - Lifetime License
    - **Description:** Lifetime access to all Pro features including AI semantic search and context detection
    - **Product Image:** Upload logo (use assets/logo.svg)
 3. Pricing:
@@ -55,7 +55,7 @@
 
 #### Product 2: Annual Subscription
 1. Create another product:
-   - **Product Name:** ClipboardManager Pro - Annual
+   - **Product Name:** Clipso Pro - Annual
    - **Description:** Annual subscription with all Pro features
    - **Product Image:** Upload logo
 2. Pricing:
@@ -67,7 +67,7 @@
 
 #### Product 3: Monthly Subscription (Optional)
 1. Create product:
-   - **Product Name:** ClipboardManager Pro - Monthly
+   - **Product Name:** Clipso Pro - Monthly
    - **Price:** $0.99 USD
    - **Billing Cycle:** Monthly
 2. Save and note the **Product ID**
@@ -117,7 +117,7 @@ private let annualProductID = "YOUR_ANNUAL_PRODUCT_ID"
 ## 🔲 TODO: App Integration
 
 ### Add LicenseManager to Xcode Project
-1. Open `ClipboardManager.xcodeproj`
+1. Open `Clipso.xcodeproj`
 2. Add `LicenseManager.swift` to project:
    - Right-click project → Add Files
    - Select `LicenseManager.swift`

@@ -1,27 +1,27 @@
-# Paddle Integration Guide for ClipboardManager
+# Paddle Integration Guide for Clipso
 
 ## Overview
 
-This guide covers integrating Paddle payment processing for the freemium ClipboardManager app.
+This guide covers integrating Paddle payment processing for the freemium Clipso app.
 
 ## Products to Create in Paddle
 
 ### 1. Launch Special - Lifetime Pro
-- **Product Name:** ClipboardManager Pro - Lifetime License
+- **Product Name:** Clipso Pro - Lifetime License
 - **Price:** $29.99 USD (one-time)
 - **Product Type:** Software Download
 - **Recurring:** No
 - **Trial Period:** None
 
 ### 2. Regular Pro - Annual Subscription
-- **Product Name:** ClipboardManager Pro - Annual
+- **Product Name:** Clipso Pro - Annual
 - **Price:** $7.99 USD / year
 - **Product Type:** Software Download / SaaS
 - **Recurring:** Yearly
 - **Trial Period:** 7 days (optional)
 
 ### 3. Monthly Subscription (Optional)
-- **Product Name:** ClipboardManager Pro - Monthly
+- **Product Name:** Clipso Pro - Monthly
 - **Price:** $0.99 USD / month
 - **Product Type:** Software Download / SaaS
 - **Recurring:** Monthly

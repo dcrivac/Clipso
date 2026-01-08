@@ -1,6 +1,6 @@
 # GitHub Pages Deployment Guide
 
-Complete guide to deploying the ClipboardManager landing page on GitHub Pages.
+Complete guide to deploying the Clipso landing page on GitHub Pages.
 
 ---
 
@@ -23,7 +23,7 @@ Perfect for static sites like our landing page.
 Your landing page files should be in the repository root:
 
 ```
-ClipboardManager/
+Clipso/
 ├── index.html          ✓
 ├── styles.css          ✓
 ├── script.js           ✓
@@ -59,7 +59,7 @@ Keep everything on `claude/artwork-marketing-landing-OXgkW` and deploy from ther
 
 1. Go to your repository on GitHub:
    ```
-   https://github.com/dcrivac/ClipboardManager
+   https://github.com/dcrivac/Clipso
    ```
 
 2. Click **Settings** (top navigation)
@@ -79,12 +79,12 @@ GitHub will now build and deploy your site. This takes 1-2 minutes.
 
 You'll see:
 ```
-✓ Your site is live at https://dcrivac.github.io/ClipboardManager/
+✓ Your site is live at https://dcrivac.github.io/Clipso/
 ```
 
 ### Step 5: Test Your Site
 
-Visit: `https://dcrivac.github.io/ClipboardManager/`
+Visit: `https://dcrivac.github.io/Clipso/`
 
 Everything should work! ✨
 
@@ -94,7 +94,7 @@ Everything should work! ✨
 
 ### Why Use a Custom Domain?
 
-- **Professional**: `clipboard.yourdomain.com` vs `dcrivac.github.io/ClipboardManager`
+- **Professional**: `clipboard.yourdomain.com` vs `dcrivac.github.io/Clipso`
 - **Branding**: Better for marketing
 - **Memorable**: Easier to share
 
@@ -331,20 +331,20 @@ Already included in `index.html`, but verify:
 ```html
 <head>
   <!-- Essential -->
-  <title>ClipboardManager - The First Truly Intelligent Clipboard for Mac</title>
+  <title>Clipso - The First Truly Intelligent Clipboard for Mac</title>
   <meta name="description" content="AI-powered clipboard manager with semantic search and context detection. 100% private, free forever.">
 
   <!-- OpenGraph (for social sharing) -->
-  <meta property="og:title" content="ClipboardManager - Intelligent Clipboard for Mac">
+  <meta property="og:title" content="Clipso - Intelligent Clipboard for Mac">
   <meta property="og:description" content="Never lose important clipboard content again. AI-powered semantic search, 100% private.">
-  <meta property="og:image" content="https://dcrivac.github.io/ClipboardManager/assets/social-card.svg">
-  <meta property="og:url" content="https://dcrivac.github.io/ClipboardManager/">
+  <meta property="og:image" content="https://dcrivac.github.io/Clipso/assets/social-card.svg">
+  <meta property="og:url" content="https://dcrivac.github.io/Clipso/">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ClipboardManager - Intelligent Clipboard for Mac">
+  <meta name="twitter:title" content="Clipso - Intelligent Clipboard for Mac">
   <meta name="twitter:description" content="AI-powered clipboard with semantic search. 100% private, free forever.">
-  <meta name="twitter:image" content="https://dcrivac.github.io/ClipboardManager/assets/social-card.svg">
+  <meta name="twitter:image" content="https://dcrivac.github.io/Clipso/assets/social-card.svg">
 </head>
 ```
 
@@ -352,7 +352,7 @@ Already included in `index.html`, but verify:
 
 **Google**:
 1. Go to search.google.com/search-console
-2. Add property: `https://dcrivac.github.io/ClipboardManager/`
+2. Add property: `https://dcrivac.github.io/Clipso/`
 3. Verify ownership (upload HTML file or DNS record)
 4. Submit sitemap (optional)
 
@@ -371,7 +371,7 @@ Usually indexed within 24-48 hours.
 
 ```bash
 # Clone to a backup location
-git clone https://github.com/dcrivac/ClipboardManager.git ~/backup/ClipboardManager
+git clone https://github.com/dcrivac/Clipso.git ~/backup/Clipso
 
 # Or create a release
 git tag v1.0.0
@@ -402,7 +402,7 @@ Before going live:
 
 - [ ] All files committed and pushed to GitHub
 - [ ] GitHub Pages enabled in repository settings
-- [ ] Site loads at https://dcrivac.github.io/ClipboardManager/
+- [ ] Site loads at https://dcrivac.github.io/Clipso/
 - [ ] All images and styles loading correctly
 - [ ] Links work (test all navigation)
 - [ ] Responsive design works (test mobile)
@@ -459,6 +459,6 @@ Before going live:
 ✅ Fast CDN delivery
 ✅ Easy to update
 
-**URL**: `https://dcrivac.github.io/ClipboardManager/`
+**URL**: `https://dcrivac.github.io/Clipso/`
 
 Now go share it with the world! 🚀

@@ -1,4 +1,4 @@
-# ClipboardManager Marketing Materials
+# Clipso Marketing Materials
 
 ## Tagline Options
 
@@ -9,18 +9,18 @@
 
 ## Elevator Pitch (30 seconds)
 
-ClipboardManager is an intelligent macOS clipboard manager that uses AI to understand what you copy. Unlike traditional clipboard managers that only match exact keywords, our semantic search finds items by *meaning*—search for "coffee recipes" and find "espresso brewing guide" or "latte art techniques." It automatically organizes your clipboard into projects, detects context, and keeps everything 100% private on your Mac. No cloud, no subscription, completely free and open source.
+Clipso is an intelligent macOS clipboard manager that uses AI to understand what you copy. Unlike traditional clipboard managers that only match exact keywords, our semantic search finds items by *meaning*—search for "coffee recipes" and find "espresso brewing guide" or "latte art techniques." It automatically organizes your clipboard into projects, detects context, and keeps everything 100% private on your Mac. Generous free tier with optional Premium ($7.99/year)—47% cheaper than competitors with superior privacy. Open source and built for transparency.
 
 ## Key Messages
 
 ### 1. Intelligence That Actually Helps
-Most clipboard managers are glorified lists. ClipboardManager uses Apple's on-device ML to understand context and meaning, making it the first clipboard manager that actually thinks.
+Most clipboard managers are glorified lists. Clipso uses Apple's on-device ML to understand context and meaning, making it the first clipboard manager that actually thinks.
 
 ### 2. Privacy Without Compromise
 Every other smart clipboard sends your data to the cloud. We do all AI processing on-device using Apple's frameworks. Zero network requests, zero telemetry, zero compromise.
 
-### 3. Free Forever
-No subscriptions, no paid tiers, no limitations. We're open source because we believe essential tools should be accessible to everyone.
+### 3. Fair Freemium Pricing
+Generous free tier with 10 AI searches/day. Premium is just $7.99/year—47% cheaper than Paste with superior privacy. We're open source and believe in transparent, affordable pricing.
 
 ## Target Audiences
 
@@ -58,12 +58,12 @@ No subscriptions, no paid tiers, no limitations. We're open source because we be
 ### Twitter/X (280 characters)
 
 **Launch Announcement**:
-"Introducing ClipboardManager: the first clipboard for Mac with true AI intelligence 🤖
+"Introducing Clipso: the first clipboard for Mac with true AI intelligence 🤖
 
 ✨ Search by meaning, not keywords
 🎯 Auto-organizes into projects
 🔒 100% private (no cloud)
-💰 Free & open source
+💰 Free tier + $7.99/yr Premium (47% off vs Paste)
 
 Finally, a clipboard that actually thinks.
 
@@ -72,7 +72,7 @@ Finally, a clipboard that actually thinks.
 **Feature Focus - Semantic Search**:
 "Traditional clipboard: Search 'AI' → finds only 'AI'
 
-ClipboardManager: Search 'AI' → finds 'machine learning', 'neural networks', 'deep learning'
+Clipso: Search 'AI' → finds 'machine learning', 'neural networks', 'deep learning'
 
 That's the power of semantic search.
 
@@ -81,7 +81,7 @@ Try it free ↓"
 **Feature Focus - Privacy**:
 "Other clipboard managers: Your data → their servers → ???
 
-ClipboardManager: Your data → stays on your Mac → forever
+Clipso: Your data → stays on your Mac → forever
 
 100% local AI using Apple's frameworks. No exceptions."
 
@@ -90,14 +90,14 @@ ClipboardManager: Your data → stays on your Mac → forever
 
 Why doesn't it organize itself?
 
-ClipboardManager detects app patterns, timing, and content similarity to auto-group your work.
+Clipso detects app patterns, timing, and content similarity to auto-group your work.
 
 Finally."
 
 ### LinkedIn (Professional Tone)
 
 **Product Launch**:
-"After months of development, I'm excited to share ClipboardManager—a new approach to clipboard management for macOS.
+"After months of development, I'm excited to share Clipso—a new approach to clipboard management for macOS.
 
 Traditional clipboard managers are essentially lists with keyword search. We built something different: the first clipboard manager with semantic understanding.
 
@@ -122,7 +122,7 @@ Available now on GitHub. Would love your feedback.
 
 "Hey r/MacApps,
 
-I built ClipboardManager because I was frustrated with losing code snippets and having to remember exact keywords to find things.
+I built Clipso because I was frustrated with losing code snippets and having to remember exact keywords to find things.
 
 What makes it different:
 
@@ -148,7 +148,7 @@ It's free on GitHub. Happy to answer questions or hear feedback.
 **r/SideProject**:
 "Built a clipboard manager with AI that actually understands context"
 
-"**What I Built**: ClipboardManager for macOS
+"**What I Built**: Clipso for macOS
 
 **The Problem**: Traditional clipboard managers only do keyword matching. If you search for "artificial intelligence" but copied "machine learning", you won't find it.
 
@@ -174,11 +174,11 @@ Would love feedback from other Mac users!"
 
 **New Open-Source Clipboard Manager Brings AI Intelligence to macOS**
 
-*ClipboardManager uses on-device machine learning to revolutionize clipboard search with semantic understanding and automatic project organization*
+*Clipso uses on-device machine learning to revolutionize clipboard search with semantic understanding and automatic project organization*
 
-[CITY, DATE] — Today marks the release of ClipboardManager, a free and open-source clipboard manager for macOS that introduces semantic search and context detection to clipboard management.
+[CITY, DATE] — Today marks the release of Clipso, a free and open-source clipboard manager for macOS that introduces semantic search and context detection to clipboard management.
 
-Unlike traditional clipboard managers that rely on exact keyword matching, ClipboardManager uses Apple's on-device Natural Language framework to understand the meaning behind clipboard content. This allows users to find items even when they don't remember the exact words—searching for "coffee recipes" will surface "espresso brewing guide" or "how to make cappuccino."
+Unlike traditional clipboard managers that rely on exact keyword matching, Clipso uses Apple's on-device Natural Language framework to understand the meaning behind clipboard content. This allows users to find items even when they don't remember the exact words—searching for "coffee recipes" will surface "espresso brewing guide" or "how to make cappuccino."
 
 **Key Features:**
 
@@ -190,15 +190,15 @@ Unlike traditional clipboard managers that rely on exact keyword matching, Clipb
 
 "Most clipboard managers haven't evolved beyond being simple lists," said [Developer Name]. "We wanted to build something that actually understands what you're working on and helps you find what you need without manual organization."
 
-ClipboardManager is designed for developers, content creators, and knowledge workers who frequently switch between multiple projects and need quick access to previously copied content. The app runs as a lightweight menu bar utility and can be accessed globally via keyboard shortcut (⌘⇧V).
+Clipso is designed for developers, content creators, and knowledge workers who frequently switch between multiple projects and need quick access to previously copied content. The app runs as a lightweight menu bar utility and can be accessed globally via keyboard shortcut (⌘⇧V).
 
 **Privacy and Open Source:**
 
-In an era of increasing privacy concerns, ClipboardManager processes all data locally using Apple's on-device ML frameworks. The application makes zero network requests and includes no telemetry. The codebase is fully open source, allowing security researchers to verify these claims.
+In an era of increasing privacy concerns, Clipso processes all data locally using Apple's on-device ML frameworks. The application makes zero network requests and includes no telemetry. The codebase is fully open source, allowing security researchers to verify these claims.
 
 **Availability:**
 
-ClipboardManager is available now as a free download from GitHub. It requires macOS 13.0 or later.
+Clipso is available now as a free download from GitHub. It requires macOS 13.0 or later.
 
 For more information, visit [website] or [GitHub repository].
 
@@ -206,13 +206,13 @@ For more information, visit [website] or [GitHub repository].
 
 ### Welcome Email (First Install)
 
-**Subject**: Welcome to ClipboardManager! Here's how to get started
+**Subject**: Welcome to Clipso! Here's how to get started
 
 **Body**:
 
 Hi there! 👋
 
-Thanks for installing ClipboardManager. You're about to experience clipboard management that actually thinks.
+Thanks for installing Clipso. You're about to experience clipboard management that actually thinks.
 
 **Quick Start Guide:**
 
@@ -239,7 +239,7 @@ Questions? Reply to this email or check out the [documentation].
 
 Happy clipping!
 
-The ClipboardManager Team
+The Clipso Team
 
 ---
 
@@ -248,15 +248,15 @@ The ClipboardManager Team
 ## Comparison Talking Points
 
 ### vs. Paste ($14.99/year)
-- **Advantage**: Free forever, no subscription
+- **Advantage**: 47% cheaper ($7.99/year Premium, free tier available)
 - **Advantage**: True semantic search (Paste only has keyword + iCloud search)
-- **Advantage**: 100% local (Paste requires iCloud)
-- **Disadvantage**: No iCloud sync (yet)
-- **Position**: "All the intelligence, none of the subscription"
+- **Advantage**: 100% local (Paste requires iCloud for AI features)
+- **Advantage**: Generous free tier (10 AI searches/day)
+- **Position**: "Better AI, better privacy, half the price"
 
 ### vs. Copied ($9.99/year)
-- **Advantage**: Free and open source
-- **Advantage**: Semantic search and context detection
+- **Advantage**: 20% cheaper ($7.99/year Premium, free tier available)
+- **Advantage**: Semantic search and context detection (Copied has neither)
 - **Advantage**: Built-in OCR
 - **Disadvantage**: No iOS version (yet)
 - **Position**: "More intelligent, completely free"
@@ -283,7 +283,7 @@ The ClipboardManager Team
    - Explain embeddings, cosine similarity, hybrid ranking
    - Developer-friendly deep dive
 
-2. **"Building Privacy-First AI: Lessons from ClipboardManager"**
+2. **"Building Privacy-First AI: Lessons from Clipso"**
    - Why on-device ML matters
    - Apple's ML frameworks vs. cloud APIs
 
@@ -321,7 +321,7 @@ The ClipboardManager Team
 
 2. **"Your Clipboard Data's Journey"**
    - Other apps: Mac → Cloud → ?
-   - ClipboardManager: Mac → Mac (with visual)
+   - Clipso: Mac → Mac (with visual)
 
 3. **"The Privacy Stack"**
    - All components (NLEmbedding, Vision, Core Data) on-device

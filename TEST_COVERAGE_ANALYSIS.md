@@ -1,4 +1,4 @@
-# Test Coverage Analysis - ClipboardManager
+# Test Coverage Analysis - Clipso
 
 ## Current State
 
@@ -6,7 +6,7 @@
 
 ## Codebase Overview
 
-The ClipboardManager is a ~2,490 line Swift macOS application with the following major components:
+The Clipso is a ~2,490 line Swift macOS application with the following major components:
 
 ### Core Components (12 Classes)
 1. `AppDelegate` - Menu bar management & global shortcuts
@@ -288,7 +288,7 @@ func testGlobalShortcutTriggersPopover()
 ## Testing Infrastructure Recommendations
 
 ### 1. Set Up Test Target
-Create `ClipboardManagerTests` target in Xcode with:
+Create `ClipsoTests` target in Xcode with:
 - XCTest framework
 - Access to internal classes via `@testable import`
 - In-memory Core Data for isolation
@@ -396,7 +396,7 @@ class CoreDataTestStack {
 
 ## Conclusion
 
-The ClipboardManager has **zero test coverage** despite being a complex application with:
+The Clipso has **zero test coverage** despite being a complex application with:
 - Security-critical encryption
 - AI-powered semantic search
 - Complex clustering algorithms

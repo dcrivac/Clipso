@@ -1,6 +1,6 @@
 # Landing Page Launch Guide
 
-This guide covers deploying and promoting the ClipboardManager landing page.
+This guide covers deploying and promoting the Clipso landing page.
 
 ## 🚀 Quick Deploy Options
 
@@ -21,7 +21,7 @@ This guide covers deploying and promoting the ClipboardManager landing page.
    - Click Save
 
 3. **Access your site**:
-   - URL will be: `https://dcrivac.github.io/ClipboardManager/`
+   - URL will be: `https://dcrivac.github.io/Clipso/`
    - Custom domain optional (see below)
 
 ### Option 2: Vercel (Free - Better Performance)
@@ -33,7 +33,7 @@ This guide covers deploying and promoting the ClipboardManager landing page.
 
 2. **Deploy**:
    ```bash
-   cd ClipboardManager
+   cd Clipso
    vercel
    ```
 
@@ -58,7 +58,7 @@ This guide covers deploying and promoting the ClipboardManager landing page.
 
 2. **Or drag-and-drop**:
    - Go to https://app.netlify.com/drop
-   - Drag your ClipboardManager folder
+   - Drag your Clipso folder
    - Done!
 
 ### Option 4: Custom Domain + Hosting
@@ -172,7 +172,7 @@ Add before `</head>` in index.html:
 - Engage: Respond to all comments
 
 **Hacker News**:
-- Title: "Show HN: ClipboardManager – AI-powered clipboard for Mac with semantic search"
+- Title: "Show HN: Clipso – AI-powered clipboard for Mac with semantic search"
 - Post at 8-9 AM PST
 - Be active in comments
 
@@ -180,7 +180,7 @@ Add before `</head>` in index.html:
 
 r/MacApps:
 ```
-Title: [Open Source] ClipboardManager - AI clipboard with semantic search
+Title: [Open Source] Clipso - AI clipboard with semantic search
 - Include screenshots
 - Technical details
 - Link to GitHub and landing page
@@ -196,7 +196,7 @@ Title: Built an AI-powered clipboard manager for Mac
 
 **Twitter Thread**:
 ```
-1/ Launching ClipboardManager today 🚀
+1/ Launching Clipso today 🚀
 
 The first clipboard manager for Mac with true AI intelligence.
 
@@ -238,7 +238,7 @@ Subject: New open-source clipboard manager with AI semantic search
 
 Hi [Name],
 
-I built ClipboardManager, an open-source clipboard manager for Mac that uses on-device AI for semantic search and context detection.
+I built Clipso, an open-source clipboard manager for Mac that uses on-device AI for semantic search and context detection.
 
 What makes it unique:
 - Finds clipboard items by meaning using Apple's NLEmbedding
@@ -378,7 +378,7 @@ If collecting analytics, add a simple privacy policy:
 ```markdown
 # Privacy Policy
 
-ClipboardManager landing page uses [Analytics Provider] to understand traffic.
+Clipso landing page uses [Analytics Provider] to understand traffic.
 
 We collect:
 - Anonymous page views

@@ -9,9 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Paddle.js for payment processing -->
-    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -37,17 +34,11 @@
                     <a href="#pricing">Pricing</a>
                     <a href="#privacy">Privacy</a>
                     <a href="https://github.com/dcrivac/Clipso" target="_blank">GitHub</a>
-                    <a href="https://github.com/dcrivac/Clipso/releases" class="btn-primary">Download Free</a>
+                    <a href="https://github.com/dcrivac/Clipso/releases" class="btn-primary">Download</a>
                 </div>
             </div>
         </div>
     </nav>
-
-    <!-- Launch Special Banner -->
-    <div class="launch-banner" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; text-align: center; padding: 12px 20px; font-weight: 500;">
-        🚀 <strong>Launch Special:</strong> Lifetime Pro for $29.99 (Regular $7.99/year) — Limited to first 500 early adopters!
-        <a href="#pricing" style="color: white; text-decoration: underline; margin-left: 10px;">Claim Offer →</a>
-    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -64,21 +55,20 @@
                 </h1>
                 <p class="hero-subtitle">
                     Find clipboard items by <strong>meaning</strong>, not just keywords. Automatically organizes your work into projects.
-                    100% private, 100% local. <strong>Free to start, Pro from $7.99/year.</strong>
+                    100% private, 100% local. <strong>Free with AI</strong>, or upgrade to Premium for $7.99/year.
                 </p>
                 <div class="hero-cta">
                     <a href="#waitlist" class="btn-large btn-primary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        Download Free
+                        Join Waitlist
                     </a>
-                    <a href="#pricing" class="btn-large btn-secondary">
+                    <a href="https://github.com/dcrivac/Clipso" class="btn-large btn-secondary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <path d="M10 6v4l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M10 2c-4.4 0-8 3.6-8 8 0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1.1-2.7-1.1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3.1-1.9 3.7-3.7 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.5.4 3.2-1.1 5.5-4.1 5.5-7.6 0-4.4-3.6-8-8-8z" fill="currentColor"/>
                         </svg>
-                        View Pricing
+                        View on GitHub
                     </a>
                 </div>
                 <div class="hero-stats">
@@ -92,7 +82,7 @@
                     </div>
                     <div class="stat">
                         <span class="stat-value">$7.99</span>
-                        <span class="stat-label">vs $15+ competitors</span>
+                        <span class="stat-label">Premium/Year</span>
                     </div>
                 </div>
             </div>
@@ -452,107 +442,6 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing-section" style="padding: 80px 0; background: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%);">
-        <div class="container">
-            <h2 class="section-title">Simple, Honest Pricing</h2>
-            <p class="section-subtitle" style="text-align: center; max-width: 600px; margin: 0 auto 60px;">
-                Start free. Upgrade when AI features save you hours.
-            </p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto;">
-                <!-- Free Tier -->
-                <div style="background: white; border: 2px solid #E5E7EB; border-radius: 16px; padding: 40px; position: relative;">
-                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #1F2937;">Free</h3>
-                    <div style="font-size: 48px; font-weight: 800; margin-bottom: 20px; color: #1F2937;">
-                        $0
-                        <span style="font-size: 18px; font-weight: 400; color: #6B7280;">/forever</span>
-                    </div>
-                    <ul style="list-style: none; padding: 0; margin: 0 0 30px 0;">
-                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>250 clipboard items</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>Keyword search</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>30-day retention</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>OCR & smart categorization</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>AES-256 encryption</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>100% private & local</span>
-                        </li>
-                    </ul>
-                    <a href="https://github.com/dcrivac/Clipso/releases" class="btn-large btn-secondary" style="width: 100%; justify-content: center; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-                        Download Free
-                    </a>
-                </div>
-
-                <!-- Pro Tier -->
-                <div style="background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%); border: 2px solid #6366F1; border-radius: 16px; padding: 40px; position: relative; color: white; transform: scale(1.05); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);">
-                    <div style="position: absolute; top: -12px; right: 20px; background: #10B981; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;">
-                        🚀 LAUNCH SPECIAL
-                    </div>
-                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 10px;">Pro</h3>
-                    <div style="font-size: 48px; font-weight: 800; margin-bottom: 5px;">
-                        $29.99
-                        <span style="font-size: 18px; font-weight: 400; opacity: 0.9;">/lifetime</span>
-                    </div>
-                    <div style="font-size: 14px; opacity: 0.9; margin-bottom: 20px; text-decoration: line-through;">Regular: $7.99/year</div>
-                    <ul style="list-style: none; padding: 0; margin: 0 0 30px 0;">
-                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span><strong>Everything in Free</strong></span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span><strong>AI Semantic Search</strong> — find by meaning</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span><strong>Context Detection</strong> — auto project grouping</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>Unlimited clipboard items</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>Unlimited retention</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>Priority support</span>
-                        </li>
-                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
-                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
-                            <span>Early access to new features</span>
-                        </li>
-                    </ul>
-                    <a href="https://github.com/dcrivac/Clipso/releases" style="background: white; color: #6366F1; width: 100%; justify-content: center; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 12px; font-weight: 600; font-size: 16px; transition: all 0.2s;">
-                        Get Lifetime Pro
-                    </a>
-                    <div style="text-align: center; margin-top: 15px; font-size: 13px; opacity: 0.9;">
-                        ⏰ Limited to first 500 users
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 40px; color: #6B7280; font-size: 14px;">
-                💳 After launch special ends: $7.99/year or $0.99/month • 7-day free trial • Cancel anytime
-            </div>
-        </div>
-    </section>
-
     <!-- Comparison -->
     <section class="comparison">
         <div class="container">
@@ -562,7 +451,7 @@
                     <div class="comparison-feature">Feature</div>
                     <div class="comparison-column">
                         <strong>Clipso</strong>
-                        <span class="badge-new">$7.99/year</span>
+                        <span class="badge-new">Free + Premium</span>
                     </div>
                     <div class="comparison-column">Paste</div>
                     <div class="comparison-column">Copied</div>
@@ -646,7 +535,7 @@
                 <div class="comparison-row">
                     <div class="comparison-feature">Price</div>
                     <div class="comparison-column">
-                        <strong>Free / $7.99 Pro</strong>
+                        <strong>Free or $7.99/year</strong>
                     </div>
                     <div class="comparison-column">$14.99/year</div>
                     <div class="comparison-column">$9.99/year</div>
@@ -840,16 +729,16 @@
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        Download Free
+                        Join Waitlist
                     </a>
-                    <a href="#pricing" class="btn-large btn-secondary">
+                    <a href="https://github.com/dcrivac/Clipso" class="btn-large btn-secondary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M12 2l3 7 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="currentColor"/>
+                            <path d="M10 2c-4.4 0-8 3.6-8 8 0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1.1-2.7-1.1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3.1-1.9 3.7-3.7 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.5.4 3.2-1.1 5.5-4.1 5.5-7.6 0-4.4-3.6-8-8-8z" fill="currentColor"/>
                         </svg>
-                        Get Pro ($29.99 Lifetime)
+                        Star on GitHub
                     </a>
                 </div>
-                <p class="cta-note">Free to start • Pro from $7.99/year • macOS 13.0+ • Open Source</p>
+                <p class="cta-note">Coming Soon • Free tier + Premium $7.99/year • macOS 13.0+ • Open Source</p>
             </div>
         </div>
     </section>
@@ -889,15 +778,13 @@
                     </div>
                     <div class="footer-column">
                         <h4>Legal</h4>
-                        <a href="terms.html">Terms of Service</a>
-                        <a href="privacy-policy.html">Privacy Policy</a>
-                        <a href="refund-policy.html">Refund Policy</a>
+                        <a href="#privacy">Privacy</a>
                         <a href="https://github.com/dcrivac/Clipso/blob/main/README.md#license">License</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>Made with ❤️ using Swift and SwiftUI</p>
+                <p>Made with ❤️ using Swift and SwiftUI • 🤖 AI powered by Apple's on-device ML</p>
                 <p>&copy; 2025 Clipso. Open Source Project.</p>
             </div>
         </div>

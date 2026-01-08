@@ -1,6 +1,6 @@
 # Landing Page
 
-This directory contains the marketing landing page for ClipboardManager.
+This directory contains the marketing landing page for Clipso.
 
 ## Files
 
@@ -27,7 +27,7 @@ python3 -m http.server 8000
 **GitHub Pages** (easiest):
 1. Push to GitHub
 2. Enable Pages in repo Settings
-3. Done! URL: `https://dcrivac.github.io/ClipboardManager/`
+3. Done! URL: `https://dcrivac.github.io/Clipso/`
 
 **Vercel/Netlify** (best performance):
 ```bash
@@ -79,7 +79,7 @@ Located in `assets/`:
 
 **GitHub README**:
 ```markdown
-![ClipboardManager](assets/banner.svg)
+![Clipso](assets/banner.svg)
 ```
 
 **Social Media**:
@@ -159,4 +159,4 @@ Questions? Open an issue on GitHub.
 
 ---
 
-Built with ❤️ for the ClipboardManager project
+Built with ❤️ for the Clipso project

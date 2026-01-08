@@ -1,6 +1,6 @@
 # Product Hunt Launch Guide
 
-Complete guide to launching ClipboardManager on Product Hunt.
+Complete guide to launching Clipso on Product Hunt.
 
 ---
 
@@ -111,7 +111,7 @@ Intelligent clipboard with semantic AI and privacy
 ### Description (260 chars max)
 
 ```
-ClipboardManager brings true intelligence to clipboard management. Find items by meaning with semantic AI search, auto-organize with context detection, all 100% private. Free & open source. macOS 13.0+
+Clipso brings true intelligence to clipboard management. Find items by meaning with semantic AI search, auto-organize with context detection, all 100% private. Free tier + $7.99/yr Premium. macOS 13.0+
 ```
 
 *(259 characters)*
@@ -121,7 +121,7 @@ ClipboardManager brings true intelligence to clipboard management. Find items by
 ```markdown
 # Never Lose Important Clipboard Content Again
 
-ClipboardManager is the first clipboard manager for Mac with **true AI intelligence** - and it's completely free and open source.
+Clipso is the first clipboard manager for Mac with **true AI intelligence** - with a generous free tier and optional Premium ($7.99/year, 47% cheaper than Paste).
 
 ## 🧠 Semantic AI Search
 
@@ -145,7 +145,7 @@ No manual tagging. No folders. Just intelligence.
 
 ## 🔒 100% Private
 
-Unlike competitors that send your data to the cloud, ClipboardManager does **all processing locally** using Apple's frameworks.
+Unlike competitors that send your data to the cloud, Clipso does **all processing locally** using Apple's frameworks.
 
 - Zero network requests
 - Zero telemetry
@@ -161,11 +161,12 @@ Your clipboard data is as private as any other file on your Mac.
 **Global Hotkey** - Press ⌘⇧V anywhere to access history
 **Smart Paste** - Context-aware formatting for different apps
 
-## 💰 Free Forever vs The Competition
+## 💰 Pricing Comparison
 
 - **Paste**: $14.99/year
 - **Copied**: $9.99/year
-- **ClipboardManager**: $0 forever
+- **Clipso Free**: $0 (10 AI searches/day)
+- **Clipso Premium**: $7.99/year (unlimited AI) — **47% savings vs Paste**
 
 ## 🛠️ Built With
 
@@ -258,7 +259,7 @@ Create a square version of the app logo:
 This is crucial - pins your comment to the top.
 
 ```markdown
-👋 Hey Product Hunt! I'm [Your Name], and I built ClipboardManager.
+👋 Hey Product Hunt! I'm [Your Name], and I built Clipso.
 
 ## The Problem
 
@@ -268,7 +269,7 @@ Traditional clipboard managers are just lists with Cmd+F. In 2025, we can do bet
 
 ## The Solution
 
-ClipboardManager uses **semantic AI search** to understand meaning:
+Clipso uses **semantic AI search** to understand meaning:
 
 - Search "coffee recipes" → finds "espresso brewing guide"
 - Search "AI" → finds "machine learning", "neural networks", "deep learning"
@@ -282,13 +283,16 @@ Your clipboard contains sensitive stuff - API keys, passwords (accidentally), pr
 
 **100% of processing happens on your Mac.** Zero network requests. Zero telemetry. Verifiable in the source code.
 
-## Why Free & Open Source?
+## Why Freemium?
 
-Essential productivity tools should be accessible to everyone.
+Essential productivity tools should be accessible to everyone - that's why the free tier is genuinely useful (not a crippled trial).
 
-Other clipboard managers charge $10-15/year and require cloud sync. ClipboardManager is free forever and keeps everything local.
+**Free tier**: 10 AI searches/day, unlimited everything else
+**Premium ($7.99/year)**: Unlimited AI, auto-context detection, iCloud sync
 
-Open source because transparency builds trust - especially for privacy claims.
+Other clipboard managers charge $10-15/year. We're 47% cheaper with better features and superior privacy.
+
+Open source because transparency builds trust - especially for privacy claims. Verify yourself that we keep everything local.
 
 ## Try It!
 
@@ -350,7 +354,7 @@ Your clipboard data is as private as any other file on your Mac.
 ### "Will this work with [other app]?"
 
 ```
-Yes! ClipboardManager works system-wide with any Mac app.
+Yes! Clipso works system-wide with any Mac app.
 
 It monitors NSPasteboard (the system clipboard), so it captures everything you copy from any application.
 
@@ -437,13 +441,13 @@ What would make this work better for your use case?
 ### Launch Tweet
 
 ```
-Just launched ClipboardManager on Product Hunt! 🚀
+Just launched Clipso on Product Hunt! 🚀
 
 The first clipboard for Mac with semantic AI search - find items by meaning, not keywords.
 
 ✨ Auto-organizes into projects
 🔒 100% private (no cloud)
-💰 Free & open source
+💰 Free tier + $7.99/yr Premium (47% off vs Paste)
 
 Try it: [PH link]
 
@@ -469,7 +473,7 @@ More: [link to tech blog post]
 ### Milestone Tweet
 
 ```
-🎉 ClipboardManager just hit #[X] on Product Hunt!
+🎉 Clipso just hit #[X] on Product Hunt!
 
 Thank you to everyone who tried it and shared feedback!
 
@@ -494,7 +498,7 @@ A: Yes, works system-wide with all Mac apps
 A: Not yet - it's local-only for privacy. iCloud sync with E2E encryption is on the roadmap
 
 **Q: How do I uninstall?**
-A: Drag from Applications to Trash. Data is in ~/Library/Application Support/ClipboardManager if you want to delete that too
+A: Drag from Applications to Trash. Data is in ~/Library/Application Support/Clipso if you want to delete that too
 
 **Q: Is there an iOS version?**
 A: Not yet, focusing on perfecting the Mac experience first
@@ -503,10 +507,10 @@ A: Not yet, focusing on perfecting the Mac experience first
 A: Yes! It's open source. PRs welcome: [GitHub link]
 
 **Q: How does this compare to Alfred's clipboard?**
-A: ClipboardManager has semantic search and context detection, which Alfred lacks. Alfred is more of a launcher with clipboard features
+A: Clipso has semantic search and context detection, which Alfred lacks. Alfred is more of a launcher with clipboard features
 
 **Q: What about Raycast?**
-A: Similar - Raycast is a launcher with clipboard. ClipboardManager is purpose-built for clipboard with AI features
+A: Similar - Raycast is a launcher with clipboard. Clipso is purpose-built for clipboard with AI features
 
 ---
 

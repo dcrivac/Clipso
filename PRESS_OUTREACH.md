@@ -1,6 +1,6 @@
 # Press & Media Outreach Guide
 
-Email templates and outreach strategy for ClipboardManager launch.
+Email templates and outreach strategy for Clipso launch.
 
 ---
 
@@ -47,7 +47,7 @@ Email templates and outreach strategy for ClipboardManager launch.
 ```
 Hi [Publication] team,
 
-I built ClipboardManager, an open-source clipboard manager for macOS with a unique feature: semantic search powered by Apple's on-device ML.
+I built Clipso, an open-source clipboard manager for macOS with a unique feature: semantic search powered by Apple's on-device ML.
 
 What makes it newsworthy:
 
@@ -60,9 +60,10 @@ What makes it newsworthy:
 • **100% private** - All AI runs locally using Apple's NLEmbedding framework
   Zero network requests, zero cloud storage
 
-• **Free & open source** - No subscriptions, no limitations
+• **Fair pricing** - Free tier + $7.99/year Premium (47% cheaper than Paste)
+  Generous free tier with 10 AI searches/day, open source
 
-Unlike competitors (Paste $15/year, Copied $10/year) that require cloud sync, ClipboardManager keeps everything on-device while providing smarter search than traditional keyword matching.
+Unlike competitors (Paste $15/year, Copied $10/year) that require cloud sync, Clipso keeps everything on-device at half the price while providing superior semantic search.
 
 Technical details:
 - Built with Swift + SwiftUI
@@ -73,8 +74,8 @@ Technical details:
 I think your readers would find this interesting, especially developers and privacy-conscious users.
 
 Links:
-- Website: https://dcrivac.github.io/ClipboardManager/
-- GitHub: https://github.com/dcrivac/ClipboardManager
+- Website: https://dcrivac.github.io/Clipso/
+- GitHub: https://github.com/dcrivac/Clipso
 - Demo video: [URL when available]
 
 Happy to provide:
@@ -101,7 +102,7 @@ Best,
 ```
 Hi [Publication],
 
-I'm launching ClipboardManager, a clipboard manager for macOS that implements semantic search using Apple's on-device NLEmbedding framework.
+I'm launching Clipso, a clipboard manager for macOS that implements semantic search using Apple's on-device NLEmbedding framework.
 
 Technical highlights:
 
@@ -134,7 +135,7 @@ Most clipboard managers still do basic keyword matching. This demonstrates that 
 The code is fully open source, so developers can see exactly how it works and contribute.
 
 Links:
-- Source: https://github.com/dcrivac/ClipboardManager
+- Source: https://github.com/dcrivac/Clipso
 - Technical deep dive: [blog post URL]
 - Architecture docs: README.md
 
@@ -156,7 +157,7 @@ Thanks,
 ```
 Hi [Contact Name],
 
-Given [Publication's] focus on privacy, I thought you might be interested in ClipboardManager - a clipboard manager that does AI-powered semantic search entirely on-device.
+Given [Publication's] focus on privacy, I thought you might be interested in Clipso - a clipboard manager that does AI-powered semantic search entirely on-device.
 
 The privacy angle:
 
@@ -176,15 +177,15 @@ The privacy angle:
 - Copied: Cloud storage required
 - Most AI clipboards: Send data to OpenAI/Anthropic APIs
 
-ClipboardManager proves you can have intelligent features (semantic search, context detection) without sacrificing privacy. It's all possible with Apple's on-device ML frameworks.
+Clipso proves you can have intelligent features (semantic search, context detection) without sacrificing privacy. It's all possible with Apple's on-device ML frameworks.
 
 This challenges the narrative that AI features require cloud APIs.
 
 Would you be interested in covering this as an example of privacy-preserving AI?
 
 Links:
-- Website: https://dcrivac.github.io/ClipboardManager/
-- Source: https://github.com/dcrivac/ClipboardManager
+- Website: https://dcrivac.github.io/Clipso/
+- Source: https://github.com/dcrivac/Clipso
 - Privacy documentation: [README section]
 
 I can provide a demo or answer any technical questions about the privacy architecture.
@@ -197,14 +198,14 @@ Best regards,
 
 ### Template 4: Follow-Up (1 Week Later)
 
-**Subject**: Re: ClipboardManager - semantic clipboard for Mac
+**Subject**: Re: Clipso - semantic clipboard for Mac
 
 **Body**:
 
 ```
 Hi [Contact Name],
 
-Following up on my email from [date] about ClipboardManager.
+Following up on my email from [date] about Clipso.
 
 Quick update: Since launch, we've had:
 - [X] GitHub stars
@@ -310,14 +311,14 @@ press-kit/
 └── demo-video.mp4
 ```
 
-**Host on GitHub**: `https://github.com/dcrivac/ClipboardManager/tree/main/press-kit`
+**Host on GitHub**: `https://github.com/dcrivac/Clipso/tree/main/press-kit`
 
 ---
 
 ## Sample Fact Sheet
 
 ```markdown
-# ClipboardManager Fact Sheet
+# Clipso Fact Sheet
 
 ## What
 Open-source clipboard manager for macOS with AI-powered semantic search and automatic context detection.
@@ -327,7 +328,7 @@ Open-source clipboard manager for macOS with AI-powered semantic search and auto
 - Automatic project organization via context detection
 - 100% local processing (zero cloud/network requests)
 - Built-in OCR, encryption, smart categorization
-- Free and open source
+- Free tier + $7.99/year Premium (47% cheaper than Paste)
 
 ## Technical
 - Built with Swift + SwiftUI
@@ -339,10 +340,11 @@ Open-source clipboard manager for macOS with AI-powered semantic search and auto
 ## Differentiation
 - Only clipboard with semantic AI search
 - Only one that's 100% private (competitors use cloud)
-- Free vs $10-15/year for competitors
+- $7.99/year Premium vs $10-15/year competitors (47% cheaper than Paste)
+- Generous free tier with 10 AI searches/day
 
 ## Availability
-- Free download: github.com/dcrivac/ClipboardManager
+- Free download: github.com/dcrivac/Clipso
 - Open source under [License]
 - Launch date: [Date]
 
@@ -386,12 +388,12 @@ Hi [Creator Name],
 
 I'm a fan of your Mac productivity videos, especially [specific video].
 
-I built ClipboardManager, a free clipboard manager with AI semantic search that works completely offline. I think it would make a great video for your audience.
+I built Clipso, a clipboard manager with AI semantic search that works completely offline. Generous free tier + $7.99/year Premium (47% cheaper than Paste). I think it would make a great video for your audience.
 
 Unique angles for a video:
 - First clipboard with semantic AI
 - 100% private (no cloud)
-- Free vs paid competitors
+- $7.99/year vs $10-15 competitors (better pricing + better privacy)
 
 I can provide:
 - Demo access
@@ -445,7 +447,7 @@ Hi [Host],
 
 Love your podcast, especially the episode on [topic].
 
-I recently built ClipboardManager, an open-source Mac app that does semantic AI search entirely on-device (no cloud). I think the privacy angle would resonate with your audience.
+I recently built Clipso, an open-source Mac app that does semantic AI search entirely on-device (no cloud). I think the privacy angle would resonate with your audience.
 
 Potential discussion topics:
 - How to build AI features without cloud APIs
@@ -506,7 +508,7 @@ I really appreciate you taking the time to test and report this.
 ```
 Great question! Privacy is our #1 priority.
 
-Here's exactly what ClipboardManager does:
+Here's exactly what Clipso does:
 - [Specific technical explanation]
 - You can verify this in the source code: [link to relevant code]
 
@@ -532,6 +534,6 @@ Before sending outreach:
 
 ---
 
-**Remember**: Be genuine, be helpful, and focus on what makes ClipboardManager truly different. The privacy + AI angle is unique and newsworthy.
+**Remember**: Be genuine, be helpful, and focus on what makes Clipso truly different. The privacy + AI angle is unique and newsworthy.
 
 Good luck! 🚀

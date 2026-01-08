@@ -1,0 +1,138 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="instaBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="url(#instaBg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="150" cy="150" r="200" fill="white" opacity="0.05"/>
+  <circle cx="930" cy="930" r="250" fill="white" opacity="0.05"/>
+
+  <!-- Title -->
+  <text x="540" y="150" font-family="-apple-system, sans-serif" font-size="64" font-weight="900" fill="white" text-anchor="middle">
+    Clipso
+  </text>
+  <text x="540" y="210" font-family="-apple-system, sans-serif" font-size="28" fill="white" text-anchor="middle" opacity="0.9">
+    The Intelligent Clipboard for Mac
+  </text>
+
+  <!-- Features Grid -->
+  <!-- Row 1 -->
+  <g transform="translate(140, 300)">
+    <!-- Feature 1 -->
+    <rect width="360" height="160" rx="16" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="40" cy="40" r="28" fill="white" opacity="0.3"/>
+    <text x="40" y="55" font-family="-apple-system, sans-serif" font-size="36" fill="white" text-anchor="middle">🧠</text>
+    <text x="90" y="50" font-family="-apple-system, sans-serif" font-size="22" font-weight="700" fill="white">
+      Semantic Search
+    </text>
+    <text x="90" y="85" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      Find by meaning,
+    </text>
+    <text x="90" y="110" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      not just keywords
+    </text>
+  </g>
+
+  <!-- Feature 2 -->
+  <g transform="translate(580, 300)">
+    <rect width="360" height="160" rx="16" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="40" cy="40" r="28" fill="white" opacity="0.3"/>
+    <text x="40" y="55" font-family="-apple-system, sans-serif" font-size="36" fill="white" text-anchor="middle">🎯</text>
+    <text x="90" y="50" font-family="-apple-system, sans-serif" font-size="22" font-weight="700" fill="white">
+      Auto Organize
+    </text>
+    <text x="90" y="85" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      Projects detect
+    </text>
+    <text x="90" y="110" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      automatically
+    </text>
+  </g>
+
+  <!-- Row 2 -->
+  <g transform="translate(140, 500)">
+    <!-- Feature 3 -->
+    <rect width="360" height="160" rx="16" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="40" cy="40" r="28" fill="white" opacity="0.3"/>
+    <text x="40" y="55" font-family="-apple-system, sans-serif" font-size="36" fill="white" text-anchor="middle">🔒</text>
+    <text x="90" y="50" font-family="-apple-system, sans-serif" font-size="22" font-weight="700" fill="white">
+      100% Private
+    </text>
+    <text x="90" y="85" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      All AI runs locally,
+    </text>
+    <text x="90" y="110" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      zero cloud
+    </text>
+  </g>
+
+  <!-- Feature 4 -->
+  <g transform="translate(580, 500)">
+    <rect width="360" height="160" rx="16" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="40" cy="40" r="28" fill="white" opacity="0.3"/>
+    <text x="40" y="55" font-family="-apple-system, sans-serif" font-size="36" fill="white" text-anchor="middle">🖼️</text>
+    <text x="90" y="50" font-family="-apple-system, sans-serif" font-size="22" font-weight="700" fill="white">
+      Built-in OCR
+    </text>
+    <text x="90" y="85" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      Extract text from
+    </text>
+    <text x="90" y="110" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      screenshots
+    </text>
+  </g>
+
+  <!-- Row 3 -->
+  <g transform="translate(140, 700)">
+    <!-- Feature 5 -->
+    <rect width="360" height="160" rx="16" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="40" cy="40" r="28" fill="white" opacity="0.3"/>
+    <text x="40" y="55" font-family="-apple-system, sans-serif" font-size="36" fill="white" text-anchor="middle">⚡</text>
+    <text x="90" y="50" font-family="-apple-system, sans-serif" font-size="22" font-weight="700" fill="white">
+      Instant Access
+    </text>
+    <text x="90" y="85" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      Global hotkey
+    </text>
+    <text x="90" y="110" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      ⌘⇧V anywhere
+    </text>
+  </g>
+
+  <!-- Feature 6 -->
+  <g transform="translate(580, 700)">
+    <rect width="360" height="160" rx="16" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="40" cy="40" r="28" fill="white" opacity="0.3"/>
+    <text x="40" y="55" font-family="-apple-system, sans-serif" font-size="36" fill="white" text-anchor="middle">💰</text>
+    <text x="90" y="50" font-family="-apple-system, sans-serif" font-size="22" font-weight="700" fill="white">
+      Free Forever
+    </text>
+    <text x="90" y="85" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      Open source,
+    </text>
+    <text x="90" y="110" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.9">
+      no subscriptions
+    </text>
+  </g>
+
+  <!-- Bottom CTA -->
+  <g transform="translate(540, 950)">
+    <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="32" font-weight="700" fill="white" text-anchor="middle">
+      github.com/dcrivac/Clipso
+    </text>
+  </g>
+
+  <!-- macOS badge -->
+  <g transform="translate(400, 1000)">
+    <rect width="280" height="50" rx="25" fill="rgba(255,255,255,0.2)"/>
+    <text x="140" y="33" font-family="-apple-system, sans-serif" font-size="20" font-weight="600" fill="white" text-anchor="middle">
+       macOS 13.0+
+    </text>
+  </g>
+</svg>

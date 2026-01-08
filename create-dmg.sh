@@ -1,55 +1,55 @@
 #!/bin/bash
 
-# ClipboardManager DMG Creation Script
-# Run this after exporting ClipboardManager.app from Xcode
+# Clipso DMG Creation Script
+# Run this after exporting Clipso.app from Xcode
 
 set -e
 
-echo "🚀 Creating ClipboardManager DMG..."
+echo "🚀 Creating Clipso DMG..."
 echo ""
 
 # Check if .app exists
-if [ ! -d "$HOME/Desktop/ClipboardManager-Release/ClipboardManager.app" ]; then
-    echo "❌ Error: ClipboardManager.app not found!"
+if [ ! -d "$HOME/Desktop/Clipso-Release/Clipso.app" ]; then
+    echo "❌ Error: Clipso.app not found!"
     echo ""
     echo "Please export the app from Xcode first:"
     echo "1. Product → Archive"
     echo "2. Distribute App → Copy App"
-    echo "3. Export to: ~/Desktop/ClipboardManager-Release/"
+    echo "3. Export to: ~/Desktop/Clipso-Release/"
     echo ""
     exit 1
 fi
 
 # Create DMG
 echo "📦 Creating DMG..."
-cd "$HOME/Desktop/ClipboardManager-Release"
+cd "$HOME/Desktop/Clipso-Release"
 
 create-dmg \
-  --volname "ClipboardManager" \
+  --volname "Clipso" \
   --window-pos 200 120 \
   --window-size 600 400 \
   --icon-size 100 \
-  --icon "ClipboardManager.app" 175 120 \
-  --hide-extension "ClipboardManager.app" \
+  --icon "Clipso.app" 175 120 \
+  --hide-extension "Clipso.app" \
   --app-drop-link 425 120 \
-  "ClipboardManager-v1.0.0-macOS.dmg" \
-  "ClipboardManager.app"
+  "Clipso-v1.0.0-macOS.dmg" \
+  "Clipso.app"
 
 echo ""
 echo "✅ DMG created successfully!"
 echo ""
-echo "📍 Location: ~/Desktop/ClipboardManager-Release/ClipboardManager-v1.0.0-macOS.dmg"
+echo "📍 Location: ~/Desktop/Clipso-Release/Clipso-v1.0.0-macOS.dmg"
 echo ""
 
 # Calculate checksum
 echo "🔐 Calculating checksum..."
-shasum -a 256 "ClipboardManager-v1.0.0-macOS.dmg" > "ClipboardManager-v1.0.0-macOS.dmg.sha256"
+shasum -a 256 "Clipso-v1.0.0-macOS.dmg" > "Clipso-v1.0.0-macOS.dmg.sha256"
 
-echo "✅ Checksum saved: ClipboardManager-v1.0.0-macOS.dmg.sha256"
+echo "✅ Checksum saved: Clipso-v1.0.0-macOS.dmg.sha256"
 echo ""
 
 # Show file size
-SIZE=$(du -h "ClipboardManager-v1.0.0-macOS.dmg" | cut -f1)
+SIZE=$(du -h "Clipso-v1.0.0-macOS.dmg" | cut -f1)
 echo "📊 DMG Size: $SIZE"
 echo ""
 

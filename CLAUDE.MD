@@ -1,8 +1,8 @@
-# ClipboardManager
+# Clipso
 
 ## Project Overview
 
-ClipboardManager is a macOS menu bar application built with SwiftUI that provides intelligent clipboard history management with AI-powered features. It runs as a lightweight utility that monitors clipboard changes and provides quick access to clipboard history through a global keyboard shortcut (Cmd+Shift+V).
+Clipso is a macOS menu bar application built with SwiftUI that provides intelligent clipboard history management with AI-powered features. It runs as a lightweight utility that monitors clipboard changes and provides quick access to clipboard history through a global keyboard shortcut (Cmd+Shift+V).
 
 ## Technology Stack
 

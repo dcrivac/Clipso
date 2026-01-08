@@ -1,4 +1,4 @@
-# ClipboardManager v1.0.0 - AI-Powered Clipboard Manager 🚀
+# Clipso v1.0.0 - AI-Powered Clipboard Manager 🚀
 
 ## 🎉 First Release
 
@@ -36,9 +36,9 @@ The first truly intelligent clipboard manager for Mac with AI-powered semantic s
 
 ### 📦 Installation
 
-1. **Download** `ClipboardManager-v1.0.0-macOS.dmg` (coming soon)
+1. **Download** `Clipso-v1.0.0-macOS.dmg` (coming soon)
 2. **Open** the DMG file
-3. **Drag** ClipboardManager to Applications folder
+3. **Drag** Clipso to Applications folder
 4. **Launch** from Applications
 5. **First time**: Right-click → Open (to bypass Gatekeeper)
 6. **Grant permissions** when prompted (Accessibility for detecting active app)
@@ -54,7 +54,7 @@ Upgrade to Pro to unlock:
 - 🆕 Early access to new features
 
 **Get Pro:**
-- Landing Page: https://dcrivac.github.io/ClipboardManager
+- Landing Page: https://dcrivac.github.io/Clipso
 - Lifetime: $29.99 (launch special - first 500 users)
 - Annual: $7.99/year (47% cheaper than competitors)
 
@@ -84,7 +84,7 @@ Upgrade to Pro to unlock:
 
 ### 🆚 Comparison
 
-| Feature | ClipboardManager | Paste | Copied | Maccy |
+| Feature | Clipso | Paste | Copied | Maccy |
 |---------|------------------|-------|--------|-------|
 | Semantic AI Search | ✅ | ❌ | ❌ | ❌ |
 | Context Detection | ✅ | ❌ | ❌ | ❌ |
@@ -111,10 +111,10 @@ None reported yet! This is the first release.
 
 ### 🔗 Links
 
-- **Landing Page**: https://dcrivac.github.io/ClipboardManager
-- **Documentation**: https://github.com/dcrivac/ClipboardManager
-- **Source Code**: https://github.com/dcrivac/ClipboardManager
-- **Issues**: https://github.com/dcrivac/ClipboardManager/issues
+- **Landing Page**: https://dcrivac.github.io/Clipso
+- **Documentation**: https://github.com/dcrivac/Clipso
+- **Source Code**: https://github.com/dcrivac/Clipso
+- **Issues**: https://github.com/dcrivac/Clipso/issues
 - **License**: Available for personal and educational use
 
 ### 🙏 Acknowledgments

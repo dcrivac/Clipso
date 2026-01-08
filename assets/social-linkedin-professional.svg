@@ -1,0 +1,136 @@
+<svg width="1200" height="627" viewBox="0 0 1200 627" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="linkedinBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A66C2"/>
+      <stop offset="100%" style="stop-color:#004182"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="627" fill="url(#linkedinBg)"/>
+
+  <!-- Decorative grid -->
+  <pattern id="linkedinGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/>
+  </pattern>
+  <rect width="1200" height="627" fill="url(#linkedinGrid)"/>
+
+  <!-- Main content -->
+  <g transform="translate(100, 120)">
+    <!-- Badge -->
+    <rect x="0" y="0" width="180" height="40" rx="20" fill="rgba(255,255,255,0.2)"/>
+    <text x="90" y="27" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="white" text-anchor="middle">
+      CASE STUDY
+    </text>
+
+    <!-- Title -->
+    <text x="0" y="100" font-family="-apple-system, sans-serif" font-size="56" font-weight="900" fill="white">
+      Building AI Features
+    </text>
+    <text x="0" y="165" font-family="-apple-system, sans-serif" font-size="56" font-weight="900" fill="white">
+      Without Cloud APIs
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="230" font-family="-apple-system, sans-serif" font-size="24" fill="white" opacity="0.9">
+      How Clipso achieves semantic search with 100% on-device processing
+    </text>
+
+    <!-- Stats -->
+    <g transform="translate(0, 290)">
+      <!-- Stat 1 -->
+      <g>
+        <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#10B981">
+          &lt;50ms
+        </text>
+        <text x="0" y="35" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="white" opacity="0.8">
+          Search latency
+        </text>
+      </g>
+
+      <!-- Stat 2 -->
+      <g transform="translate(220, 0)">
+        <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#10B981">
+          0
+        </text>
+        <text x="0" y="35" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="white" opacity="0.8">
+          API calls
+        </text>
+      </g>
+
+      <!-- Stat 3 -->
+      <g transform="translate(380, 0)">
+        <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#10B981">
+          100%
+        </text>
+        <text x="0" y="35" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="white" opacity="0.8">
+          Privacy
+        </text>
+      </g>
+
+      <!-- Stat 4 -->
+      <g transform="translate(580, 0)">
+        <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#10B981">
+          $0
+        </text>
+        <text x="0" y="35" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="white" opacity="0.8">
+          Infrastructure
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right side - Tech stack -->
+  <g transform="translate(750, 120)">
+    <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.8">
+      TECHNOLOGY STACK
+    </text>
+
+    <!-- Stack items -->
+    <g transform="translate(0, 40)">
+      <rect width="400" height="60" rx="8" fill="rgba(255,255,255,0.1)"/>
+      <text x="20" y="38" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="white">
+        • NLEmbedding (Semantic AI)
+      </text>
+    </g>
+
+    <g transform="translate(0, 115)">
+      <rect width="400" height="60" rx="8" fill="rgba(255,255,255,0.1)"/>
+      <text x="20" y="38" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="white">
+        • Vision (OCR)
+      </text>
+    </g>
+
+    <g transform="translate(0, 190)">
+      <rect width="400" height="60" rx="8" fill="rgba(255,255,255,0.1)"/>
+      <text x="20" y="38" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="white">
+        • Core Data (Local storage)
+      </text>
+    </g>
+
+    <g transform="translate(0, 265)">
+      <rect width="400" height="60" rx="8" fill="rgba(255,255,255,0.1)"/>
+      <text x="20" y="38" font-family="-apple-system, sans-serif" font-size="18" font-weight="600" fill="white">
+        • CryptoKit (Encryption)
+      </text>
+    </g>
+
+    <!-- Footer note -->
+    <text x="0" y="375" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.7">
+      All Apple native frameworks
+    </text>
+    <text x="0" y="400" font-family="-apple-system, sans-serif" font-size="16" fill="white" opacity="0.7">
+      Zero external dependencies
+    </text>
+  </g>
+
+  <!-- Bottom -->
+  <g transform="translate(100, 560)">
+    <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="20" font-weight="600" fill="white">
+      Open Source •
+    </text>
+    <text x="140" y="0" font-family="-apple-system, sans-serif" font-size="20" font-weight="600" fill="white">
+      github.com/dcrivac/Clipso
+    </text>
+  </g>
+</svg>
