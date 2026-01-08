@@ -111,7 +111,7 @@ Intelligent clipboard with semantic AI and privacy
 ### Description (260 chars max)
 
 ```
-ClipboardManager brings true intelligence to clipboard management. Find items by meaning with semantic AI search, auto-organize with context detection, all 100% private. Free & open source. macOS 13.0+
+ClipboardManager brings true intelligence to clipboard management. Find items by meaning with semantic AI search, auto-organize with context detection, all 100% private. Free tier + $7.99/yr Premium. macOS 13.0+
 ```
 
 *(259 characters)*
@@ -121,7 +121,7 @@ ClipboardManager brings true intelligence to clipboard management. Find items by
 ```markdown
 # Never Lose Important Clipboard Content Again
 
-ClipboardManager is the first clipboard manager for Mac with **true AI intelligence** - and it's completely free and open source.
+ClipboardManager is the first clipboard manager for Mac with **true AI intelligence** - with a generous free tier and optional Premium ($7.99/year, 47% cheaper than Paste).
 
 ## 🧠 Semantic AI Search
 
@@ -161,11 +161,12 @@ Your clipboard data is as private as any other file on your Mac.
 **Global Hotkey** - Press ⌘⇧V anywhere to access history
 **Smart Paste** - Context-aware formatting for different apps
 
-## 💰 Free Forever vs The Competition
+## 💰 Pricing Comparison
 
 - **Paste**: $14.99/year
 - **Copied**: $9.99/year
-- **ClipboardManager**: $0 forever
+- **ClipboardManager Free**: $0 (10 AI searches/day)
+- **ClipboardManager Premium**: $7.99/year (unlimited AI) — **47% savings vs Paste**
 
 ## 🛠️ Built With
 
@@ -282,13 +283,16 @@ Your clipboard contains sensitive stuff - API keys, passwords (accidentally), pr
 
 **100% of processing happens on your Mac.** Zero network requests. Zero telemetry. Verifiable in the source code.
 
-## Why Free & Open Source?
+## Why Freemium?
 
-Essential productivity tools should be accessible to everyone.
+Essential productivity tools should be accessible to everyone - that's why the free tier is genuinely useful (not a crippled trial).
 
-Other clipboard managers charge $10-15/year and require cloud sync. ClipboardManager is free forever and keeps everything local.
+**Free tier**: 10 AI searches/day, unlimited everything else
+**Premium ($7.99/year)**: Unlimited AI, auto-context detection, iCloud sync
 
-Open source because transparency builds trust - especially for privacy claims.
+Other clipboard managers charge $10-15/year. We're 47% cheaper with better features and superior privacy.
+
+Open source because transparency builds trust - especially for privacy claims. Verify yourself that we keep everything local.
 
 ## Try It!
 
@@ -443,7 +447,7 @@ The first clipboard for Mac with semantic AI search - find items by meaning, not
 
 ✨ Auto-organizes into projects
 🔒 100% private (no cloud)
-💰 Free & open source
+💰 Free tier + $7.99/yr Premium (47% off vs Paste)
 
 Try it: [PH link]
 

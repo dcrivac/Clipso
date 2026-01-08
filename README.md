@@ -11,7 +11,7 @@
 [![License](https://img.shields.io/badge/License-Personal%20%26%20Educational-green.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/dcrivac/ClipboardManager?style=social)](https://github.com/dcrivac/ClipboardManager/stargazers)
 
-**[Features](#-features)** • **[Download](#-installation)** • **[Demo](#-testing-semantic-search)** • **[Docs](#-architecture)** • **[Contributing](#-contributing)**
+**[Features](#-features)** • **[Pricing](#-pricing)** • **[Download](#-installation)** • **[Demo](#-testing-semantic-search)** • **[Docs](#-architecture)** • **[Contributing](#-contributing)**
 
 </div>
 
@@ -28,7 +28,7 @@ An intelligent macOS clipboard manager with **AI-powered semantic search** and *
 | 🔍 Exact keyword matching only | 🧠 **Semantic AI search** - finds by meaning |
 | 📋 Manual organization & tags | 🎯 **Auto context detection** - organizes itself |
 | ☁️ Cloud sync (privacy concerns) | 🔒 **100% local** - zero network requests |
-| 💰 $10-15/year subscriptions | ✨ **Free forever** - open source |
+| 💰 $10-15/year subscriptions | ✨ **Free + $7.99/year Premium** - 47% cheaper |
 
 </div>
 
@@ -95,6 +95,41 @@ An intelligent macOS clipboard manager with **AI-powered semantic search** and *
 *The difference AI makes - traditional keyword search vs. semantic understanding*
 
 </div>
+
+---
+
+## 💎 Pricing
+
+ClipboardManager offers a generous free tier and an optional Premium upgrade for power users.
+
+### Free Tier (Forever)
+- ✅ Unlimited clipboard history
+- ✅ Keyword search (unlimited)
+- ✅ **AI semantic search (10 searches/day)**
+- ✅ OCR text extraction (unlimited)
+- ✅ 100% private local processing
+- ✅ Global hotkey (⌘⇧V)
+- ✅ Smart categorization
+- ✅ Open source
+
+### Premium ($7.99/year)
+- ✅ **Everything in Free**
+- ✅ **Unlimited AI semantic search**
+- ✅ **Auto context detection**
+- ✅ **Smart suggestions**
+- ✅ iCloud sync (E2E encrypted)
+- ✅ Custom snippets & templates
+- ✅ Advanced search filters
+- ✅ Priority support
+- ✅ Early access to features
+
+### Why Premium?
+- 💰 **47% cheaper than Paste** ($7.99 vs $14.99/year)
+- 🔒 **Superior privacy** - 100% local AI processing
+- 🎯 **More powerful** - Context detection competitors lack
+- 💎 **Fair pricing** - Support indie development
+
+**Try Premium free for 14 days** - no credit card required.
 
 ---
 
@@ -423,7 +458,7 @@ For issues and questions:
 
 If ClipboardManager helps you stay productive:
 - ⭐ Star this repository
-- 🐦 [Tweet about it](https://twitter.com/intent/tweet?text=Just%20found%20ClipboardManager%20-%20an%20AI-powered%20clipboard%20for%20Mac%20that%20actually%20understands%20meaning!%20100%25%20private%20and%20free.%20%F0%9F%A4%96&url=https://github.com/dcrivac/ClipboardManager)
+- 🐦 [Tweet about it](https://twitter.com/intent/tweet?text=Just%20found%20ClipboardManager%20-%20an%20AI-powered%20clipboard%20for%20Mac%20that%20actually%20understands%20meaning!%20100%25%20private%2C%20free%20tier%20available.%20%F0%9F%A4%96&url=https://github.com/dcrivac/ClipboardManager)
 - 🔄 Share with colleagues
 - 🤝 Contribute code or ideas
 
@@ -435,7 +470,7 @@ If ClipboardManager helps you stay productive:
 
 🤖 AI features powered by Apple's on-device ML frameworks
 
-🔒 **100% Private** • ✨ **100% Free** • 🌟 **100% Open Source**
+🔒 **100% Private** • ✨ **Free + Premium ($7.99/yr)** • 🌟 **100% Open Source**
 
 [Website](https://dcrivac.github.io/ClipboardManager/) • [Download](https://github.com/dcrivac/ClipboardManager/releases) • [Issues](https://github.com/dcrivac/ClipboardManager/issues) • [Contributing](https://github.com/dcrivac/ClipboardManager#contributing)
 

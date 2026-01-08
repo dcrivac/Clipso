@@ -9,7 +9,7 @@
 
 ## Elevator Pitch (30 seconds)
 
-ClipboardManager is an intelligent macOS clipboard manager that uses AI to understand what you copy. Unlike traditional clipboard managers that only match exact keywords, our semantic search finds items by *meaning*—search for "coffee recipes" and find "espresso brewing guide" or "latte art techniques." It automatically organizes your clipboard into projects, detects context, and keeps everything 100% private on your Mac. No cloud, no subscription, completely free and open source.
+ClipboardManager is an intelligent macOS clipboard manager that uses AI to understand what you copy. Unlike traditional clipboard managers that only match exact keywords, our semantic search finds items by *meaning*—search for "coffee recipes" and find "espresso brewing guide" or "latte art techniques." It automatically organizes your clipboard into projects, detects context, and keeps everything 100% private on your Mac. Generous free tier with optional Premium ($7.99/year)—47% cheaper than competitors with superior privacy. Open source and built for transparency.
 
 ## Key Messages
 
@@ -19,8 +19,8 @@ Most clipboard managers are glorified lists. ClipboardManager uses Apple's on-de
 ### 2. Privacy Without Compromise
 Every other smart clipboard sends your data to the cloud. We do all AI processing on-device using Apple's frameworks. Zero network requests, zero telemetry, zero compromise.
 
-### 3. Free Forever
-No subscriptions, no paid tiers, no limitations. We're open source because we believe essential tools should be accessible to everyone.
+### 3. Fair Freemium Pricing
+Generous free tier with 10 AI searches/day. Premium is just $7.99/year—47% cheaper than Paste with superior privacy. We're open source and believe in transparent, affordable pricing.
 
 ## Target Audiences
 
@@ -63,7 +63,7 @@ No subscriptions, no paid tiers, no limitations. We're open source because we be
 ✨ Search by meaning, not keywords
 🎯 Auto-organizes into projects
 🔒 100% private (no cloud)
-💰 Free & open source
+💰 Free tier + $7.99/yr Premium (47% off vs Paste)
 
 Finally, a clipboard that actually thinks.
 
@@ -248,15 +248,15 @@ The ClipboardManager Team
 ## Comparison Talking Points
 
 ### vs. Paste ($14.99/year)
-- **Advantage**: Free forever, no subscription
+- **Advantage**: 47% cheaper ($7.99/year Premium, free tier available)
 - **Advantage**: True semantic search (Paste only has keyword + iCloud search)
-- **Advantage**: 100% local (Paste requires iCloud)
-- **Disadvantage**: No iCloud sync (yet)
-- **Position**: "All the intelligence, none of the subscription"
+- **Advantage**: 100% local (Paste requires iCloud for AI features)
+- **Advantage**: Generous free tier (10 AI searches/day)
+- **Position**: "Better AI, better privacy, half the price"
 
 ### vs. Copied ($9.99/year)
-- **Advantage**: Free and open source
-- **Advantage**: Semantic search and context detection
+- **Advantage**: 20% cheaper ($7.99/year Premium, free tier available)
+- **Advantage**: Semantic search and context detection (Copied has neither)
 - **Advantage**: Built-in OCR
 - **Disadvantage**: No iOS version (yet)
 - **Position**: "More intelligent, completely free"

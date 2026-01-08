@@ -60,9 +60,10 @@ What makes it newsworthy:
 • **100% private** - All AI runs locally using Apple's NLEmbedding framework
   Zero network requests, zero cloud storage
 
-• **Free & open source** - No subscriptions, no limitations
+• **Fair pricing** - Free tier + $7.99/year Premium (47% cheaper than Paste)
+  Generous free tier with 10 AI searches/day, open source
 
-Unlike competitors (Paste $15/year, Copied $10/year) that require cloud sync, ClipboardManager keeps everything on-device while providing smarter search than traditional keyword matching.
+Unlike competitors (Paste $15/year, Copied $10/year) that require cloud sync, ClipboardManager keeps everything on-device at half the price while providing superior semantic search.
 
 Technical details:
 - Built with Swift + SwiftUI
@@ -327,7 +328,7 @@ Open-source clipboard manager for macOS with AI-powered semantic search and auto
 - Automatic project organization via context detection
 - 100% local processing (zero cloud/network requests)
 - Built-in OCR, encryption, smart categorization
-- Free and open source
+- Free tier + $7.99/year Premium (47% cheaper than Paste)
 
 ## Technical
 - Built with Swift + SwiftUI
@@ -339,7 +340,8 @@ Open-source clipboard manager for macOS with AI-powered semantic search and auto
 ## Differentiation
 - Only clipboard with semantic AI search
 - Only one that's 100% private (competitors use cloud)
-- Free vs $10-15/year for competitors
+- $7.99/year Premium vs $10-15/year competitors (47% cheaper than Paste)
+- Generous free tier with 10 AI searches/day
 
 ## Availability
 - Free download: github.com/dcrivac/ClipboardManager
@@ -386,12 +388,12 @@ Hi [Creator Name],
 
 I'm a fan of your Mac productivity videos, especially [specific video].
 
-I built ClipboardManager, a free clipboard manager with AI semantic search that works completely offline. I think it would make a great video for your audience.
+I built ClipboardManager, a clipboard manager with AI semantic search that works completely offline. Generous free tier + $7.99/year Premium (47% cheaper than Paste). I think it would make a great video for your audience.
 
 Unique angles for a video:
 - First clipboard with semantic AI
 - 100% private (no cloud)
-- Free vs paid competitors
+- $7.99/year vs $10-15 competitors (better pricing + better privacy)
 
 I can provide:
 - Demo access
