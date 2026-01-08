@@ -57,7 +57,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             rootView: ContentView()
                 .environment(\.managedObjectContext, context)
         )
-        
+
+        // Setup license menu
+        setupMenuBarMenu()
+
         // Start clipboard monitoring with a delay to ensure everything is set up
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
@@ -125,6 +128,77 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NSApp.activate(ignoringOtherApps: true)
             }
         }
+    }
+
+    // MARK: - License Menu Setup
+    private func setupMenuBarMenu() {
+        let menu = NSMenu()
+
+        // License status
+        let licenseManager = LicenseManager.shared
+        if licenseManager.isProUser {
+            let licenseItem = NSMenuItem(
+                title: "✓ Pro License Active",
+                action: nil,
+                keyEquivalent: ""
+            )
+            licenseItem.isEnabled = false
+            menu.addItem(licenseItem)
+        } else {
+            menu.addItem(NSMenuItem(
+                title: "Upgrade to Pro...",
+                action: #selector(showUpgrade),
+                keyEquivalent: "u"
+            ))
+        }
+
+        menu.addItem(NSMenuItem(
+            title: "Activate License...",
+            action: #selector(showLicenseActivation),
+            keyEquivalent: "l"
+        ))
+
+        menu.addItem(NSMenuItem.separator())
+
+        // Settings
+        menu.addItem(NSMenuItem(
+            title: "Settings...",
+            action: #selector(showSettings),
+            keyEquivalent: ","
+        ))
+
+        menu.addItem(NSMenuItem.separator())
+
+        // Quit
+        menu.addItem(NSMenuItem(
+            title: "Quit ClipboardManager",
+            action: #selector(NSApplication.terminate(_:)),
+            keyEquivalent: "q"
+        ))
+
+        statusItem?.menu = menu
+    }
+
+    @objc private func showUpgrade() {
+        LicenseManager.shared.purchaseLifetime()
+    }
+
+    @objc private func showLicenseActivation() {
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 500, height: 400),
+            styleMask: [.titled, .closable],
+            backing: .buffered,
+            defer: false
+        )
+        window.center()
+        window.title = "Activate License"
+        window.contentView = NSHostingController(rootView: LicenseActivationView()).view
+        window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+
+    @objc private func showSettings() {
+        NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
     }
 }
 
@@ -344,7 +418,18 @@ class SettingsManager: ObservableObject {
         self.contextWindowMinutes = UserDefaults.standard.object(forKey: "contextWindowMinutes") as? Int ?? 30
         self.similarityThreshold = UserDefaults.standard.object(forKey: "similarityThreshold") as? Double ?? 0.75
     }
-    
+
+    // MARK: - License-based limits
+    var effectiveRetentionDays: Int {
+        let licensedMax = LicenseManager.shared.getMaxRetentionDays()
+        return min(retentionDays, licensedMax)
+    }
+
+    var effectiveMaxItems: Int {
+        let licensedMax = LicenseManager.shared.getMaxItems()
+        return min(maxItems, licensedMax)
+    }
+
     static let suggestedExclusions = [
         "1Password", "Bitwarden", "LastPass", "Dashlane", "KeePassXC"
     ]
@@ -1530,8 +1615,9 @@ class ClipboardMonitor: ObservableObject {
         
         do {
             let items = try context.fetch(fetchRequest)
-            if items.count > settings.maxItems {
-                let itemsToDelete = items.suffix(from: settings.maxItems)
+            let maxItems = settings.effectiveMaxItems
+            if items.count > maxItems {
+                let itemsToDelete = items.suffix(from: maxItems)
                 for item in itemsToDelete {
                     context.delete(item)
                 }
@@ -1541,9 +1627,10 @@ class ClipboardMonitor: ObservableObject {
             print("Failed to enforce limit: \(error)")
         }
     }
-    
+
     private func cleanupOldItems() {
-        guard let cutoffDate = Calendar.current.date(byAdding: .day, value: -settings.retentionDays, to: Date()) else {
+        let retentionDays = settings.effectiveRetentionDays
+        guard let cutoffDate = Calendar.current.date(byAdding: .day, value: -retentionDays, to: Date()) else {
             print("⚠️ Failed to calculate cutoff date for cleanup")
             return
         }
@@ -1624,6 +1711,11 @@ struct ContentView: View {
     @ObservedObject private var settings = SettingsManager.shared
     private let smartSearch = SmartSearchEngine.shared
     private let contextDetector = ContextDetector.shared
+
+    // License management
+    @StateObject private var licenseManager = LicenseManager.shared
+    @State private var showUpgradePrompt = false
+    @State private var upgradeFeature = "Pro Features"
 
     var filteredItems: [ClipboardItemEntity] {
         var filtered = Array(items)
@@ -1721,11 +1813,25 @@ struct ContentView: View {
                             .foregroundColor(.secondary)
 
                         Picker("Search Mode", selection: $searchMode) {
-                            Text("Smart").tag(SearchMode.hybrid)
                             Text("Keyword").tag(SearchMode.keyword)
-                            Text("Semantic").tag(SearchMode.semantic)
+
+                            if licenseManager.canUseSemanticSearch() {
+                                Text("Semantic").tag(SearchMode.semantic)
+                                Text("Smart").tag(SearchMode.hybrid)
+                            } else {
+                                Text("Semantic 🔒").tag(SearchMode.semantic)
+                                Text("Smart 🔒").tag(SearchMode.hybrid)
+                            }
                         }
                         .pickerStyle(.segmented)
+                        .onChange(of: searchMode) { newMode in
+                            if (newMode == .semantic || newMode == .hybrid) &&
+                               !licenseManager.canUseSemanticSearch() {
+                                upgradeFeature = "AI Semantic Search"
+                                showUpgradePrompt = true
+                                searchMode = .keyword
+                            }
+                        }
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 4)
@@ -1933,6 +2039,9 @@ struct ContentView: View {
                 })
             }
         }
+        .sheet(isPresented: $showUpgradePrompt) {
+            ProUpgradePromptView(feature: upgradeFeature)
+        }
     }
 
     private func copyToClipboard(_ item: ClipboardItemEntity, smart: Bool) {
@@ -2063,7 +2172,9 @@ struct TagInputSheet: View {
 struct SettingsView: View {
     @ObservedObject private var settings = SettingsManager.shared
     @State private var newExcludedApp = ""
-    
+    @StateObject private var licenseManager = LicenseManager.shared
+    @State private var showLicenseActivation = false
+
     var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -2078,6 +2189,56 @@ struct SettingsView: View {
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
+                    // License status
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("License")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+
+                        HStack {
+                            if licenseManager.isProUser {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("✓ Pro License Active")
+                                        .font(.headline)
+                                        .foregroundColor(.green)
+                                    if let email = licenseManager.licenseEmail {
+                                        Text(email)
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Text(licenseManager.licenseType.rawValue.capitalized)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                Spacer()
+                                Button("Deactivate") {
+                                    licenseManager.deactivateLicense()
+                                }
+                                .foregroundColor(.red)
+                            } else {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Free Plan")
+                                        .font(.headline)
+                                    Text("250 items • 30-day retention • Keyword search")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                Spacer()
+                                Button("Upgrade to Pro") {
+                                    licenseManager.purchaseLifetime()
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
+                        }
+
+                        Button("Activate License...") {
+                            showLicenseActivation = true
+                        }
+                    }
+                    .padding()
+                    .background(Color(NSColor.controlBackgroundColor))
+                    .cornerRadius(8)
+
                     // History settings
                     VStack(alignment: .leading, spacing: 8) {
                         Text("History Retention")
@@ -2273,6 +2434,9 @@ struct SettingsView: View {
                 }
                 .padding()
             }
+        }
+        .sheet(isPresented: $showLicenseActivation) {
+            LicenseActivationView()
         }
     }
 

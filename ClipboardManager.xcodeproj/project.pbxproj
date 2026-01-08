@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E2C76C22F0B183500690BC7 /* LicenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2C76C12F0B183500690BC7 /* LicenseManager.swift */; };
 		A1000001000000000000001 /* ClipboardManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001000000000000001 /* ClipboardManagerApp.swift */; };
 		A1000002000000000000001 /* ClipboardItemEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000002000000000000001 /* ClipboardItemEntity+CoreDataClass.swift */; };
 		A1000003000000000000001 /* ClipboardItemEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000003000000000000001 /* ClipboardItemEntity+CoreDataProperties.swift */; };
@@ -14,12 +15,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A3000001000000000000001 /* ClipboardManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipboardManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E2C76C12F0B183500690BC7 /* LicenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseManager.swift; sourceTree = "<group>"; };
 		A2000001000000000000001 /* ClipboardManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardManagerApp.swift; sourceTree = "<group>"; };
 		A2000002000000000000001 /* ClipboardItemEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClipboardItemEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A2000003000000000000001 /* ClipboardItemEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClipboardItemEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A2000004000000000000001 /* ClipboardManager.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; path = ClipboardManager.xcdatamodeld; sourceTree = "<group>"; };
 		A2000005000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3000001000000000000001 /* ClipboardManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipboardManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +46,7 @@
 		A5000002000000000000001 /* ClipboardManager */ = {
 			isa = PBXGroup;
 			children = (
+				8E2C76C12F0B183500690BC7 /* LicenseManager.swift */,
 				A2000001000000000000001 /* ClipboardManagerApp.swift */,
 				A2000002000000000000001 /* ClipboardItemEntity+CoreDataClass.swift */,
 				A2000003000000000000001 /* ClipboardItemEntity+CoreDataProperties.swift */,
@@ -132,6 +135,7 @@
 				A1000001000000000000001 /* ClipboardManagerApp.swift in Sources */,
 				A1000002000000000000001 /* ClipboardItemEntity+CoreDataClass.swift in Sources */,
 				A1000003000000000000001 /* ClipboardItemEntity+CoreDataProperties.swift in Sources */,
+				8E2C76C22F0B183500690BC7 /* LicenseManager.swift in Sources */,
 				A1000004000000000000001 /* ClipboardManager.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,8 +275,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -299,8 +303,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -316,20 +320,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AB000001000000000000001 /* Build configuration list for PBXProject "ClipboardManager" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AC000001000000000000001 /* Debug */,
-				AC000002000000000000001 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		A7000001000000000000001 /* Build configuration list for PBXNativeTarget "ClipboardManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD000001000000000000001 /* Debug */,
 				AD000002000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB000001000000000000001 /* Build configuration list for PBXProject "ClipboardManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC000001000000000000001 /* Debug */,
+				AC000002000000000000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
