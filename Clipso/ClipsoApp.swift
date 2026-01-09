@@ -14,10 +14,10 @@ import Combine
 
 // MARK: - Main App Entry Point
 @main
-struct ClipboardManagerApp: App {
+struct ClipsoApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     let persistenceController = PersistenceController.shared
-    
+
     var body: some Scene {
         Settings {
             SettingsView()

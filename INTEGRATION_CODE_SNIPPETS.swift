@@ -1,6 +1,6 @@
 // ============================================================
 // INTEGRATION CODE SNIPPETS FOR CLIPBOARDMANAGER
-// Copy these code blocks into ClipboardManagerApp.swift
+// Copy these code blocks into ClipsoApp.swift
 // ============================================================
 
 // ============================================================
