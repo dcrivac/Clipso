@@ -148,14 +148,14 @@ Settings sections:
 
 **RevenueCatManager** (Managers/RevenueCatManager.swift)
 - Modern subscription management using RevenueCat + Apple IAP
-- License Types: `free`, `lifetime`, `annual`, `monthly`
+- License Types: `free`, `lifetime`, `annual`
 - Singleton pattern with @Published properties
 - Automatic customer info syncing from RevenueCat
 - Feature gating via RevenueCat entitlements ("pro")
 - Integration with StoreKit2 for Apple In-App Purchases
 
 **Monetization Model:**
-- Freemium with per-year subscription and lifetime purchase options
+- Freemium with lifetime purchase ($29.99) and annual subscription ($7.99/year)
 - Free tier: 250 items, 30-day retention, keyword search
 - Pro tier: Unlimited items, unlimited retention, AI features
 - No external payment processor - uses Apple's payment system directly

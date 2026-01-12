@@ -32,19 +32,19 @@ In App Store Connect:
 2. Navigate to **In-App Purchases**
 3. Create **Lifetime Purchase**:
    - **Reference Name**: Lifetime Pro
-   - **Product ID**: `com.clipso.lifetime` (matches RevenueCatManager)
-   - **Type**: Consumable (or Non-Consumable)
-   - **Price Tier**: Select your desired price (e.g., $29.99)
-   - **Localized Details**: Add marketing description
+   - **Product ID**: `com.clipso.lifetime` (must match RevenueCatManager)
+   - **Type**: Non-Consumable
+   - **Price Tier**: $29.99
+   - **Localized Details**: "Unlock all Pro features forever with a one-time payment"
 
 4. Create **Annual Subscription**:
-   - **Reference Name**: Annual Pro
-   - **Product ID**: `com.clipso.annual` (matches RevenueCatManager)
+   - **Reference Name**: Annual Pro Subscription
+   - **Product ID**: `com.clipso.annual` (must match RevenueCatManager)
    - **Type**: Auto-Renewable Subscription
    - **Billing Period**: 1 Year
-   - **Price Tier**: Select your desired price (e.g., $7.99/year)
+   - **Price Tier**: $7.99
    - **Renewal Terms**: Auto-renew enabled
-   - **Localized Details**: Add marketing description
+   - **Localized Details**: "Unlock all Pro features. Renews annually."
 
 5. **Important**: Add your banking information to receive payments
 

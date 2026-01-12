@@ -24,6 +24,7 @@ class RevenueCatManager: NSObject, ObservableObject {
     private let apiKey = "YOUR_REVENUECAT_API_KEY" // Replace with actual API key
 
     // App Store Connect Product IDs
+    // Two pricing options: lifetime (one-time) or annual (recurring)
     private let lifetimeProductID = "com.clipso.lifetime"
     private let annualProductID = "com.clipso.annual"
 
@@ -31,7 +32,6 @@ class RevenueCatManager: NSObject, ObservableObject {
         case free = "free"
         case lifetime = "lifetime"
         case annual = "annual"
-        case monthly = "monthly"
     }
 
     enum LicenseError: Error {
