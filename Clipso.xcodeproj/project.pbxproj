@@ -155,7 +155,6 @@
 				A2000004000000000000001 /* ClipboardManager.xcdatamodeld */,
 				A2000005000000000000001 /* Info.plist */,
 			);
-			path = Clipso;
 			sourceTree = "<group>";
 		};
 		A5000003000000000000001 /* Products */ = {
