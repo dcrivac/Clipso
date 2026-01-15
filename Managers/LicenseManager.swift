@@ -16,11 +16,12 @@ class LicenseManager: ObservableObject {
     @Published var licenseType: LicenseType = .free
     @Published var licenseEmail: String?
 
-    // Lemon Squeezy Configuration
-    private let storeID = "YOUR_LEMONSQUEEZY_STORE_ID" // Replace with your Store ID
-    private let lifetimeProductID = "YOUR_LIFETIME_PRODUCT_ID" // Product ID from Lemon Squeezy
-    private let annualProductID = "YOUR_ANNUAL_PRODUCT_ID" // Product ID from Lemon Squeezy
-    private let apiKey = "YOUR_LEMONSQUEEZY_API_KEY" // API Key from Settings → API
+    // Paddle Configuration
+    private let vendorID = "YOUR_PADDLE_VENDOR_ID" // Replace with your Vendor ID from Paddle Dashboard
+    private let lifetimePriceID = "pri_LIFETIME_PRICE_ID" // Price ID for Lifetime from Paddle
+    private let annualPriceID = "pri_ANNUAL_PRICE_ID" // Price ID for Annual subscription from Paddle
+    private let apiKey = "YOUR_PADDLE_API_KEY" // API Key from Paddle Developer Tools
+    private let useSandbox = true // Set to false for production
 
     // Keychain keys
     private let licenseKeyKeychainKey = "com.clipboardmanager.license.key"
@@ -59,8 +60,8 @@ class LicenseManager: ObservableObject {
             throw LicenseError.invalidKey
         }
 
-        // Validate with Lemon Squeezy API
-        let (isValid, type) = try await validateLicenseWithLemonSqueezy(key: key)
+        // Validate with Paddle API
+        let (isValid, type) = try await validateLicenseWithPaddle(key: key)
 
         guard isValid else {
             throw LicenseError.validationFailed
@@ -85,18 +86,20 @@ class LicenseManager: ObservableObject {
         licenseEmail = nil
     }
 
-    /// Open Lemon Squeezy checkout for purchase
+    /// Open Paddle checkout for purchase
     func purchaseLifetime() {
-        // Lemon Squeezy checkout URL format
-        let checkoutURL = "https://\(storeID).lemonsqueezy.com/checkout/buy/\(lifetimeProductID)"
+        // Paddle checkout URL format
+        let baseURL = useSandbox ? "https://sandbox-checkout.paddle.com" : "https://checkout.paddle.com"
+        let checkoutURL = "\(baseURL)/checkout/custom/\(lifetimePriceID)"
         if let url = URL(string: checkoutURL) {
             NSWorkspace.shared.open(url)
         }
     }
 
     func purchaseAnnual() {
-        // Lemon Squeezy checkout URL format
-        let checkoutURL = "https://\(storeID).lemonsqueezy.com/checkout/buy/\(annualProductID)"
+        // Paddle checkout URL format
+        let baseURL = useSandbox ? "https://sandbox-checkout.paddle.com" : "https://checkout.paddle.com"
+        let checkoutURL = "\(baseURL)/checkout/custom/\(annualPriceID)"
         if let url = URL(string: checkoutURL) {
             NSWorkspace.shared.open(url)
         }
@@ -122,11 +125,15 @@ class LicenseManager: ObservableObject {
 
     // MARK: - Private Methods
 
-    private func validateLicenseWithLemonSqueezy(key: String) async throws -> (Bool, LicenseType) {
-        // Lemon Squeezy License Validation API
-        // https://docs.lemonsqueezy.com/api/licenses#validate-a-license-key
+    private func validateLicenseWithPaddle(key: String) async throws -> (Bool, LicenseType) {
+        // Paddle License Validation API
+        // https://developer.paddle.com/api-reference/transactions/get-transaction
+        // Note: This implementation validates using Paddle's transaction API
+        // In production, you'd typically validate the license key using your backend
 
-        let urlString = "https://api.lemonsqueezy.com/v1/licenses/validate"
+        let baseURL = useSandbox ? "https://sandbox-api.paddle.com" : "https://api.paddle.com"
+        let urlString = "\(baseURL)/transactions"
+
         guard let url = URL(string: urlString) else {
             throw LicenseError.networkError
         }
@@ -135,16 +142,25 @@ class LicenseManager: ObservableObject {
         let instanceID = getDeviceInstanceID()
 
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
 
-        let body: [String: Any] = [
-            "license_key": key,
-            "instance_id": instanceID
-        ]
+        // In a real implementation, you would:
+        // 1. Store transaction IDs with license keys in your backend
+        // 2. Use Paddle's webhook to track purchases
+        // 3. Validate license keys against your backend
+        //
+        // For now, we'll validate by checking if the key format is valid
+        // and assume it's tied to a transaction you've stored
 
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        // Simple format validation (Paddle transaction IDs typically start with "txn_")
+        if !key.hasPrefix("txn_") && !key.contains("-") {
+            throw LicenseError.invalidKey
+        }
+
+        // For a complete implementation, make an API call to your backend
+        // that checks if this license key is valid and returns the subscription status
+        // This is a simplified version for demonstration
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
@@ -159,17 +175,54 @@ class LicenseManager: ObservableObject {
 
         // Parse response
         guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let valid = json["valid"] as? Bool,
-              valid == true,
-              let meta = json["meta"] as? [String: Any],
-              let productName = meta["product_name"] as? String else {
+              let dataArray = json["data"] as? [[String: Any]] else {
             throw LicenseError.validationFailed
         }
 
-        // Determine license type from product name or metadata
-        let licenseType = determineLicenseTypeFromProduct(productName: productName, metadata: meta)
+        // Find the transaction matching this license key
+        guard let transaction = dataArray.first(where: { trans in
+            if let transID = trans["id"] as? String {
+                return transID == key || key.contains(transID)
+            }
+            return false
+        }) else {
+            throw LicenseError.validationFailed
+        }
+
+        // Extract subscription/product information
+        guard let items = transaction["items"] as? [[String: Any]],
+              let firstItem = items.first,
+              let price = firstItem["price"] as? [String: Any],
+              let priceID = price["id"] as? String else {
+            throw LicenseError.validationFailed
+        }
+
+        // Determine license type from price ID
+        let licenseType = determineLicenseTypeFromPriceID(priceID: priceID)
 
         return (true, licenseType)
+    }
+
+    private func determineLicenseTypeFromPriceID(priceID: String) -> LicenseType {
+        // Match against configured price IDs
+        if priceID == lifetimePriceID {
+            return .lifetime
+        } else if priceID == annualPriceID {
+            return .annual
+        }
+
+        // Fallback to checking naming patterns
+        let idLower = priceID.lowercased()
+        if idLower.contains("lifetime") {
+            return .lifetime
+        } else if idLower.contains("annual") || idLower.contains("year") {
+            return .annual
+        } else if idLower.contains("month") {
+            return .monthly
+        }
+
+        // Default to lifetime for one-time purchases
+        return .lifetime
     }
 
     private func getDeviceInstanceID() -> String {
@@ -185,30 +238,6 @@ class LicenseManager: ObservableObject {
         let instanceID = UUID().uuidString
         UserDefaults.standard.set(instanceID, forKey: instanceKey)
         return instanceID
-    }
-
-    private func determineLicenseTypeFromProduct(productName: String, metadata: [String: Any]) -> LicenseType {
-        // Check if it's a subscription from metadata
-        if let interval = metadata["variant_name"] as? String {
-            if interval.lowercased().contains("annual") || interval.lowercased().contains("year") {
-                return .annual
-            } else if interval.lowercased().contains("month") {
-                return .monthly
-            }
-        }
-
-        // Check product name
-        let nameLower = productName.lowercased()
-        if nameLower.contains("lifetime") {
-            return .lifetime
-        } else if nameLower.contains("annual") || nameLower.contains("year") {
-            return .annual
-        } else if nameLower.contains("month") {
-            return .monthly
-        }
-
-        // Default to lifetime for one-time purchases
-        return .lifetime
     }
 
 

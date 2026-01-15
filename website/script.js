@@ -14,60 +14,59 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// Lemon Squeezy Configuration
-const LEMONSQUEEZY_STORE_ID = 'YOUR_STORE_ID'; // Replace with your Lemon Squeezy Store ID
-const LIFETIME_PRODUCT_ID = 'YOUR_LIFETIME_PRODUCT_ID'; // Replace with Lifetime product ID
-const ANNUAL_PRODUCT_ID = 'YOUR_ANNUAL_PRODUCT_ID'; // Replace with Annual product ID
+// Paddle Configuration
+const PADDLE_VENDOR_ID = 'YOUR_VENDOR_ID'; // Replace with your Paddle Vendor ID
+const PADDLE_ENVIRONMENT = 'sandbox'; // Use 'sandbox' for testing, 'production' for live
+const LIFETIME_PRICE_ID = 'pri_LIFETIME_PRICE_ID'; // Replace with Lifetime price ID
+const ANNUAL_PRICE_ID = 'pri_ANNUAL_PRICE_ID'; // Replace with Annual price ID
 
-// Initialize Lemon Squeezy
-window.createLemonSqueezy = function() {
-    window.LemonSqueezy.Setup({
-        eventHandler: function(event) {
-            if (event === 'Checkout.Success') {
-                // Show success message
-                alert('Thank you for your purchase! Check your email for your license key.');
-                console.log('Purchase successful');
+// Initialize Paddle
+function initializePaddle() {
+    if (window.Paddle) {
+        Paddle.Environment.set(PADDLE_ENVIRONMENT);
+        Paddle.Initialize({
+            token: PADDLE_VENDOR_ID,
+            eventCallback: function(event) {
+                if (event.name === 'checkout.completed') {
+                    // Show success message
+                    alert('Thank you for your purchase! Check your email for your license key.');
+                    console.log('Purchase successful', event);
+                }
             }
-        }
-    });
-};
-
-// Load Lemon Squeezy script
-if (typeof window.LemonSqueezy === 'undefined') {
-    const script = document.createElement('script');
-    script.src = 'https://app.lemonsqueezy.com/js/lemon.js';
-    script.defer = true;
-    script.onload = function() {
-        if (typeof window.createLemonSqueezy === 'function') {
-            window.createLemonSqueezy();
-        }
-    };
-    document.head.appendChild(script);
+        });
+    }
 }
 
-// Lemon Squeezy Checkout Functions
+// Wait for Paddle to load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePaddle);
+} else {
+    initializePaddle();
+}
+
+// Paddle Checkout Functions
 function openLifetimeCheckout() {
-    if (typeof window.LemonSqueezy === 'undefined') {
+    if (typeof window.Paddle === 'undefined') {
         alert('Payment system loading... Please try again in a moment.');
         return;
     }
 
-    const checkoutUrl = `https://${LEMONSQUEEZY_STORE_ID}.lemonsqueezy.com/checkout/buy/${LIFETIME_PRODUCT_ID}`;
-
-    // Open in Lemon Squeezy overlay
-    window.LemonSqueezy.Url.Open(checkoutUrl);
+    // Open Paddle checkout
+    Paddle.Checkout.open({
+        items: [{ priceId: LIFETIME_PRICE_ID, quantity: 1 }]
+    });
 }
 
 function openAnnualCheckout() {
-    if (typeof window.LemonSqueezy === 'undefined') {
+    if (typeof window.Paddle === 'undefined') {
         alert('Payment system loading... Please try again in a moment.');
         return;
     }
 
-    const checkoutUrl = `https://${LEMONSQUEEZY_STORE_ID}.lemonsqueezy.com/checkout/buy/${ANNUAL_PRODUCT_ID}`;
-
-    // Open in Lemon Squeezy overlay
-    window.LemonSqueezy.Url.Open(checkoutUrl);
+    // Open Paddle checkout
+    Paddle.Checkout.open({
+        items: [{ priceId: ANNUAL_PRICE_ID, quantity: 1 }]
+    });
 }
 
 // Attach checkout functions to buttons (after DOM loads)
