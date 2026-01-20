@@ -16,10 +16,11 @@ class LicenseManager: ObservableObject {
     @Published var licenseType: LicenseType = .free
     @Published var licenseEmail: String?
 
-    // Paddle Configuration
-    private let vendorID = "YOUR_PADDLE_VENDOR_ID" // Replace with actual Vendor ID
-    private let lifetimeProductID = "YOUR_LIFETIME_PRODUCT_ID"
-    private let annualProductID = "YOUR_ANNUAL_PRODUCT_ID"
+    // Lemon Squeezy Configuration
+    private let storeID = "YOUR_LEMONSQUEEZY_STORE_ID" // Replace with your Store ID
+    private let lifetimeProductID = "YOUR_LIFETIME_PRODUCT_ID" // Product ID from Lemon Squeezy
+    private let annualProductID = "YOUR_ANNUAL_PRODUCT_ID" // Product ID from Lemon Squeezy
+    private let apiKey = "YOUR_LEMONSQUEEZY_API_KEY" // API Key from Settings → API
 
     // Keychain keys
     private let licenseKeyKeychainKey = "com.clipboardmanager.license.key"
@@ -51,22 +52,19 @@ class LicenseManager: ObservableObject {
         return isProUser && (licenseType == .lifetime || licenseType == .annual || licenseType == .monthly)
     }
 
-    /// Activate license with key and email
-    func activateLicense(key: String, email: String) async throws {
+    /// Activate license with key
+    func activateLicense(key: String, email: String = "") async throws {
         // Validate format
-        guard !key.isEmpty, !email.isEmpty else {
+        guard !key.isEmpty else {
             throw LicenseError.invalidKey
         }
 
-        // Validate with Paddle API
-        let isValid = try await validateLicenseWithPaddle(key: key, email: email)
+        // Validate with Lemon Squeezy API
+        let (isValid, type) = try await validateLicenseWithLemonSqueezy(key: key)
 
         guard isValid else {
             throw LicenseError.validationFailed
         }
-
-        // Determine license type from key prefix or API response
-        let type = determineLicenseType(from: key)
 
         // Save to Keychain
         try saveLicenseToKeychain(key: key, email: email, type: type)
@@ -75,7 +73,7 @@ class LicenseManager: ObservableObject {
         await MainActor.run {
             self.isProUser = true
             self.licenseType = type
-            self.licenseEmail = email
+            self.licenseEmail = email.isEmpty ? nil : email
         }
     }
 
@@ -87,16 +85,18 @@ class LicenseManager: ObservableObject {
         licenseEmail = nil
     }
 
-    /// Open Paddle checkout for purchase
+    /// Open Lemon Squeezy checkout for purchase
     func purchaseLifetime() {
-        let checkoutURL = "https://buy.paddle.com/product/\(lifetimeProductID)"
+        // Lemon Squeezy checkout URL format
+        let checkoutURL = "https://\(storeID).lemonsqueezy.com/checkout/buy/\(lifetimeProductID)"
         if let url = URL(string: checkoutURL) {
             NSWorkspace.shared.open(url)
         }
     }
 
     func purchaseAnnual() {
-        let checkoutURL = "https://buy.paddle.com/product/\(annualProductID)"
+        // Lemon Squeezy checkout URL format
+        let checkoutURL = "https://\(storeID).lemonsqueezy.com/checkout/buy/\(annualProductID)"
         if let url = URL(string: checkoutURL) {
             NSWorkspace.shared.open(url)
         }
@@ -122,60 +122,100 @@ class LicenseManager: ObservableObject {
 
     // MARK: - Private Methods
 
-    private func validateLicenseWithPaddle(key: String, email: String) async throws -> Bool {
-        // Paddle License Verification API
-        // https://vendors.paddle.com/api/2.0/product/verify_license
+    private func validateLicenseWithLemonSqueezy(key: String) async throws -> (Bool, LicenseType) {
+        // Lemon Squeezy License Validation API
+        // https://docs.lemonsqueezy.com/api/licenses#validate-a-license-key
 
-        let urlString = "https://vendors.paddle.com/api/2.0/product/verify_license"
+        let urlString = "https://api.lemonsqueezy.com/v1/licenses/validate"
         guard let url = URL(string: urlString) else {
             throw LicenseError.networkError
         }
 
+        // Generate unique instance ID for device
+        let instanceID = getDeviceInstanceID()
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
 
         let body: [String: Any] = [
-            "vendor_id": vendorID,
-            "license_code": key,
-            "activation_email": email
+            "license_key": key,
+            "instance_id": instanceID
         ]
 
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
+        guard let httpResponse = response as? HTTPURLResponse else {
             throw LicenseError.networkError
         }
 
-        // Parse response
-        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let success = json["success"] as? Bool {
-            return success
+        // Check response status
+        guard httpResponse.statusCode == 200 else {
+            throw LicenseError.validationFailed
         }
 
-        return false
+        // Parse response
+        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let valid = json["valid"] as? Bool,
+              valid == true,
+              let meta = json["meta"] as? [String: Any],
+              let productName = meta["product_name"] as? String else {
+            throw LicenseError.validationFailed
+        }
+
+        // Determine license type from product name or metadata
+        let licenseType = determineLicenseTypeFromProduct(productName: productName, metadata: meta)
+
+        return (true, licenseType)
     }
 
-    private func determineLicenseType(from key: String) -> LicenseType {
-        // Example: Keys could be prefixed with type
-        // LT-XXXX-XXXX-XXXX for Lifetime
-        // AN-XXXX-XXXX-XXXX for Annual
-        if key.hasPrefix("LT-") {
-            return .lifetime
-        } else if key.hasPrefix("AN-") {
-            return .annual
+    private func getDeviceInstanceID() -> String {
+        // Use a unique identifier for this Mac
+        // Check if we have one stored, otherwise create new
+        let instanceKey = "com.clipboardmanager.device.instanceid"
+
+        if let stored = UserDefaults.standard.string(forKey: instanceKey) {
+            return stored
         }
-        // Default to lifetime for launch special
+
+        // Create new instance ID using device serial number or UUID
+        let instanceID = UUID().uuidString
+        UserDefaults.standard.set(instanceID, forKey: instanceKey)
+        return instanceID
+    }
+
+    private func determineLicenseTypeFromProduct(productName: String, metadata: [String: Any]) -> LicenseType {
+        // Check if it's a subscription from metadata
+        if let interval = metadata["variant_name"] as? String {
+            if interval.lowercased().contains("annual") || interval.lowercased().contains("year") {
+                return .annual
+            } else if interval.lowercased().contains("month") {
+                return .monthly
+            }
+        }
+
+        // Check product name
+        let nameLower = productName.lowercased()
+        if nameLower.contains("lifetime") {
+            return .lifetime
+        } else if nameLower.contains("annual") || nameLower.contains("year") {
+            return .annual
+        } else if nameLower.contains("month") {
+            return .monthly
+        }
+
+        // Default to lifetime for one-time purchases
         return .lifetime
     }
+
 
     // MARK: - Keychain Management
 
     private func loadLicenseFromKeychain() {
-        guard let key = getFromKeychain(key: licenseKeyKeychainKey),
+        guard let _ = getFromKeychain(key: licenseKeyKeychainKey),
               let email = getFromKeychain(key: licenseEmailKeychainKey),
               let typeString = getFromKeychain(key: licenseTypeKeychainKey),
               let type = LicenseType(rawValue: typeString) else {

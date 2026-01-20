@@ -14,55 +14,60 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// Paddle Configuration
-const PADDLE_VENDOR_ID = 'YOUR_VENDOR_ID'; // Replace with your Paddle Vendor ID
+// Lemon Squeezy Configuration
+const LEMONSQUEEZY_STORE_ID = 'YOUR_STORE_ID'; // Replace with your Lemon Squeezy Store ID
 const LIFETIME_PRODUCT_ID = 'YOUR_LIFETIME_PRODUCT_ID'; // Replace with Lifetime product ID
 const ANNUAL_PRODUCT_ID = 'YOUR_ANNUAL_PRODUCT_ID'; // Replace with Annual product ID
 
-// Initialize Paddle
-if (typeof Paddle !== 'undefined') {
-    Paddle.Environment.set('sandbox'); // Change to 'production' when ready
-    Paddle.Setup({ vendor: PADDLE_VENDOR_ID });
+// Initialize Lemon Squeezy
+window.createLemonSqueezy = function() {
+    window.LemonSqueezy.Setup({
+        eventHandler: function(event) {
+            if (event === 'Checkout.Success') {
+                // Show success message
+                alert('Thank you for your purchase! Check your email for your license key.');
+                console.log('Purchase successful');
+            }
+        }
+    });
+};
+
+// Load Lemon Squeezy script
+if (typeof window.LemonSqueezy === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://app.lemonsqueezy.com/js/lemon.js';
+    script.defer = true;
+    script.onload = function() {
+        if (typeof window.createLemonSqueezy === 'function') {
+            window.createLemonSqueezy();
+        }
+    };
+    document.head.appendChild(script);
 }
 
-// Paddle Checkout Functions
+// Lemon Squeezy Checkout Functions
 function openLifetimeCheckout() {
-    if (typeof Paddle === 'undefined') {
+    if (typeof window.LemonSqueezy === 'undefined') {
         alert('Payment system loading... Please try again in a moment.');
         return;
     }
 
-    Paddle.Checkout.open({
-        product: LIFETIME_PRODUCT_ID,
-        email: '', // Pre-fill if user is logged in
-        successCallback: function(data) {
-            // Show success message
-            alert('Thank you for your purchase! Check your email for your license key.');
-            console.log('Purchase successful:', data);
-        },
-        closeCallback: function() {
-            console.log('Checkout closed');
-        }
-    });
+    const checkoutUrl = `https://${LEMONSQUEEZY_STORE_ID}.lemonsqueezy.com/checkout/buy/${LIFETIME_PRODUCT_ID}`;
+
+    // Open in Lemon Squeezy overlay
+    window.LemonSqueezy.Url.Open(checkoutUrl);
 }
 
 function openAnnualCheckout() {
-    if (typeof Paddle === 'undefined') {
+    if (typeof window.LemonSqueezy === 'undefined') {
         alert('Payment system loading... Please try again in a moment.');
         return;
     }
 
-    Paddle.Checkout.open({
-        product: ANNUAL_PRODUCT_ID,
-        email: '',
-        successCallback: function(data) {
-            alert('Thank you for your purchase! Check your email for your license key.');
-            console.log('Purchase successful:', data);
-        },
-        closeCallback: function() {
-            console.log('Checkout closed');
-        }
-    });
+    const checkoutUrl = `https://${LEMONSQUEEZY_STORE_ID}.lemonsqueezy.com/checkout/buy/${ANNUAL_PRODUCT_ID}`;
+
+    // Open in Lemon Squeezy overlay
+    window.LemonSqueezy.Url.Open(checkoutUrl);
 }
 
 // Attach checkout functions to buttons (after DOM loads)

@@ -1,0 +1,280 @@
+name: Build and Release DMG
+
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  XCODE_VERSION: 15.1
+
+jobs:
+  build:
+    name: Build macOS Application
+    runs-on: macos-14
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Xcode
+        run: |
+          sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+          xcodebuild -version
+
+      - name: Cache Swift packages
+        uses: actions/cache@v3
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Build application
+        run: |
+          xcodebuild build \
+            -scheme Clipso \
+            -configuration Release \
+            -derivedDataPath build/DerivedData \
+            -arch arm64 \
+            -arch x86_64 \
+            OTHER_CODE_SIGN_FLAGS="--deep"
+
+      - name: Verify build
+        run: |
+          ls -la build/DerivedData/Build/Products/Release/
+          file build/DerivedData/Build/Products/Release/Clipso.app/Contents/MacOS/Clipso
+
+      - name: Archive application
+        run: |
+          mkdir -p artifacts
+          ditto -c -k --sequesterRsrc --keepParent build/DerivedData/Build/Products/Release/Clipso.app artifacts/Clipso.app.zip
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: clipso-app
+          path: artifacts/Clipso.app.zip
+          retention-days: 5
+
+  code-sign:
+    name: Code Sign and Create DMG
+    runs-on: macos-14
+    timeout-minutes: 30
+    needs: build
+    if: always()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: clipso-app
+          path: artifacts
+
+      - name: Extract application
+        run: |
+          cd artifacts
+          unzip -q Clipso.app.zip
+          ls -la
+
+      - name: Import code signing certificate
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.MACOS_CERTIFICATE }}
+          CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          # Create temporary keychain
+          KEYCHAIN_PATH=$RUNNER_TEMP/build.keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security default-keychain -s $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          
+          # Import certificate
+          echo "$CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/certificate.p12
+          security import $RUNNER_TEMP/certificate.p12 \
+            -k $KEYCHAIN_PATH \
+            -P "$CERTIFICATE_PASSWORD" \
+            -T /usr/bin/codesign \
+            -T /usr/bin/security
+          
+          # Set key partition list
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          
+          rm $RUNNER_TEMP/certificate.p12
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+
+      - name: Code sign application
+        env:
+          CODESIGN_IDENTITY: ${{ secrets.CODESIGN_IDENTITY }}
+        run: |
+          if [ -n "$CODESIGN_IDENTITY" ]; then
+            codesign --deep --force --verbose --sign "$CODESIGN_IDENTITY" artifacts/Clipso.app
+            codesign --verify --verbose artifacts/Clipso.app
+          else
+            echo "Code signing identity not configured, skipping signing"
+          fi
+        continue-on-error: true
+
+      - name: Create DMG file
+        run: |
+          # Create DMG directory structure
+          mkdir -p dmg_temp/Clipso
+          cp -r artifacts/Clipso.app dmg_temp/Clipso/
+          
+          # Create symlink to Applications folder
+          ln -s /Applications dmg_temp/Clipso/Applications
+          
+          # Create DMG
+          hdiutil create -volname "Clipso" \
+            -srcfolder dmg_temp/Clipso \
+            -ov -format UDZO \
+            -imagekey zlib-level=9 \
+            artifacts/Clipso.dmg
+          
+          # Clean up
+          rm -rf dmg_temp
+          
+          # Verify DMG
+          ls -lh artifacts/Clipso.dmg
+          hdiutil verify artifacts/Clipso.dmg
+
+      - name: Get version
+        id: version
+        run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/}
+          else
+            VERSION=$(date +%Y.%m.%d)
+          fi
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "dmg_name=Clipso-${VERSION}.dmg" >> $GITHUB_OUTPUT
+
+      - name: Rename DMG
+        run: |
+          mv artifacts/Clipso.dmg artifacts/${{ steps.version.outputs.dmg_name }}
+          ls -lh artifacts/
+
+      - name: Upload DMG artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: clipso-dmg
+          path: artifacts/${{ steps.version.outputs.dmg_name }}
+          retention-days: 30
+
+      - name: Generate checksums
+        run: |
+          cd artifacts
+          shasum -a 256 ${{ steps.version.outputs.dmg_name }} > ${{ steps.version.outputs.dmg_name }}.sha256
+          cat ${{ steps.version.outputs.dmg_name }}.sha256
+
+      - name: Upload checksums
+        uses: actions/upload-artifact@v3
+        with:
+          name: checksums
+          path: artifacts/*.sha256
+          retention-days: 30
+
+  release:
+    name: Create Release
+    runs-on: macos-14
+    timeout-minutes: 15
+    needs: code-sign
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download DMG artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: clipso-dmg
+          path: release_artifacts
+
+      - name: Download checksums
+        uses: actions/download-artifact@v3
+        with:
+          name: checksums
+          path: release_artifacts
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          NOTES="## Release ${{ steps.version.outputs.version }}
+
+          ### What's New
+          - Check the commit history for detailed changes
+          
+          ### Installation
+          1. Download the DMG file below
+          2. Mount the DMG and drag Clipso.app to your Applications folder
+          3. Launch Clipso from Applications
+          
+          ### Verification
+          You can verify the integrity of the DMG file using:
+          \`\`\`bash
+          shasum -a 256 -c Clipso-${{ steps.version.outputs.version }}.dmg.sha256
+          \`\`\`
+          
+          ### Requirements
+          - macOS 11.0 or later
+          - Apple Silicon (M1/M2/M3) or Intel processor support
+          "
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: Release ${{ steps.version.outputs.version }}
+          body: ${{ steps.release_notes.outputs.notes }}
+          draft: false
+          prerelease: false
+          files: release_artifacts/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload to release
+        run: |
+          echo "Release created successfully for version ${{ steps.version.outputs.version }}"
+          ls -lh release_artifacts/
+
+  notify:
+    name: Notify on Status
+    runs-on: macos-14
+    timeout-minutes: 5
+    needs: [build, code-sign]
+    if: always()
+    
+    steps:
+      - name: Check build status
+        run: |
+          if [ "${{ needs.build.result }}" == "success" ] && [ "${{ needs.code-sign.result }}" == "success" ]; then
+            echo "✅ Build and release workflow completed successfully"
+            exit 0
+          else
+            echo "⚠️ Build or release workflow had issues"
+            echo "Build status: ${{ needs.build.result }}"
+            echo "Code sign status: ${{ needs.code-sign.result }}"
+            exit 0
+          fi

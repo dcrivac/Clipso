@@ -2,9 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppleEventsUsageDescription</key>
-	<string>This app needs to monitor clipboard changes to provide clipboard history.</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>NSAccessibilityUsageDescription</key>
 	<string>This app needs accessibility access to detect the active application.</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>This app needs to monitor clipboard changes to provide clipboard history.</string>
 </dict>
 </plist>
