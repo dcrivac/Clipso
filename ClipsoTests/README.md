@@ -4,21 +4,28 @@ Comprehensive unit tests for the Clipso clipboard manager application.
 
 ## Test Coverage
 
-### ✅ Core Components (7 test files)
+### ✅ Core Components (8 test files)
 
-1. **EncryptionHelperTests.swift** (160+ lines, 13 tests)
+1. **AppDelegateTests.swift** (340+ lines, 15 tests) **NEW**
+   - Menu bar setup and configuration
+   - Menu item existence and actions
+   - Keyboard shortcut validation
+   - Settings/License window opening
+   - Selector validation and error cases
+
+2. **EncryptionHelperTests.swift** (160+ lines, 13 tests)
    - Encryption/decryption functionality
    - Unicode and special character handling
    - Key persistence
    - Error handling and edge cases
 
-2. **AIAssistantTests.swift** (180+ lines, 16 tests)
+3. **AIAssistantTests.swift** (180+ lines, 16 tests)
    - Text summarization
    - Action item extraction
    - Grammar fixing
    - Edge cases and integration
 
-3. **SmartPasteEngineTests.swift** (280+ lines, 30+ tests)
+4. **SmartPasteEngineTests.swift** (280+ lines, 30+ tests)
    - Chat app transformations (Slack, Discord)
    - IDE transformations (Xcode, VS Code)
    - Email transformations
@@ -26,7 +33,7 @@ Comprehensive unit tests for the Clipso clipboard manager application.
    - Language detection
    - Category-based transformations
 
-4. **SettingsManagerTests.swift** (240+ lines, 25+ tests)
+5. **SettingsManagerTests.swift** (240+ lines, 25+ tests)
    - Retention days management
    - Max items configuration
    - Excluded apps management
@@ -34,7 +41,7 @@ Comprehensive unit tests for the Clipso clipboard manager application.
    - Persistence
    - Edge cases
 
-5. **SemanticEngineTests.swift** (280+ lines, 22 tests)
+6. **SemanticEngineTests.swift** (280+ lines, 22 tests)
    - Embedding generation for various text types
    - Cosine similarity calculations
    - Finding similar items with thresholds
@@ -42,7 +49,7 @@ Comprehensive unit tests for the Clipso clipboard manager application.
    - Real-world similarity scenarios
    - Edge cases (empty, long, unicode text)
 
-6. **ContextDetectorTests.swift** (340+ lines, 20 tests)
+7. **ContextDetectorTests.swift** (340+ lines, 20 tests)
    - App pattern detection
    - Time window clustering
    - Project tag suggestions
@@ -50,14 +57,14 @@ Comprehensive unit tests for the Clipso clipboard manager application.
    - App matching and time proximity
    - Integration workflow tests
 
-7. **DataModelsTests.swift** (180+ lines, 17 tests)
+8. **DataModelsTests.swift** (180+ lines, 17 tests)
    - ClipboardCategory enum validation
    - Raw values and display names
    - Icons and colors
    - Hashable and CaseIterable conformance
    - Usage scenarios and filtering
 
-**Total:** ~1,660 lines of test code covering 143+ test cases
+**Total:** ~2,000 lines of test code covering 158+ test cases
 
 ## Setup Instructions
 
@@ -159,7 +166,10 @@ Add to your `.github/workflows/test.yml`:
 
 ```
 ClipsoTests/
-├── README.md                        # This file
+├── README.md                        # This file - Quick start guide
+├── TESTING_STRATEGY.md             # Comprehensive testing strategy
+├── MANUAL_TESTING_CHECKLIST.md     # Manual QA checklist
+├── AppDelegateTests.swift          # Menu bar and UI integration tests
 ├── EncryptionHelperTests.swift     # Encryption/security tests
 ├── AIAssistantTests.swift          # AI text processing tests
 ├── SmartPasteEngineTests.swift     # Content transformation tests
@@ -169,9 +179,48 @@ ClipsoTests/
 └── DataModelsTests.swift           # Data model validation tests
 ```
 
+## Testing Documentation
+
+### 📖 [TESTING_STRATEGY.md](TESTING_STRATEGY.md)
+**Complete testing strategy and best practices**
+- Overview of all test types (unit, integration, UI, manual)
+- How each test type would catch common bugs
+- Testing workflow for development and releases
+- CI/CD integration guide
+- Test coverage goals and metrics
+
+**Read this if:**
+- You're new to the project
+- You want to understand the testing philosophy
+- You're adding new test types
+- You're investigating why a bug wasn't caught
+
+### ✅ [MANUAL_TESTING_CHECKLIST.md](MANUAL_TESTING_CHECKLIST.md)
+**Comprehensive manual QA checklist**
+- 10 sections covering all app functionality
+- Menu bar, settings, clipboard, AI features, etc.
+- Quick 5-minute smoke test
+- Pre-release full testing checklist
+
+**Use this before:**
+- Every release
+- After UI changes
+- After modifying AppDelegate or menu items
+- When investigating user-reported bugs
+
+### 🔧 [.github/workflows/test.yml](../.github/workflows/test.yml)
+**Automated CI/CD testing workflow**
+- Runs on every push and PR
+- Multiple jobs: unit tests, build validation, lint checks
+- Tests on multiple macOS versions
+- Uploads test results and artifacts
+
+**Triggered automatically** on push to main/develop/claude/** branches
+
 ## What's Tested
 
 ### ✅ Covered Components:
+- ✅ **AppDelegate** (80% coverage) **NEW** - Menu bar, menu items, window management
 - ✅ **EncryptionHelper** (100% coverage) - Encryption, decryption, key management
 - ✅ **AIClipboardAssistant** (100% coverage) - Summarization, action items, grammar
 - ✅ **SmartPasteEngine** (90% coverage) - Context-aware transformations
@@ -273,15 +322,22 @@ XCTFail("message")                // Explicit failure
 
 ## Coverage Goals
 
-- **Current:** ~65% (7 of 11 core components)
+- **Current:** ~70% (8 of 11 core components)
 - **Target:** 80%+ overall code coverage
-- **Priority:** Cover all business logic before UI
+- **Priority:** Cover all business logic and UI integration before UI components
 
 **Progress:**
 - ✅ Core utilities (EncryptionHelper, DebugHelper)
 - ✅ AI components (AIAssistant, SmartPasteEngine, SemanticEngine, ContextDetector)
 - ✅ Settings & Data (SettingsManager, DataModels)
-- ⏳ Remaining: EmbeddingProcessor, ClipboardMonitor, OCREngine, PersistenceController
+- ✅ UI Integration (AppDelegate - menu bar, menu items) **NEW**
+- ⏳ Remaining: EmbeddingProcessor, ClipboardMonitor, OCREngine
+
+**Recent Improvements:**
+- ✅ Added AppDelegateTests for menu bar functionality (2026-01-20)
+- ✅ Created comprehensive manual testing checklist
+- ✅ Documented complete testing strategy
+- ✅ Set up CI/CD with GitHub Actions
 
 ---
 

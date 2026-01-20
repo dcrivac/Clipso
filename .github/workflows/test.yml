@@ -1,0 +1,168 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, develop, claude/** ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: List available schemes
+        run: xcodebuild -list -project Clipso.xcodeproj
+
+      - name: Build for Testing
+        run: |
+          xcodebuild build-for-testing \
+            -project Clipso.xcodeproj \
+            -scheme Clipso \
+            -destination 'platform=macOS' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Run Unit Tests
+        run: |
+          xcodebuild test-without-building \
+            -project Clipso.xcodeproj \
+            -scheme Clipso \
+            -destination 'platform=macOS' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+        continue-on-error: false
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            ~/Library/Logs/DiagnosticReports/
+            DerivedData/Logs/Test/
+          retention-days: 30
+
+  build-validation:
+    name: Build Validation
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Release Configuration
+        run: |
+          xcodebuild clean build \
+            -project Clipso.xcodeproj \
+            -scheme Clipso \
+            -configuration Release \
+            -derivedDataPath ./DerivedData \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Check for Build Artifacts
+        run: |
+          echo "=== Looking for .app bundle ==="
+          find ./DerivedData -name "*.app" -type d | head -5
+
+          echo ""
+          echo "=== Checking if app exists ==="
+          if find ./DerivedData -name "Clipso.app" -type d | grep -q "Clipso.app"; then
+            echo "✅ Clipso.app found"
+          else
+            echo "❌ Clipso.app not found"
+            exit 1
+          fi
+
+      - name: Upload Build Artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clipso-app
+          path: DerivedData/Build/Products/Release/Clipso.app
+          retention-days: 7
+
+  lint-and-warnings:
+    name: Lint & Warnings Check
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and Check Warnings
+        run: |
+          xcodebuild clean build \
+            -project Clipso.xcodeproj \
+            -scheme Clipso \
+            -destination 'platform=macOS' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            | tee build.log
+
+          # Check for warnings (but don't fail the build)
+          echo ""
+          echo "=== Checking for warnings ==="
+          if grep -i "warning:" build.log; then
+            echo "⚠️  Warnings found (review recommended)"
+          else
+            echo "✅ No warnings found"
+          fi
+
+      - name: Check for TODOs and FIXMEs
+        run: |
+          echo "=== TODOs in code ==="
+          grep -r "TODO:" --include="*.swift" . || echo "No TODOs found"
+
+          echo ""
+          echo "=== FIXMEs in code ==="
+          grep -r "FIXME:" --include="*.swift" . || echo "No FIXMEs found"
+
+  test-matrix:
+    name: Test on Multiple macOS Versions
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-13, macos-14, macos-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show Environment
+        run: |
+          echo "macOS Version:"
+          sw_vers
+          echo ""
+          echo "Xcode Version:"
+          xcodebuild -version
+
+      - name: Build
+        run: |
+          xcodebuild clean build \
+            -project Clipso.xcodeproj \
+            -scheme Clipso \
+            -destination 'platform=macOS' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+        continue-on-error: true
+
+      - name: Report Status
+        if: always()
+        run: |
+          echo "Build completed on ${{ matrix.os }}"
