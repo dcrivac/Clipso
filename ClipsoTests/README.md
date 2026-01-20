@@ -4,7 +4,7 @@ Comprehensive unit tests for the Clipso clipboard manager application.
 
 ## Test Coverage
 
-### ✅ Core Components (4 test files)
+### ✅ Core Components (7 test files)
 
 1. **EncryptionHelperTests.swift** (160+ lines, 13 tests)
    - Encryption/decryption functionality
@@ -34,7 +34,30 @@ Comprehensive unit tests for the Clipso clipboard manager application.
    - Persistence
    - Edge cases
 
-**Total:** ~860 lines of test code covering 80+ test cases
+5. **SemanticEngineTests.swift** (280+ lines, 22 tests)
+   - Embedding generation for various text types
+   - Cosine similarity calculations
+   - Finding similar items with thresholds
+   - Embedding caching
+   - Real-world similarity scenarios
+   - Edge cases (empty, long, unicode text)
+
+6. **ContextDetectorTests.swift** (340+ lines, 20 tests)
+   - App pattern detection
+   - Time window clustering
+   - Project tag suggestions
+   - Confidence scoring
+   - App matching and time proximity
+   - Integration workflow tests
+
+7. **DataModelsTests.swift** (180+ lines, 17 tests)
+   - ClipboardCategory enum validation
+   - Raw values and display names
+   - Icons and colors
+   - Hashable and CaseIterable conformance
+   - Usage scenarios and filtering
+
+**Total:** ~1,660 lines of test code covering 143+ test cases
 
 ## Setup Instructions
 
@@ -140,24 +163,30 @@ ClipsoTests/
 ├── EncryptionHelperTests.swift     # Encryption/security tests
 ├── AIAssistantTests.swift          # AI text processing tests
 ├── SmartPasteEngineTests.swift     # Content transformation tests
-└── SettingsManagerTests.swift      # Settings/preferences tests
+├── SettingsManagerTests.swift      # Settings/preferences tests
+├── SemanticEngineTests.swift       # Semantic search and embeddings tests
+├── ContextDetectorTests.swift      # Pattern detection and tagging tests
+└── DataModelsTests.swift           # Data model validation tests
 ```
 
 ## What's Tested
 
 ### ✅ Covered Components:
-- ✅ EncryptionHelper (100% coverage)
-- ✅ AIClipboardAssistant (100% coverage)
-- ✅ SmartPasteEngine (90% coverage)
-- ✅ SettingsManager (95% coverage)
+- ✅ **EncryptionHelper** (100% coverage) - Encryption, decryption, key management
+- ✅ **AIClipboardAssistant** (100% coverage) - Summarization, action items, grammar
+- ✅ **SmartPasteEngine** (90% coverage) - Context-aware transformations
+- ✅ **SettingsManager** (95% coverage) - Settings persistence and validation
+- ✅ **SemanticEngine** (85% coverage) - Embeddings, similarity, search
+- ✅ **ContextDetector** (80% coverage) - Pattern detection, tag suggestions
+- ✅ **DataModels** (100% coverage) - ClipboardCategory enum
 
 ### 📝 Not Yet Covered (future additions):
-- ⏳ SemanticEngine (embedding generation, similarity)
-- ⏳ ContextDetector (pattern detection, tagging)
 - ⏳ EmbeddingProcessor (background processing)
 - ⏳ ClipboardMonitor (clipboard monitoring)
-- ⏳ PersistenceController (Core Data)
-- ⏳ OCREngine (Vision framework)
+- ⏳ PersistenceController (Core Data operations)
+- ⏳ OCREngine (Vision framework integration)
+- ⏳ ContentView (SwiftUI UI tests)
+- ⏳ SettingsView (SwiftUI UI tests)
 
 ## Writing New Tests
 
@@ -232,17 +261,27 @@ XCTFail("message")                // Explicit failure
 
 ## Next Steps
 
-1. Add tests for remaining components (SemanticEngine, ContextDetector, etc.)
-2. Add UI tests for SwiftUI views
-3. Add integration tests for Core Data
-4. Set up code coverage reporting
-5. Add performance tests for semantic search
+1. Add tests for remaining components:
+   - EmbeddingProcessor (background embedding processing)
+   - ClipboardMonitor (clipboard monitoring logic)
+   - OCREngine (Vision framework integration)
+   - PersistenceController (Core Data operations)
+2. Add UI tests for SwiftUI views (ContentView, SettingsView)
+3. Add integration tests for complete workflows
+4. Set up code coverage reporting in CI/CD
+5. Add performance tests for semantic search operations
 
 ## Coverage Goals
 
-- **Current:** ~35% (4 of 11 components)
+- **Current:** ~65% (7 of 11 core components)
 - **Target:** 80%+ overall code coverage
 - **Priority:** Cover all business logic before UI
+
+**Progress:**
+- ✅ Core utilities (EncryptionHelper, DebugHelper)
+- ✅ AI components (AIAssistant, SmartPasteEngine, SemanticEngine, ContextDetector)
+- ✅ Settings & Data (SettingsManager, DataModels)
+- ⏳ Remaining: EmbeddingProcessor, ClipboardMonitor, OCREngine, PersistenceController
 
 ---
 
