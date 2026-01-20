@@ -1,0 +1,44 @@
+name: Test Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: List files
+        run: |
+          echo "=== Repository contents ==="
+          ls -la
+          echo ""
+          echo "=== Swift files ==="
+          find . -name "*.swift" -not -path "./.git/*" | head -20
+
+      - name: Check Xcode
+        run: |
+          xcodebuild -version
+          xcodebuild -list -project Clipso.xcodeproj
+
+      - name: Try building
+        run: |
+          xcodebuild clean build \
+            -project Clipso.xcodeproj \
+            -scheme Clipso \
+            -configuration Release \
+            -derivedDataPath ./DerivedData \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+        continue-on-error: true
+
+      - name: Check build output
+        run: |
+          echo "=== DerivedData structure ==="
+          find ./DerivedData -type d -maxdepth 4 2>/dev/null || echo "No DerivedData found"
+          echo ""
+          echo "=== Looking for .app ==="
+          find ./DerivedData -name "*.app" 2>/dev/null || echo "No .app found"

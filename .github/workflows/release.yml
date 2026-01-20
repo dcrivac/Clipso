@@ -11,6 +11,10 @@ on:
         required: true
         default: '1.0.0'
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build-dmg:
     runs-on: macos-latest
@@ -35,59 +39,86 @@ jobs:
           echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
         fi
 
+    - name: List available schemes
+      run: xcodebuild -list -project Clipso.xcodeproj
+
     - name: Build Xcode project
       run: |
-        xcodebuild clean archive \
+        xcodebuild clean build \
+          -project Clipso.xcodeproj \
           -scheme Clipso \
           -configuration Release \
-          -archivePath $PWD/build/Clipso.xcarchive \
+          -derivedDataPath ./DerivedData \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO
 
-    - name: Export .app
+    - name: Locate built .app
       run: |
-        xcodebuild -exportArchive \
-          -archivePath $PWD/build/Clipso.xcarchive \
-          -exportPath $PWD/build \
-          -exportOptionsPlist ExportOptions.plist
+        echo "Searching for Clipso.app..."
+        find ./DerivedData -name "Clipso.app" -type d
+        APP_PATH=$(find ./DerivedData -name "Clipso.app" -type d | head -n 1)
+        echo "Found app at: $APP_PATH"
+        echo "APP_PATH=$APP_PATH" >> $GITHUB_ENV
+
+        # Create build directory and copy app
+        mkdir -p build
+        cp -R "$APP_PATH" build/Clipso.app
+
+        echo "Contents of build directory:"
+        ls -la build/
 
     - name: Install create-dmg
       run: brew install create-dmg
 
     - name: Create DMG
       run: |
-        create-dmg \
-          --volname "Clipso" \
-          --volicon "docs/assets/logo.svg" \
-          --window-pos 200 120 \
-          --window-size 800 450 \
-          --icon-size 100 \
-          --icon "Clipso.app" 200 190 \
-          --hide-extension "Clipso.app" \
-          --app-drop-link 600 185 \
-          --no-internet-enable \
-          "Clipso-${{ steps.version.outputs.VERSION }}.dmg" \
-          "build/Clipso.app" || true
+        echo "Creating DMG from build/Clipso.app..."
+        if [ ! -d "build/Clipso.app" ]; then
+          echo "ERROR: build/Clipso.app not found!"
+          ls -la build/
+          exit 1
+        fi
 
-        # create-dmg sometimes fails but still creates the DMG
-        if [ ! -f "Clipso-${{ steps.version.outputs.VERSION }}.dmg" ]; then
-          echo "create-dmg failed, using hdiutil as fallback"
-          mkdir -p dmg-staging
-          cp -r build/Clipso.app dmg-staging/
-          ln -s /Applications dmg-staging/Applications
-          hdiutil create -volname "Clipso" \
-            -srcfolder dmg-staging \
-            -ov -format UDZO \
-            "Clipso-${{ steps.version.outputs.VERSION }}.dmg"
-          rm -rf dmg-staging
+        # Use hdiutil directly (more reliable than create-dmg)
+        mkdir -p dmg-staging
+        cp -R build/Clipso.app dmg-staging/
+        ln -s /Applications dmg-staging/Applications
+
+        hdiutil create -volname "Clipso" \
+          -srcfolder dmg-staging \
+          -ov -format UDZO \
+          "Clipso-${{ steps.version.outputs.VERSION }}.dmg"
+
+        rm -rf dmg-staging
+
+        if [ -f "Clipso-${{ steps.version.outputs.VERSION }}.dmg" ]; then
+          echo "✅ DMG created successfully"
+          ls -lh "Clipso-${{ steps.version.outputs.VERSION }}.dmg"
+        else
+          echo "❌ DMG creation failed"
+          exit 1
         fi
 
     - name: Create ZIP archive
       run: |
+        echo "Creating ZIP from build/Clipso.app..."
+        if [ ! -d "build/Clipso.app" ]; then
+          echo "ERROR: build/Clipso.app not found!"
+          exit 1
+        fi
+
         cd build
-        zip -r "../Clipso-${{ steps.version.outputs.VERSION }}.zip" Clipso.app
+        zip -ry "../Clipso-${{ steps.version.outputs.VERSION }}.zip" Clipso.app
         cd ..
+
+        if [ -f "Clipso-${{ steps.version.outputs.VERSION }}.zip" ]; then
+          echo "✅ ZIP created successfully"
+          ls -lh "Clipso-${{ steps.version.outputs.VERSION }}.zip"
+        else
+          echo "❌ ZIP creation failed"
+          exit 1
+        fi
 
     - name: Generate checksum
       run: |
