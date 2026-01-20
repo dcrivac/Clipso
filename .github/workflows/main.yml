@@ -60,7 +60,7 @@ jobs:
           ditto -c -k --sequesterRsrc --keepParent build/DerivedData/Build/Products/Release/Clipso.app artifacts/Clipso.app.zip
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: clipso-app
           path: artifacts/Clipso.app.zip
@@ -78,7 +78,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: clipso-app
           path: artifacts
@@ -167,7 +167,7 @@ jobs:
           ls -lh artifacts/
 
       - name: Upload DMG artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: clipso-dmg
           path: artifacts/${{ steps.version.outputs.dmg_name }}
@@ -180,7 +180,7 @@ jobs:
           cat ${{ steps.version.outputs.dmg_name }}.sha256
 
       - name: Upload checksums
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: checksums
           path: artifacts/*.sha256
@@ -198,13 +198,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download DMG artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: clipso-dmg
           path: release_artifacts
 
       - name: Download checksums
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: checksums
           path: release_artifacts
