@@ -98,31 +98,56 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Mobile menu toggle (for future implementation)
+// Mobile menu toggle
 const createMobileMenu = () => {
     const navLinks = document.querySelector('.nav-links');
+    const navContent = document.querySelector('.nav-content');
+
+    if (!navLinks || !navContent) {
+        console.warn('Navigation elements not found');
+        return;
+    }
+
     const menuButton = document.createElement('button');
     menuButton.className = 'mobile-menu-button';
     menuButton.innerHTML = '☰';
+    menuButton.setAttribute('aria-label', 'Toggle mobile menu');
+    menuButton.setAttribute('aria-expanded', 'false');
     menuButton.style.display = 'none';
     menuButton.style.background = 'none';
     menuButton.style.border = 'none';
     menuButton.style.fontSize = '1.5rem';
     menuButton.style.cursor = 'pointer';
     menuButton.style.color = 'var(--text-primary)';
+    menuButton.style.padding = '0.5rem';
 
-    // Check if screen is mobile
+    let menuOpen = false;
+
+    // Check if screen is mobile and update UI
     const checkMobile = () => {
         if (window.innerWidth <= 768) {
             menuButton.style.display = 'block';
+            if (!menuOpen) {
+                navLinks.classList.add('mobile-hidden');
+            }
         } else {
             menuButton.style.display = 'none';
-            navLinks.style.display = 'flex';
+            navLinks.classList.remove('mobile-hidden', 'mobile-open');
+            navLinks.removeAttribute('style');
+            menuOpen = false;
+            menuButton.setAttribute('aria-expanded', 'false');
         }
     };
 
+    // Toggle mobile menu
     menuButton.addEventListener('click', () => {
-        if (navLinks.style.display === 'none' || navLinks.style.display === '') {
+        menuOpen = !menuOpen;
+        menuButton.setAttribute('aria-expanded', menuOpen.toString());
+        menuButton.innerHTML = menuOpen ? '✕' : '☰';
+
+        if (menuOpen) {
+            navLinks.classList.remove('mobile-hidden');
+            navLinks.classList.add('mobile-open');
             navLinks.style.display = 'flex';
             navLinks.style.flexDirection = 'column';
             navLinks.style.position = 'absolute';
@@ -132,20 +157,37 @@ const createMobileMenu = () => {
             navLinks.style.background = 'white';
             navLinks.style.padding = '1rem';
             navLinks.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            navLinks.style.zIndex = '1000';
         } else {
-            navLinks.style.display = 'none';
+            navLinks.classList.add('mobile-hidden');
+            navLinks.classList.remove('mobile-open');
+            navLinks.removeAttribute('style');
         }
     });
 
-    document.querySelector('.nav-content').insertBefore(menuButton, navLinks);
+    // Close menu when clicking on a link
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (menuOpen && window.innerWidth <= 768) {
+                menuOpen = false;
+                menuButton.innerHTML = '☰';
+                menuButton.setAttribute('aria-expanded', 'false');
+                navLinks.classList.add('mobile-hidden');
+                navLinks.classList.remove('mobile-open');
+                navLinks.removeAttribute('style');
+            }
+        });
+    });
+
+    navContent.insertBefore(menuButton, navLinks);
     window.addEventListener('resize', checkMobile);
     checkMobile();
 };
 
-// Initialize mobile menu
-if (window.innerWidth <= 768) {
+// Initialize mobile menu on all devices (responsive behavior handled inside)
+document.addEventListener('DOMContentLoaded', () => {
     createMobileMenu();
-}
+});
 
 // Add particle effect to hero section
 const createParticles = () => {
@@ -189,19 +231,31 @@ if (window.innerWidth > 768) {
     createParticles();
 }
 
-// Download button analytics (placeholder)
+// Download button analytics
 document.querySelectorAll('a[href*="releases"]').forEach(button => {
     button.addEventListener('click', () => {
-        console.log('Download button clicked');
-        // Add analytics tracking here
+        // Track download button clicks
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'download', {
+                'event_category': 'engagement',
+                'event_label': 'download_button',
+                'value': 1
+            });
+        }
     });
 });
 
-// GitHub button analytics (placeholder)
+// GitHub button analytics
 document.querySelectorAll('a[href*="github.com"]').forEach(button => {
     button.addEventListener('click', () => {
-        console.log('GitHub button clicked');
-        // Add analytics tracking here
+        // Track GitHub link clicks
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+                'event_category': 'outbound',
+                'event_label': 'github_link',
+                'transport_type': 'beacon'
+            });
+        }
     });
 });
 
@@ -292,6 +346,170 @@ if ('IntersectionObserver' in window) {
         imageObserver.observe(img);
     });
 }
+
+// Waitlist form submission handling with error handling
+document.addEventListener('DOMContentLoaded', () => {
+    const waitlistForm = document.querySelector('.waitlist-form');
+
+    if (!waitlistForm) {
+        return; // Form not found on this page
+    }
+
+    const emailInput = waitlistForm.querySelector('input[type="email"]');
+    const submitButton = waitlistForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
+
+    // Create status message element
+    const statusMessage = document.createElement('div');
+    statusMessage.className = 'form-status-message';
+    statusMessage.style.marginTop = '1rem';
+    statusMessage.style.padding = '1rem';
+    statusMessage.style.borderRadius = '0.5rem';
+    statusMessage.style.fontSize = '0.875rem';
+    statusMessage.style.fontWeight = '500';
+    statusMessage.style.display = 'none';
+    waitlistForm.appendChild(statusMessage);
+
+    // Email validation
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Show status message
+    function showStatus(message, type) {
+        statusMessage.textContent = message;
+        statusMessage.style.display = 'block';
+
+        if (type === 'success') {
+            statusMessage.style.background = 'linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%)';
+            statusMessage.style.color = '#065F46';
+            statusMessage.style.border = '2px solid #10B981';
+        } else if (type === 'error') {
+            statusMessage.style.background = 'linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%)';
+            statusMessage.style.color = '#991B1B';
+            statusMessage.style.border = '2px solid #EF4444';
+        } else if (type === 'loading') {
+            statusMessage.style.background = 'linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)';
+            statusMessage.style.color = '#1E40AF';
+            statusMessage.style.border = '2px solid #3B82F6';
+        }
+    }
+
+    // Hide status message
+    function hideStatus() {
+        statusMessage.style.display = 'none';
+    }
+
+    // Set button loading state
+    function setButtonLoading(isLoading) {
+        if (isLoading) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Joining...';
+            submitButton.style.opacity = '0.7';
+            submitButton.style.cursor = 'not-allowed';
+        } else {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+            submitButton.style.opacity = '1';
+            submitButton.style.cursor = 'pointer';
+        }
+    }
+
+    // Handle form submission
+    waitlistForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+
+        // Validate email
+        if (!email) {
+            showStatus('Please enter your email address', 'error');
+            emailInput.focus();
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            showStatus('Please enter a valid email address', 'error');
+            emailInput.focus();
+            return;
+        }
+
+        // Show loading state
+        hideStatus();
+        setButtonLoading(true);
+        showStatus('Adding you to the waitlist...', 'loading');
+
+        try {
+            // Submit to Formspree
+            const formData = new FormData(waitlistForm);
+            const response = await fetch(waitlistForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                // Success
+                showStatus('🎉 Success! Check your email to confirm your subscription.', 'success');
+                waitlistForm.reset();
+
+                // Track conversion (if analytics enabled)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'waitlist_signup', {
+                        'event_category': 'engagement',
+                        'event_label': 'waitlist_form'
+                    });
+                }
+
+                // Hide success message after 10 seconds
+                setTimeout(() => {
+                    hideStatus();
+                }, 10000);
+            } else {
+                // Formspree returned an error
+                const data = await response.json();
+
+                if (data.errors) {
+                    const errorMessages = data.errors.map(err => err.message).join(', ');
+                    showStatus(`Error: ${errorMessages}`, 'error');
+                } else {
+                    showStatus('Something went wrong. Please try again.', 'error');
+                }
+            }
+        } catch (error) {
+            // Network error or other issue
+            console.error('Form submission error:', error);
+            showStatus('Network error. Please check your connection and try again.', 'error');
+        } finally {
+            setButtonLoading(false);
+        }
+    });
+
+    // Real-time email validation feedback
+    let validationTimeout;
+    emailInput.addEventListener('input', () => {
+        clearTimeout(validationTimeout);
+        hideStatus();
+
+        validationTimeout = setTimeout(() => {
+            const email = emailInput.value.trim();
+            if (email && !isValidEmail(email)) {
+                emailInput.style.borderColor = '#EF4444';
+            } else {
+                emailInput.style.borderColor = '';
+            }
+        }, 500);
+    });
+
+    // Clear validation on focus
+    emailInput.addEventListener('focus', () => {
+        emailInput.style.borderColor = '';
+        hideStatus();
+    });
+});
 
 // Console Easter egg
 console.log('%c👋 Hello Developer!', 'font-size: 20px; font-weight: bold; color: #6366F1;');

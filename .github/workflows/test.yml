@@ -8,136 +8,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  unit-tests:
-    name: Unit Tests
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Show Xcode version
-        run: xcodebuild -version
-
-      - name: List available schemes
-        run: xcodebuild -list -project Clipso.xcodeproj
-
-      - name: Build for Testing
-        run: |
-          xcodebuild build-for-testing \
-            -project Clipso.xcodeproj \
-            -scheme Clipso \
-            -destination 'platform=macOS' \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
-
-      - name: Run Unit Tests
-        run: |
-          xcodebuild test-without-building \
-            -project Clipso.xcodeproj \
-            -scheme Clipso \
-            -destination 'platform=macOS' \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
-        continue-on-error: false
-
-      - name: Upload Test Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: |
-            ~/Library/Logs/DiagnosticReports/
-            DerivedData/Logs/Test/
-          retention-days: 30
-
-  build-validation:
-    name: Build Validation
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Release Configuration
-        run: |
-          xcodebuild clean build \
-            -project Clipso.xcodeproj \
-            -scheme Clipso \
-            -configuration Release \
-            -derivedDataPath ./DerivedData \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
-
-      - name: Check for Build Artifacts
-        run: |
-          echo "=== Looking for .app bundle ==="
-          find ./DerivedData -name "*.app" -type d | head -5
-
-          echo ""
-          echo "=== Checking if app exists ==="
-          if find ./DerivedData -name "Clipso.app" -type d | grep -q "Clipso.app"; then
-            echo "✅ Clipso.app found"
-          else
-            echo "❌ Clipso.app not found"
-            exit 1
-          fi
-
-      - name: Upload Build Artifacts
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: clipso-app
-          path: DerivedData/Build/Products/Release/Clipso.app
-          retention-days: 7
-
-  lint-and-warnings:
-    name: Lint & Warnings Check
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build and Check Warnings
-        run: |
-          xcodebuild clean build \
-            -project Clipso.xcodeproj \
-            -scheme Clipso \
-            -destination 'platform=macOS' \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            | tee build.log
-
-          # Check for warnings (but don't fail the build)
-          echo ""
-          echo "=== Checking for warnings ==="
-          if grep -i "warning:" build.log; then
-            echo "⚠️  Warnings found (review recommended)"
-          else
-            echo "✅ No warnings found"
-          fi
-
-      - name: Check for TODOs and FIXMEs
-        run: |
-          echo "=== TODOs in code ==="
-          grep -r "TODO:" --include="*.swift" . || echo "No TODOs found"
-
-          echo ""
-          echo "=== FIXMEs in code ==="
-          grep -r "FIXME:" --include="*.swift" . || echo "No FIXMEs found"
-
-  test-matrix:
-    name: Test on Multiple macOS Versions
+  # Main test job using matrix strategy for efficiency
+  test:
+    name: Test on ${{ matrix.os }} - ${{ matrix.configuration }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        # Test on multiple macOS versions
         os: [macos-13, macos-14, macos-latest]
+        # Test both Debug and Release configurations
+        configuration: [Debug, Release]
+        # Reduce combinations for faster CI on non-main branches
+        exclude:
+          # Only test Release on latest macOS for non-PR builds
+          - os: macos-13
+            configuration: Release
+          - os: macos-14
+            configuration: Release
 
     steps:
       - name: Checkout code
@@ -145,24 +33,154 @@ jobs:
 
       - name: Show Environment
         run: |
-          echo "macOS Version:"
+          echo "=== macOS Version ==="
           sw_vers
           echo ""
-          echo "Xcode Version:"
+          echo "=== Xcode Version ==="
           xcodebuild -version
+          echo ""
+          echo "=== Configuration ==="
+          echo "OS: ${{ matrix.os }}"
+          echo "Config: ${{ matrix.configuration }}"
 
-      - name: Build
+      # Cache DerivedData to speed up builds
+      - name: Cache DerivedData
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-deriveddata-${{ matrix.configuration }}-${{ hashFiles('**/*.swift', '**/*.pbxproj') }}
+          restore-keys: |
+            ${{ runner.os }}-deriveddata-${{ matrix.configuration }}-
+            ${{ runner.os }}-deriveddata-
+
+      # Single build step that validates compilation
+      - name: Build for Testing
         run: |
-          xcodebuild clean build \
+          xcodebuild build-for-testing \
             -project Clipso.xcodeproj \
             -scheme Clipso \
+            -configuration ${{ matrix.configuration }} \
             -destination 'platform=macOS' \
+            -derivedDataPath ./DerivedData \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            | tee build.log
+
+      # Run unit tests (Debug only for speed)
+      - name: Run Unit Tests
+        if: matrix.configuration == 'Debug'
+        run: |
+          xcodebuild test-without-building \
+            -project Clipso.xcodeproj \
+            -scheme Clipso \
+            -configuration Debug \
+            -destination 'platform=macOS' \
+            -derivedDataPath ./DerivedData \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
-        continue-on-error: true
+        continue-on-error: false
 
-      - name: Report Status
-        if: always()
+      # Verify build artifacts exist
+      - name: Verify Build Artifacts
         run: |
-          echo "Build completed on ${{ matrix.os }}"
+          echo "=== Checking for .app bundle ==="
+          if find ./DerivedData -name "Clipso.app" -type d | grep -q "Clipso.app"; then
+            echo "✅ Clipso.app found"
+          else
+            echo "❌ Clipso.app not found"
+            exit 1
+          fi
+
+      # Check for warnings (Debug builds only)
+      - name: Check Build Warnings
+        if: matrix.configuration == 'Debug' && matrix.os == 'macos-latest'
+        run: |
+          echo "=== Checking for warnings ==="
+          if grep -i "warning:" build.log; then
+            echo "⚠️  Warnings found (review recommended)"
+          else
+            echo "✅ No warnings found"
+          fi
+
+      # Upload test results (Debug + latest macOS only)
+      - name: Upload Test Results
+        if: always() && matrix.configuration == 'Debug' && matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}-${{ matrix.configuration }}
+          path: |
+            ~/Library/Logs/DiagnosticReports/
+            DerivedData/Logs/Test/
+          retention-days: 7
+
+      # Upload Release build (Release + latest macOS only)
+      - name: Upload Release Build
+        if: success() && matrix.configuration == 'Release' && matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: clipso-app-${{ matrix.os }}
+          path: DerivedData/Build/Products/Release/Clipso.app
+          retention-days: 7
+
+  # Separate lightweight job for code quality checks
+  code-quality:
+    name: Code Quality Checks
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for TODOs and FIXMEs
+        run: |
+          echo "=== TODOs in code ==="
+          TODO_COUNT=$(grep -r "TODO:" --include="*.swift" . | wc -l || echo "0")
+          echo "Found $TODO_COUNT TODOs"
+          grep -r "TODO:" --include="*.swift" . || echo "No TODOs found"
+
+          echo ""
+          echo "=== FIXMEs in code ==="
+          FIXME_COUNT=$(grep -r "FIXME:" --include="*.swift" . | wc -l || echo "0")
+          echo "Found $FIXME_COUNT FIXMEs"
+          grep -r "FIXME:" --include="*.swift" . || echo "No FIXMEs found"
+
+      - name: Check Swift File Formatting
+        run: |
+          echo "=== Checking for trailing whitespace ==="
+          if find . -name "*.swift" -exec grep -l " $" {} \;; then
+            echo "⚠️  Files with trailing whitespace found"
+          else
+            echo "✅ No trailing whitespace"
+          fi
+
+      - name: Check for Debug Statements
+        run: |
+          echo "=== Checking for debug print statements ==="
+          DEBUG_PRINTS=$(grep -r "print(" --include="*.swift" . | grep -v "// print(" | wc -l || echo "0")
+          echo "Found $DEBUG_PRINTS print statements"
+          if [ "$DEBUG_PRINTS" -gt 0 ]; then
+            echo "⚠️  Consider removing debug print statements"
+          fi
+
+  # Status check job - required for branch protection
+  test-status:
+    name: All Tests Passed
+    if: always()
+    needs: [test, code-quality]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check test results
+        run: |
+          if [ "${{ needs.test.result }}" != "success" ]; then
+            echo "❌ Tests failed"
+            exit 1
+          fi
+          if [ "${{ needs.code-quality.result }}" != "success" ]; then
+            echo "⚠️  Code quality checks failed"
+            # Don't fail on code quality issues, just warn
+          fi
+          echo "✅ All tests passed"
+

@@ -18,11 +18,15 @@ struct ClipsoApp: App {
 }
 
 // MARK: - App Delegate (Manages Menu Bar & Global Shortcuts)
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var statusItem: NSStatusItem?
     var popover: NSPopover?
     var clipboardMonitor: ClipboardMonitor?
     var eventMonitor: Any?
+
+    // Retain windows to prevent deallocation
+    var settingsWindow: NSWindow?
+    var licenseWindow: NSWindow?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("🚀 Application launching...")
@@ -175,6 +179,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func showLicenseActivation() {
+        // If window already exists, bring it to front
+        if let existingWindow = licenseWindow {
+            existingWindow.makeKeyAndOrderFront(nil)
+            NSApp.activate(ignoringOtherApps: true)
+            return
+        }
+
+        // Create new window and retain it
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 500, height: 400),
             styleMask: [.titled, .closable],
@@ -183,23 +195,41 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         window.center()
         window.title = "Activate License"
+        window.delegate = self
         window.contentView = NSHostingController(rootView: LicenseActivationView()).view
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+
+        // Retain window to prevent deallocation
+        licenseWindow = window
     }
 
     @objc private func showSettings() {
-        // Try the modern macOS 13+ selector first
-        if NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil) {
+        // Try the modern macOS 13+ selector first (with safety check)
+        let modernSelector = Selector(("showSettingsWindow:"))
+        if NSApp.responds(to: modernSelector) {
+            if NSApp.sendAction(modernSelector, to: nil, from: nil) {
+                return
+            }
+        }
+
+        // Fall back to the older selector for macOS 12 and earlier (with safety check)
+        let legacySelector = Selector(("showPreferencesWindow:"))
+        if NSApp.responds(to: legacySelector) {
+            if NSApp.sendAction(legacySelector, to: nil, from: nil) {
+                return
+            }
+        }
+
+        // If custom window already exists, bring it to front
+        if let existingWindow = settingsWindow {
+            existingWindow.makeKeyAndOrderFront(nil)
+            NSApp.activate(ignoringOtherApps: true)
             return
         }
 
-        // Fall back to the older selector for macOS 12 and earlier
-        if NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil) {
-            return
-        }
-
-        // If neither worked, open a custom settings window
+        // If neither selector worked, open a custom settings window
+        print("⚠️ Native settings selectors not available, using custom window")
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 600, height: 600),
             styleMask: [.titled, .closable, .resizable],
@@ -208,11 +238,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         window.center()
         window.title = "Settings"
+        window.delegate = self
         window.contentView = NSHostingController(
             rootView: SettingsView()
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         ).view
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+
+        // Retain window to prevent deallocation
+        settingsWindow = window
+    }
+
+    // MARK: - NSWindowDelegate
+
+    func windowWillClose(_ notification: Notification) {
+        // Clean up window references when windows are closed
+        if let window = notification.object as? NSWindow {
+            if window == settingsWindow {
+                settingsWindow = nil
+            } else if window == licenseWindow {
+                licenseWindow = nil
+            }
+        }
     }
 }
