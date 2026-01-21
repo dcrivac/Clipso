@@ -16,6 +16,17 @@ class LicenseManager: ObservableObject {
     @Published var licenseType: LicenseType = .free
     @Published var licenseEmail: String?
 
+    // MARK: - Development Mode
+    // Set this to true in debug builds to test Pro features without activation
+    #if DEBUG
+    @Published var isDevelopmentMode: Bool = false {
+        didSet {
+            print("🔧 Development Mode: \(isDevelopmentMode ? "ENABLED" : "DISABLED")")
+            print("   Pro features are now \(isDevelopmentMode ? "accessible" : "restricted")")
+        }
+    }
+    #endif
+
     // Paddle Configuration
     private let vendorID = "YOUR_PADDLE_VENDOR_ID" // Replace with your Vendor ID from Paddle Dashboard
     private let lifetimePriceID = "pri_LIFETIME_PRICE_ID" // Price ID for Lifetime from Paddle
@@ -50,8 +61,33 @@ class LicenseManager: ObservableObject {
 
     /// Check if user has Pro features
     func hasProAccess() -> Bool {
+        #if DEBUG
+        // In debug builds, allow development mode bypass for testing
+        if isDevelopmentMode {
+            return true
+        }
+        #endif
+
         return isProUser && (licenseType == .lifetime || licenseType == .annual || licenseType == .monthly)
     }
+
+    #if DEBUG
+    /// Enable development mode to test Pro features without license activation
+    /// Only available in debug builds
+    func enableDevelopmentMode() {
+        isDevelopmentMode = true
+    }
+
+    /// Disable development mode
+    func disableDevelopmentMode() {
+        isDevelopmentMode = false
+    }
+
+    /// Toggle development mode
+    func toggleDevelopmentMode() {
+        isDevelopmentMode.toggle()
+    }
+    #endif
 
     /// Activate license with key
     func activateLicense(key: String, email: String = "") async throws {
