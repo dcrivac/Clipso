@@ -73,6 +73,29 @@ struct SettingsView: View {
                     .background(Color(NSColor.controlBackgroundColor))
                     .cornerRadius(8)
 
+                    #if DEBUG
+                    // Developer Mode (Debug builds only)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Developer Mode")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+
+                        Toggle("Enable Pro Features (Testing)", isOn: $licenseManager.isDevelopmentMode)
+                            .toggleStyle(.switch)
+
+                        Text("🔧 Bypass license activation to test Pro features in debug builds")
+                            .font(.caption)
+                            .foregroundColor(.orange)
+                    }
+                    .padding()
+                    .background(Color.orange.opacity(0.1))
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.orange.opacity(0.3), lineWidth: 1)
+                    )
+                    #endif
+
                     // History settings
                     VStack(alignment: .leading, spacing: 8) {
                         Text("History Retention")
