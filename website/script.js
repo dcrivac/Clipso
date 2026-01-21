@@ -309,19 +309,31 @@ if (window.innerWidth > 768) {
     createParticles();
 }
 
-// Download button analytics (placeholder)
+// Download button analytics
 document.querySelectorAll('a[href*="releases"]').forEach(button => {
     button.addEventListener('click', () => {
-        console.log('Download button clicked');
-        // Add analytics tracking here
+        // Track download button clicks
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'download', {
+                'event_category': 'engagement',
+                'event_label': 'download_button',
+                'value': 1
+            });
+        }
     });
 });
 
-// GitHub button analytics (placeholder)
+// GitHub button analytics
 document.querySelectorAll('a[href*="github.com"]').forEach(button => {
     button.addEventListener('click', () => {
-        console.log('GitHub button clicked');
-        // Add analytics tracking here
+        // Track GitHub link clicks
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+                'event_category': 'outbound',
+                'event_label': 'github_link',
+                'transport_type': 'beacon'
+            });
+        }
     });
 });
 
