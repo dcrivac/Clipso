@@ -142,13 +142,37 @@ Clipso offers a generous free tier and an optional Premium upgrade for power use
 
 ### Installation
 
-#### Option 1: Download Pre-built App (Coming Soon)
+#### Option 1: Download Pre-built App (Recommended)
 
-```bash
-# Download from releases page
-# Drag to Applications folder
-# Done!
-```
+1. **Download the latest release**
+   - Go to [Releases](https://github.com/dcrivac/Clipso/releases)
+   - Download `Clipso-X.X.X.dmg`
+
+2. **Install the app**
+   - Open the downloaded DMG file
+   - Drag Clipso to your Applications folder
+
+3. **Handle macOS Gatekeeper (if needed)**
+
+   If you see **"Clipso is damaged and can't be opened"**, this is a Gatekeeper security warning (the app isn't damaged). Choose one of these fixes:
+
+   **Quick Fix (Recommended):**
+   ```bash
+   xattr -cr /Applications/Clipso.app
+   ```
+
+   **Alternative: Right-Click Method**
+   - Right-click (or Control+click) on Clipso.app in Applications
+   - Select "Open" from the menu
+   - Click "Open" again in the security dialog
+
+   See [INSTALLATION_TROUBLESHOOTING.md](INSTALLATION_TROUBLESHOOTING.md) for details.
+
+4. **Grant permissions when prompted**
+   - **Accessibility**: To detect the active application
+   - **Clipboard Access**: Automatic on first use
+
+**Note**: Future releases will be code-signed and notarized to avoid the Gatekeeper warning. See [CODE_SIGNING_GUIDE.md](CODE_SIGNING_GUIDE.md) for details.
 
 #### Option 2: Build from Source
 
