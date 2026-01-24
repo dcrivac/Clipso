@@ -29,7 +29,7 @@ class LicenseManager: ObservableObject {
 
     // Paddle Configuration - SANDBOX (for testing)
     private let vendorID = "test_859aa26dd9d5c623ccccf54e0c7" // Paddle Sandbox client-side token
-    private let lifetimePriceID = "pri_01kfr145r1eh8f7m8w0nfkvz74" // Yearly/Lifetime Price ID (Sandbox)
+    private let lifetimePriceID = "pri_01kfr145r1eh8f7m8w0nfkvz74uf" // Yearly/Lifetime Price ID (Sandbox)
     private let annualPriceID = "pri_01kfr12rgvdnhpr52zspmqvnk1" // Annual Price ID (Sandbox)
     private let apiKey = "YOUR_PADDLE_API_KEY" // API Key from Paddle Developer Tools (get from Authentication)
     private let useSandbox = true // Set to false for production
