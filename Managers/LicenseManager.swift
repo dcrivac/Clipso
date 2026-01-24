@@ -30,10 +30,19 @@ class LicenseManager: ObservableObject {
     // Paddle Configuration - Loaded from PaddleConfig
     private let paddleConfig: PaddleEnvironment
 
+    // License server URL
+    private let licenseServerURL = "https://api.clipso.app" // Update with your deployed server URL
+    // For local testing: "http://localhost:3000"
+
     // Keychain keys
     private let licenseKeyKeychainKey = "com.clipboardmanager.license.key"
     private let licenseEmailKeychainKey = "com.clipboardmanager.license.email"
     private let licenseTypeKeychainKey = "com.clipboardmanager.license.type"
+    private let lastValidationKeychainKey = "com.clipboardmanager.license.lastvalidation"
+
+    // Revalidation settings
+    private let revalidationIntervalDays = 7 // Revalidate every 7 days
+    private var revalidationTimer: Timer?
 
     enum LicenseType: String, Codable {
         case free = "free"
@@ -53,6 +62,11 @@ class LicenseManager: ObservableObject {
         // Load Paddle configuration from secure source
         self.paddleConfig = PaddleConfig.loadConfig()
         loadLicenseFromKeychain()
+
+        // Start periodic revalidation if license is active
+        if isProUser {
+            startPeriodicRevalidation()
+        }
     }
 
     // MARK: - Public Methods
@@ -109,6 +123,9 @@ class LicenseManager: ObservableObject {
             self.isProUser = true
             self.licenseType = type
             self.licenseEmail = email.isEmpty ? nil : email
+
+            // Start periodic revalidation
+            self.startPeriodicRevalidation()
         }
     }
 
@@ -118,6 +135,9 @@ class LicenseManager: ObservableObject {
         isProUser = false
         licenseType = .free
         licenseEmail = nil
+
+        // Stop periodic revalidation
+        stopPeriodicRevalidation()
     }
 
     /// Open Paddle checkout for purchase
@@ -156,49 +176,45 @@ class LicenseManager: ObservableObject {
     // MARK: - Private Methods
 
     private func validateLicenseWithPaddle(key: String) async throws -> (Bool, LicenseType) {
-        // Paddle License Validation API
-        // https://developer.paddle.com/api-reference/transactions/get-transaction
-        // Note: This implementation validates using Paddle's transaction API
-        // In production, you'd typically validate the license key using your backend
-
-        let urlString = "\(paddleConfig.baseURL)/transactions"
+        // Use backend API for license validation and activation
+        let urlString = "\(licenseServerURL)/api/licenses/activate"
 
         guard let url = URL(string: urlString) else {
             throw LicenseError.networkError
         }
 
-        // Generate unique instance ID for device binding
+        // Get device info
         let instanceID = getDeviceInstanceID()
+        let deviceName = Host.current().localizedName ?? "Mac"
+        let deviceModel = getDeviceModel()
+        let osVersion = ProcessInfo.processInfo.operatingSystemVersionString
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
 
         // Configure URL session with timeout
         let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 30  // 30 second timeout
-        config.timeoutIntervalForResource = 60 // 60 second resource timeout
+        config.timeoutIntervalForRequest = 30
+        config.timeoutIntervalForResource = 60
         let session = URLSession(configuration: config)
 
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("Bearer \(paddleConfig.apiKey)", forHTTPHeaderField: "Authorization")
-        request.setValue(instanceID, forHTTPHeaderField: "X-Device-ID") // Send device ID for server-side validation
-        request.timeoutInterval = 30
+        // Prepare request body
+        let requestBody: [String: Any] = [
+            "license_key": key,
+            "device_id": instanceID,
+            "device_name": deviceName,
+            "device_model": deviceModel,
+            "os_version": osVersion,
+            "app_version": appVersion
+        ]
 
-        // In a real implementation, you would:
-        // 1. Store transaction IDs with license keys in your backend
-        // 2. Use Paddle's webhook to track purchases
-        // 3. Validate license keys against your backend
-        // 4. Check device activation limits using the instanceID
-        //
-        // For now, we'll validate by checking if the key format is valid
-        // and assume it's tied to a transaction you've stored
-
-        // Simple format validation (Paddle transaction IDs typically start with "txn_")
-        if !key.hasPrefix("txn_") && !key.contains("-") {
-            throw LicenseError.invalidKey
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: requestBody) else {
+            throw LicenseError.networkError
         }
 
-        // For a complete implementation, make an API call to your backend
-        // that checks if this license key is valid and returns the subscription status
-        // This is a simplified version for demonstration
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        request.timeoutInterval = 30
 
         let (data, response) = try await session.data(for: request)
 
@@ -206,39 +222,95 @@ class LicenseManager: ObservableObject {
             throw LicenseError.networkError
         }
 
-        // Check response status
-        guard httpResponse.statusCode == 200 else {
-            throw LicenseError.validationFailed
-        }
-
         // Parse response
-        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let dataArray = json["data"] as? [[String: Any]] else {
-            throw LicenseError.validationFailed
+        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            throw LicenseError.networkError
         }
 
-        // Find the transaction matching this license key
-        guard let transaction = dataArray.first(where: { trans in
-            if let transID = trans["id"] as? String {
-                return transID == key || key.contains(transID)
+        // Check if activation was successful
+        guard let success = json["success"] as? Bool, success else {
+            // Handle specific error cases
+            if let error = json["error"] as? String {
+                switch error {
+                case "INVALID_LICENSE":
+                    throw LicenseError.invalidKey
+                case "DEVICE_LIMIT_EXCEEDED":
+                    throw LicenseError.alreadyActivated
+                default:
+                    throw LicenseError.validationFailed
+                }
             }
-            return false
-        }) else {
             throw LicenseError.validationFailed
         }
 
-        // Extract subscription/product information
-        guard let items = transaction["items"] as? [[String: Any]],
-              let firstItem = items.first,
-              let price = firstItem["price"] as? [String: Any],
-              let priceID = price["id"] as? String else {
+        // Extract license type
+        guard let licenseTypeString = json["license_type"] as? String,
+              let licenseType = LicenseType(rawValue: licenseTypeString) else {
             throw LicenseError.validationFailed
         }
 
-        // Determine license type from price ID
-        let licenseType = determineLicenseTypeFromPriceID(priceID: priceID)
+        // Save last validation timestamp
+        saveToKeychain(key: lastValidationKeychainKey, value: ISO8601DateFormatter().string(from: Date()))
 
         return (true, licenseType)
+    }
+
+    /// Revalidate existing license with backend
+    private func revalidateLicense() async throws {
+        guard let licenseKey = getFromKeychain(key: licenseKeyKeychainKey) else {
+            throw LicenseError.invalidKey
+        }
+
+        let urlString = "\(licenseServerURL)/api/licenses/validate"
+
+        guard let url = URL(string: urlString) else {
+            throw LicenseError.networkError
+        }
+
+        let instanceID = getDeviceInstanceID()
+
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 30
+        config.timeoutIntervalForResource = 60
+        let session = URLSession(configuration: config)
+
+        let requestBody: [String: Any] = [
+            "license_key": licenseKey,
+            "device_id": instanceID
+        ]
+
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: requestBody) else {
+            throw LicenseError.networkError
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        request.timeoutInterval = 30
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw LicenseError.networkError
+        }
+
+        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let valid = json["valid"] as? Bool else {
+            throw LicenseError.networkError
+        }
+
+        if !valid {
+            // License is no longer valid, deactivate
+            print("⚠️ License validation failed, deactivating")
+            deactivateLicense()
+            throw LicenseError.validationFailed
+        }
+
+        // Update last validation timestamp
+        saveToKeychain(key: lastValidationKeychainKey, value: ISO8601DateFormatter().string(from: Date()))
+
+        print("✅ License revalidated successfully")
     }
 
     private func determineLicenseTypeFromPriceID(priceID: String) -> LicenseType {
@@ -276,6 +348,80 @@ class LicenseManager: ObservableObject {
         let instanceID = UUID().uuidString
         UserDefaults.standard.set(instanceID, forKey: instanceKey)
         return instanceID
+    }
+
+    private func getDeviceModel() -> String {
+        var size = 0
+        sysctlbyname("hw.model", nil, &size, nil, 0)
+        var model = [CChar](repeating: 0, count: size)
+        sysctlbyname("hw.model", &model, &size, nil, 0)
+        return String(cString: model)
+    }
+
+    /// Start periodic revalidation timer
+    private func startPeriodicRevalidation() {
+        // Check if we need to revalidate now
+        Task {
+            await checkAndRevalidate()
+        }
+
+        // Set up timer to check every day
+        revalidationTimer = Timer.scheduledTimer(withTimeInterval: 24 * 60 * 60, repeats: true) { [weak self] _ in
+            Task { [weak self] in
+                await self?.checkAndRevalidate()
+            }
+        }
+
+        print("🔄 Periodic revalidation started (every 24 hours)")
+    }
+
+    /// Stop periodic revalidation timer
+    private func stopPeriodicRevalidation() {
+        revalidationTimer?.invalidate()
+        revalidationTimer = nil
+        print("🛑 Periodic revalidation stopped")
+    }
+
+    /// Check if revalidation is needed and perform it
+    private func checkAndRevalidate() async {
+        guard isProUser else {
+            return
+        }
+
+        // Check last validation timestamp
+        guard let lastValidationString = getFromKeychain(key: lastValidationKeychainKey),
+              let lastValidation = ISO8601DateFormatter().date(from: lastValidationString) else {
+            // No validation timestamp, revalidate now
+            print("ℹ️ No validation timestamp, revalidating now")
+            await performRevalidation()
+            return
+        }
+
+        // Check if revalidation interval has passed
+        let daysSinceValidation = Calendar.current.dateComponents([.day], from: lastValidation, to: Date()).day ?? 0
+
+        if daysSinceValidation >= revalidationIntervalDays {
+            print("ℹ️ \(daysSinceValidation) days since last validation, revalidating now")
+            await performRevalidation()
+        } else {
+            print("✅ License still valid (\(daysSinceValidation) days since last validation)")
+        }
+    }
+
+    /// Perform license revalidation
+    private func performRevalidation() async {
+        do {
+            try await revalidateLicense()
+        } catch {
+            print("⚠️ License revalidation failed: \(error)")
+            // Don't immediately deactivate on network errors
+            // Only deactivate if server explicitly says license is invalid
+            if case LicenseError.validationFailed = error {
+                await MainActor.run {
+                    self.deactivateLicense()
+                }
+            }
+        }
     }
 
 

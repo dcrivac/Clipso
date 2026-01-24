@@ -60,8 +60,8 @@ struct PaddleConfig {
     static var sandbox: PaddleEnvironment {
         PaddleEnvironment(
             vendorID: "test_859aa26dd9d5c623ccccf54e0c7",
-            lifetimePriceID: "pri_01kfr145r1eh8f7m8w0nfkvz74uf",
-            annualPriceID: "pri_01kfr12rgvdnhpr52zspmqvnk1",
+            lifetimePriceID: "pri_01kfr145r1eh8f7m8w0nfkvz74uf", // Lifetime: one-time $29.99
+            annualPriceID: "pri_01kfr12rgvdnhpr52zspmqvnk1", // Annual: $7.99/year subscription
             apiKey: "", // API key should be loaded from secure source
             useSandbox: true
         )
@@ -72,8 +72,8 @@ struct PaddleConfig {
     static var production: PaddleEnvironment {
         PaddleEnvironment(
             vendorID: "live_fc98babc1d8bb9e39a3482fd2bc",
-            lifetimePriceID: "pri_01kfqf40kc2jn9cgx9a6naenk7",
-            annualPriceID: "pri_01kfqf26bqncwbr7nvrg445esy",
+            lifetimePriceID: "pri_01kfqf40kc2jn9cgx9a6naenk7", // Lifetime: one-time $29.99
+            annualPriceID: "pri_01kfqf26bqncwbr7nvrg445esy", // Annual: $7.99/year subscription
             apiKey: "", // API key should be loaded from secure source
             useSandbox: false
         )
