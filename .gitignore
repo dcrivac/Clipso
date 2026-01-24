@@ -31,3 +31,5 @@ secrets/
 credentials.json
 config.local.swift
 PADDLE_CREDENTIALS.md
+Info-*.plist
+*-Secrets.plist

@@ -27,12 +27,8 @@ class LicenseManager: ObservableObject {
     }
     #endif
 
-    // Paddle Configuration - SANDBOX (for testing)
-    private let vendorID = "test_859aa26dd9d5c623ccccf54e0c7" // Paddle Sandbox client-side token
-    private let lifetimePriceID = "pri_01kfr145r1eh8f7m8w0nfkvz74uf" // Yearly/Lifetime Price ID (Sandbox)
-    private let annualPriceID = "pri_01kfr12rgvdnhpr52zspmqvnk1" // Annual Price ID (Sandbox)
-    private let apiKey = "YOUR_PADDLE_API_KEY" // API Key from Paddle Developer Tools (get from Authentication)
-    private let useSandbox = true // Set to false for production
+    // Paddle Configuration - Loaded from PaddleConfig
+    private let paddleConfig: PaddleEnvironment
 
     // Keychain keys
     private let licenseKeyKeychainKey = "com.clipboardmanager.license.key"
@@ -54,6 +50,8 @@ class LicenseManager: ObservableObject {
     }
 
     private init() {
+        // Load Paddle configuration from secure source
+        self.paddleConfig = PaddleConfig.loadConfig()
         loadLicenseFromKeychain()
     }
 
@@ -124,18 +122,14 @@ class LicenseManager: ObservableObject {
 
     /// Open Paddle checkout for purchase
     func purchaseLifetime() {
-        // Paddle checkout URL format
-        let baseURL = useSandbox ? "https://sandbox-checkout.paddle.com" : "https://checkout.paddle.com"
-        let checkoutURL = "\(baseURL)/checkout/custom/\(lifetimePriceID)"
+        let checkoutURL = "\(paddleConfig.checkoutBaseURL)/checkout/custom/\(paddleConfig.lifetimePriceID)"
         if let url = URL(string: checkoutURL) {
             NSWorkspace.shared.open(url)
         }
     }
 
     func purchaseAnnual() {
-        // Paddle checkout URL format
-        let baseURL = useSandbox ? "https://sandbox-checkout.paddle.com" : "https://checkout.paddle.com"
-        let checkoutURL = "\(baseURL)/checkout/custom/\(annualPriceID)"
+        let checkoutURL = "\(paddleConfig.checkoutBaseURL)/checkout/custom/\(paddleConfig.annualPriceID)"
         if let url = URL(string: checkoutURL) {
             NSWorkspace.shared.open(url)
         }
@@ -167,24 +161,32 @@ class LicenseManager: ObservableObject {
         // Note: This implementation validates using Paddle's transaction API
         // In production, you'd typically validate the license key using your backend
 
-        let baseURL = useSandbox ? "https://sandbox-api.paddle.com" : "https://api.paddle.com"
-        let urlString = "\(baseURL)/transactions"
+        let urlString = "\(paddleConfig.baseURL)/transactions"
 
         guard let url = URL(string: urlString) else {
             throw LicenseError.networkError
         }
 
-        // Generate unique instance ID for device
+        // Generate unique instance ID for device binding
         let instanceID = getDeviceInstanceID()
+
+        // Configure URL session with timeout
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 30  // 30 second timeout
+        config.timeoutIntervalForResource = 60 // 60 second resource timeout
+        let session = URLSession(configuration: config)
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(paddleConfig.apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue(instanceID, forHTTPHeaderField: "X-Device-ID") // Send device ID for server-side validation
+        request.timeoutInterval = 30
 
         // In a real implementation, you would:
         // 1. Store transaction IDs with license keys in your backend
         // 2. Use Paddle's webhook to track purchases
         // 3. Validate license keys against your backend
+        // 4. Check device activation limits using the instanceID
         //
         // For now, we'll validate by checking if the key format is valid
         // and assume it's tied to a transaction you've stored
@@ -198,7 +200,7 @@ class LicenseManager: ObservableObject {
         // that checks if this license key is valid and returns the subscription status
         // This is a simplified version for demonstration
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await session.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse else {
             throw LicenseError.networkError
@@ -241,9 +243,9 @@ class LicenseManager: ObservableObject {
 
     private func determineLicenseTypeFromPriceID(priceID: String) -> LicenseType {
         // Match against configured price IDs
-        if priceID == lifetimePriceID {
+        if priceID == paddleConfig.lifetimePriceID {
             return .lifetime
-        } else if priceID == annualPriceID {
+        } else if priceID == paddleConfig.annualPriceID {
             return .annual
         }
 
@@ -308,7 +310,10 @@ class LicenseManager: ObservableObject {
 
     // Generic Keychain helpers
     private func saveToKeychain(key: String, value: String) {
-        let data = value.data(using: .utf8)!
+        guard let data = value.data(using: .utf8) else {
+            print("⚠️ Failed to convert string to data for keychain: \(key)")
+            return
+        }
 
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -320,7 +325,10 @@ class LicenseManager: ObservableObject {
         SecItemDelete(query as CFDictionary)
 
         // Add new
-        SecItemAdd(query as CFDictionary, nil)
+        let status = SecItemAdd(query as CFDictionary, nil)
+        if status != errSecSuccess {
+            print("⚠️ Failed to save to keychain: \(key), status: \(status)")
+        }
     }
 
     private func getFromKeychain(key: String) -> String? {
