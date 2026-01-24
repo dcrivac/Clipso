@@ -71,6 +71,11 @@
 <body>
     <h1>🧪 Paddle Checkout Test - Clipso</h1>
 
+    <div class="info" style="background: #fef3c7; border-left: 4px solid #f59e0b;">
+        <strong>⚠️ Getting 400 Error?</strong> If the checkout doesn't open, you need to create products in Paddle Sandbox first.
+        <br><strong>👉 See:</strong> <a href="https://github.com/dcrivac/Clipso/blob/main/PADDLE_400_ERROR_FIX.md" target="_blank" style="color: #0066cc; text-decoration: underline;">PADDLE_400_ERROR_FIX.md</a> for step-by-step fix guide.
+    </div>
+
     <div class="info">
         <strong>📋 Instructions:</strong> Click the buttons below to test Paddle checkout.
         Open browser console (Cmd+Option+J) to see detailed logs.
@@ -153,8 +158,10 @@
                             }
 
                             if (event.name === 'checkout.error') {
-                                showStatus('❌ Checkout error: ' + JSON.stringify(event.error), 'error');
+                                const errorMsg = event.error?.detail || event.error?.message || JSON.stringify(event.error);
+                                showStatus('❌ Checkout error: ' + errorMsg, 'error');
                                 console.error('❌ Checkout error:', event.error);
+                                console.error('Full error details:', JSON.stringify(event, null, 2));
                             }
                         }
                     });
@@ -210,7 +217,18 @@
 
             } catch (error) {
                 console.error('❌ Checkout error:', error);
-                showStatus('❌ Failed to open checkout: ' + error.message, 'error');
+                console.error('Error details:', {
+                    message: error.message,
+                    name: error.name,
+                    stack: error.stack
+                });
+
+                let errorMsg = error.message || 'Unknown error';
+                if (error.message && error.message.includes('400')) {
+                    errorMsg += ' - This usually means the Price ID does not exist in Paddle Sandbox. See PADDLE_400_ERROR_FIX.md for help.';
+                }
+
+                showStatus('❌ Failed to open checkout: ' + errorMsg, 'error');
             }
         }
 
@@ -241,7 +259,18 @@
 
             } catch (error) {
                 console.error('❌ Checkout error:', error);
-                showStatus('❌ Failed to open checkout: ' + error.message, 'error');
+                console.error('Error details:', {
+                    message: error.message,
+                    name: error.name,
+                    stack: error.stack
+                });
+
+                let errorMsg = error.message || 'Unknown error';
+                if (error.message && error.message.includes('400')) {
+                    errorMsg += ' - This usually means the Price ID does not exist in Paddle Sandbox. See PADDLE_400_ERROR_FIX.md for help.';
+                }
+
+                showStatus('❌ Failed to open checkout: ' + errorMsg, 'error');
             }
         }
 
