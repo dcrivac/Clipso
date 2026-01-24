@@ -8,5 +8,15 @@
 	<string>This app needs accessibility access to detect the active application.</string>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>This app needs to monitor clipboard changes to provide clipboard history.</string>
+	<key>PADDLE_VENDOR_ID</key>
+	<string>test_859aa26dd9d5c623ccccf54e0c7</string>
+	<key>PADDLE_LIFETIME_PRICE_ID</key>
+	<string>pri_01kfr145r1eh8f7m8w0nfkvz74uf</string>
+	<key>PADDLE_ANNUAL_PRICE_ID</key>
+	<string>pri_01kfr12rgvdnhpr52zspmqvnk1</string>
+	<key>PADDLE_API_KEY</key>
+	<string></string>
+	<key>PADDLE_USE_SANDBOX</key>
+	<true/>
 </dict>
 </plist>
