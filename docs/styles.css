@@ -1153,6 +1153,7 @@ body {
 
 .btn-pricing {
     display: block;
+    width: 100%;
     text-align: center;
     padding: 0.875rem 1.5rem;
     border-radius: 0.5rem;
@@ -1160,6 +1161,9 @@ body {
     font-weight: 600;
     transition: all 0.3s ease;
     font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
 }
 
 .pricing-note {

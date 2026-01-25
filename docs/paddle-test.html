@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paddle Checkout Test - Clipso</title>
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a67d8;
+        }
+        .success {
+            color: #22c55e;
+            font-weight: bold;
+        }
+        .error {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        .info {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 12px;
+            margin: 10px 0;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        code {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        .test-card {
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Paddle Checkout Test - Clipso</h1>
+
+    <div class="info" style="background: #fef3c7; border-left: 4px solid #f59e0b;">
+        <strong>⚠️ Getting 400 Error?</strong> If the checkout doesn't open, you need to create products in Paddle Sandbox first.
+        <br><strong>👉 See:</strong> <a href="https://github.com/dcrivac/Clipso/blob/main/PADDLE_400_ERROR_FIX.md" target="_blank" style="color: #0066cc; text-decoration: underline;">PADDLE_400_ERROR_FIX.md</a> for step-by-step fix guide.
+    </div>
+
+    <div class="info">
+        <strong>📋 Instructions:</strong> Click the buttons below to test Paddle checkout.
+        Open browser console (Cmd+Option+J) to see detailed logs.
+    </div>
+
+    <div class="test-section">
+        <h2>Configuration</h2>
+        <p><strong>Environment:</strong> <code id="env">Loading...</code></p>
+        <p><strong>Client Token:</strong> <code id="token">Loading...</code></p>
+        <p><strong>Paddle Status:</strong> <span id="paddle-status">Checking...</span></p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Checkout</h2>
+
+        <div class="test-card">
+            <h3>💎 Lifetime License - $29.99</h3>
+            <p>Price ID: <code id="lifetime-price">Loading...</code></p>
+            <button onclick="openLifetimeCheckout()">Test Lifetime Checkout</button>
+        </div>
+
+        <div class="test-card">
+            <h3>📅 Annual Subscription - $7.99/year</h3>
+            <p>Price ID: <code id="annual-price">Loading...</code></p>
+            <button onclick="openAnnualCheckout()">Test Annual Checkout</button>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Card</h2>
+        <p>Use these details when the checkout opens:</p>
+        <ul>
+            <li><strong>Card Number:</strong> <code>4242 4242 4242 4242</code></li>
+            <li><strong>Expiry:</strong> <code>12/26</code> (any future date)</li>
+            <li><strong>CVC:</strong> <code>123</code> (any 3 digits)</li>
+            <li><strong>Name:</strong> Test User</li>
+        </ul>
+    </div>
+
+    <div id="status"></div>
+
+    <script>
+        // Paddle Configuration - SANDBOX
+        const PADDLE_VENDOR_ID = 'test_859aa26dd9d5c623ccccf54e0c7';
+        const PADDLE_ENVIRONMENT = 'sandbox';
+        const LIFETIME_PRICE_ID = 'pri_01kfr145r1eh8f7m8w0nfkvz74'; // Lifetime (one-time $29.99)
+        const ANNUAL_PRICE_ID = 'pri_01kfr12rgvdnhpr52zspmqvnk1'; // Annual subscription ($7.99/year)
+
+        // Display configuration
+        document.getElementById('env').textContent = PADDLE_ENVIRONMENT;
+        document.getElementById('token').textContent = PADDLE_VENDOR_ID;
+        document.getElementById('lifetime-price').textContent = LIFETIME_PRICE_ID;
+        document.getElementById('annual-price').textContent = ANNUAL_PRICE_ID;
+
+        // Initialize Paddle
+        console.log('🔧 Initializing Paddle...');
+        console.log('Environment:', PADDLE_ENVIRONMENT);
+        console.log('Token:', PADDLE_VENDOR_ID);
+
+        function initializePaddle() {
+            if (window.Paddle) {
+                console.log('✅ Paddle SDK loaded');
+
+                try {
+                    Paddle.Environment.set(PADDLE_ENVIRONMENT);
+                    console.log('✅ Environment set to:', PADDLE_ENVIRONMENT);
+
+                    Paddle.Initialize({
+                        token: PADDLE_VENDOR_ID,
+                        eventCallback: function(event) {
+                            console.log('🎉 Paddle Event:', event);
+
+                            if (event.name === 'checkout.completed') {
+                                showStatus('✅ Checkout completed successfully! Check Paddle Sandbox Dashboard.', 'success');
+                                console.log('✅ Transaction completed:', event.data);
+                            }
+
+                            if (event.name === 'checkout.closed') {
+                                console.log('ℹ️ Checkout closed');
+                            }
+
+                            if (event.name === 'checkout.error') {
+                                const errorMsg = event.error?.detail || event.error?.message || JSON.stringify(event.error);
+                                showStatus('❌ Checkout error: ' + errorMsg, 'error');
+                                console.error('❌ Checkout error:', event.error);
+                                console.error('Full error details:', JSON.stringify(event, null, 2));
+                            }
+                        }
+                    });
+
+                    console.log('✅ Paddle initialized successfully');
+                    document.getElementById('paddle-status').innerHTML = '<span class="success">✅ Ready</span>';
+                    showStatus('✅ Paddle initialized! Click a button above to test checkout.', 'success');
+
+                } catch (error) {
+                    console.error('❌ Paddle initialization error:', error);
+                    document.getElementById('paddle-status').innerHTML = '<span class="error">❌ Error</span>';
+                    showStatus('❌ Paddle initialization failed: ' + error.message, 'error');
+                }
+            } else {
+                console.error('❌ Paddle SDK not loaded');
+                document.getElementById('paddle-status').innerHTML = '<span class="error">❌ SDK not loaded</span>';
+                showStatus('❌ Paddle SDK failed to load. Check your internet connection.', 'error');
+            }
+        }
+
+        // Wait for Paddle to load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializePaddle);
+        } else {
+            initializePaddle();
+        }
+
+        // Checkout functions
+        function openLifetimeCheckout() {
+            console.log('🛒 Opening Lifetime checkout...');
+            console.log('Price ID:', LIFETIME_PRICE_ID);
+
+            if (typeof window.Paddle === 'undefined') {
+                showStatus('❌ Paddle is not loaded. Please refresh the page.', 'error');
+                return;
+            }
+
+            try {
+                Paddle.Checkout.open({
+                    items: [{
+                        priceId: LIFETIME_PRICE_ID,
+                        quantity: 1
+                    }],
+                    customData: {
+                        product_type: 'lifetime',
+                        test: 'true',
+                        timestamp: new Date().toISOString()
+                    }
+                });
+
+                console.log('✅ Checkout opened');
+                showStatus('ℹ️ Checkout opened. Complete the purchase with test card.', 'info');
+
+            } catch (error) {
+                console.error('❌ Checkout error:', error);
+                console.error('Error details:', {
+                    message: error.message,
+                    name: error.name,
+                    stack: error.stack
+                });
+
+                let errorMsg = error.message || 'Unknown error';
+                if (error.message && error.message.includes('400')) {
+                    errorMsg += ' - This usually means the Price ID does not exist in Paddle Sandbox. See PADDLE_400_ERROR_FIX.md for help.';
+                }
+
+                showStatus('❌ Failed to open checkout: ' + errorMsg, 'error');
+            }
+        }
+
+        function openAnnualCheckout() {
+            console.log('🛒 Opening Annual checkout...');
+            console.log('Price ID:', ANNUAL_PRICE_ID);
+
+            if (typeof window.Paddle === 'undefined') {
+                showStatus('❌ Paddle is not loaded. Please refresh the page.', 'error');
+                return;
+            }
+
+            try {
+                Paddle.Checkout.open({
+                    items: [{
+                        priceId: ANNUAL_PRICE_ID,
+                        quantity: 1
+                    }],
+                    customData: {
+                        product_type: 'annual',
+                        test: 'true',
+                        timestamp: new Date().toISOString()
+                    }
+                });
+
+                console.log('✅ Checkout opened');
+                showStatus('ℹ️ Checkout opened. Complete the purchase with test card.', 'info');
+
+            } catch (error) {
+                console.error('❌ Checkout error:', error);
+                console.error('Error details:', {
+                    message: error.message,
+                    name: error.name,
+                    stack: error.stack
+                });
+
+                let errorMsg = error.message || 'Unknown error';
+                if (error.message && error.message.includes('400')) {
+                    errorMsg += ' - This usually means the Price ID does not exist in Paddle Sandbox. See PADDLE_400_ERROR_FIX.md for help.';
+                }
+
+                showStatus('❌ Failed to open checkout: ' + errorMsg, 'error');
+            }
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = type;
+
+            // Auto-clear after 10 seconds
+            setTimeout(() => {
+                statusDiv.textContent = '';
+                statusDiv.className = '';
+            }, 10000);
+        }
+    </script>
+
+    <div class="info" style="margin-top: 30px;">
+        <h3>🔍 Debugging Checklist</h3>
+        <ol>
+            <li>Check that "Paddle Status" shows ✅ Ready</li>
+            <li>Open browser console (Cmd+Option+J) before clicking buttons</li>
+            <li>Click "Test Lifetime Checkout" or "Test Annual Checkout"</li>
+            <li>Paddle checkout overlay should appear</li>
+            <li>Fill in test card details (shown above)</li>
+            <li>Complete the purchase</li>
+            <li>Check console for "✅ Transaction completed" message</li>
+            <li>Go to <a href="https://sandbox-vendors.paddle.com" target="_blank">Paddle Sandbox Dashboard</a> → Transactions</li>
+        </ol>
+    </div>
+
+    <div class="info">
+        <h3>📍 Where to Check Transactions</h3>
+        <p>After completing a test purchase:</p>
+        <ol>
+            <li>Go to: <a href="https://sandbox-vendors.paddle.com" target="_blank">https://sandbox-vendors.paddle.com</a></li>
+            <li>Log in with your Paddle account</li>
+            <li>Click <strong>"Transactions"</strong> in the left sidebar</li>
+            <li>You should see your test transaction (may take a few seconds to appear)</li>
+        </ol>
+        <p><strong>⚠️ Important:</strong> Make sure you're looking at the <strong>Sandbox</strong> dashboard, NOT the Live dashboard!</p>
+    </div>
+</body>
+</html>

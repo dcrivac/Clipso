@@ -51,6 +51,9 @@
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
     </noscript>
+
+    <!-- Paddle for payment processing -->
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -59,33 +62,15 @@
             <div class="nav-content">
                 <div class="logo">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="32" height="32" rx="8" fill="url(#gradient1)"/>
+                        <path d="M10 12h12M10 16h12M10 20h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="24" cy="8" r="4" fill="#10B981"/>
                         <defs>
                             <linearGradient id="gradient1" x1="0" y1="0" x2="32" y2="32">
                                 <stop offset="0%" stop-color="#6366F1"/>
-                                <stop offset="50%" stop-color="#7C3AED"/>
                                 <stop offset="100%" stop-color="#8B5CF6"/>
                             </linearGradient>
-                            <linearGradient id="aiGrad1" x1="0" y1="0" x2="8" y2="8">
-                                <stop offset="0%" stop-color="#06B6D4"/>
-                                <stop offset="100%" stop-color="#10B981"/>
-                            </linearGradient>
                         </defs>
-                        <!-- Main rounded square -->
-                        <rect x="2" y="2" width="28" height="28" rx="7" fill="url(#gradient1)"/>
-                        <!-- Clipboard clip -->
-                        <rect x="12" y="5" width="8" height="2" rx="1" fill="white" opacity="0.9"/>
-                        <!-- Stacked cards effect -->
-                        <rect x="8" y="13" width="16" height="2" rx="1" fill="white" opacity="0.2"/>
-                        <rect x="7" y="11.5" width="18" height="2.5" rx="1" fill="white" opacity="0.3"/>
-                        <rect x="6" y="10" width="20" height="12" rx="2" fill="white" opacity="0.95"/>
-                        <!-- Content lines -->
-                        <rect x="8" y="12" width="12" height="1.2" rx="0.6" fill="url(#gradient1)" opacity="0.35"/>
-                        <rect x="8" y="14" width="14" height="1.2" rx="0.6" fill="url(#gradient1)" opacity="0.3"/>
-                        <rect x="8" y="16" width="10" height="1.2" rx="0.6" fill="url(#gradient1)" opacity="0.25"/>
-                        <rect x="8" y="18" width="13" height="1.2" rx="0.6" fill="url(#gradient1)" opacity="0.2"/>
-                        <!-- AI sparkle indicator -->
-                        <circle cx="24.5" cy="6.5" r="3.5" fill="url(#aiGrad1)"/>
-                        <path d="M24.5 4.5 L25 6 L26.5 6.5 L25 7 L24.5 8.5 L24 7 L22.5 6.5 L24 6 Z" fill="white" opacity="0.9"/>
                     </svg>
                     <span>Clipso</span>
                 </div>
@@ -94,19 +79,25 @@
                     <a href="#pricing">Pricing</a>
                     <a href="#privacy">Privacy</a>
                     <a href="https://github.com/dcrivac/Clipso" target="_blank">GitHub</a>
-                    <a href="https://github.com/dcrivac/Clipso/releases" class="btn-primary">Download</a>
+                    <a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.0/Clipso-v1.0.0-macOS.dmg" class="btn-primary">Download Free</a>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- Launch Special Banner -->
+    <div class="launch-banner" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; text-align: center; padding: 12px 20px; font-weight: 500;">
+        🚀 <strong>Launch Special:</strong> Lifetime Pro for $29.99 (Regular $7.99/year) — Limited to first 500 early adopters!
+        <a href="#pricing" style="color: white; text-decoration: underline; margin-left: 10px;">Claim Offer →</a>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="badge">
-                    <span class="badge-icon">🚀</span>
-                    Coming Soon • Join Waitlist for Early Access
+                    <span class="badge-icon">✨</span>
+                    Now Available • Limited Launch Offer
                 </div>
                 <h1 class="hero-title">
                     The First Truly
@@ -115,20 +106,21 @@
                 </h1>
                 <p class="hero-subtitle">
                     Find clipboard items by <strong>meaning</strong>, not just keywords. Automatically organizes your work into projects.
-                    100% private, 100% local. <strong>Free with AI</strong>, or upgrade to Premium for $7.99/year.
+                    100% private, 100% local. <strong>Free to start, Pro from $7.99/year.</strong>
                 </p>
                 <div class="hero-cta">
-                    <a href="#waitlist" class="btn-large btn-primary">
+                    <a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.0/Clipso-v1.0.0-macOS.dmg" class="btn-large btn-primary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        Join Waitlist
+                        Download Free
                     </a>
-                    <a href="https://github.com/dcrivac/Clipso" class="btn-large btn-secondary">
+                    <a href="#pricing" class="btn-large btn-secondary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M10 2c-4.4 0-8 3.6-8 8 0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1.1-2.7-1.1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3.1-1.9 3.7-3.7 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.5.4 3.2-1.1 5.5-4.1 5.5-7.6 0-4.4-3.6-8-8-8z" fill="currentColor"/>
+                            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M10 6v4l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        View on GitHub
+                        View Pricing
                     </a>
                 </div>
                 <div class="hero-stats">
@@ -142,7 +134,7 @@
                     </div>
                     <div class="stat">
                         <span class="stat-value">$7.99</span>
-                        <span class="stat-label">Premium/Year</span>
+                        <span class="stat-label">vs $15+ competitors</span>
                     </div>
                 </div>
             </div>
@@ -502,6 +494,107 @@
         </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section" style="padding: 80px 0; background: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%);">
+        <div class="container">
+            <h2 class="section-title">Simple, Honest Pricing</h2>
+            <p class="section-subtitle" style="text-align: center; max-width: 600px; margin: 0 auto 60px;">
+                Start free. Upgrade when AI features save you hours.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto;">
+                <!-- Free Tier -->
+                <div style="background: white; border: 2px solid #E5E7EB; border-radius: 16px; padding: 40px; position: relative;">
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #1F2937;">Free</h3>
+                    <div style="font-size: 48px; font-weight: 800; margin-bottom: 20px; color: #1F2937;">
+                        $0
+                        <span style="font-size: 18px; font-weight: 400; color: #6B7280;">/forever</span>
+                    </div>
+                    <ul style="list-style: none; padding: 0; margin: 0 0 30px 0;">
+                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>250 clipboard items</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>Keyword search</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>30-day retention</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>OCR & smart categorization</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>AES-256 encryption</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid #F3F4F6; display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>100% private & local</span>
+                        </li>
+                    </ul>
+                    <a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.0/Clipso-v1.0.0-macOS.dmg" class="btn-large btn-secondary" style="width: 100%; justify-content: center; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                        Download Free
+                    </a>
+                </div>
+
+                <!-- Pro Tier -->
+                <div style="background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%); border: 2px solid #6366F1; border-radius: 16px; padding: 40px; position: relative; color: white; transform: scale(1.05); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);">
+                    <div style="position: absolute; top: -12px; right: 20px; background: #10B981; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;">
+                        🚀 LAUNCH SPECIAL
+                    </div>
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 10px;">Pro</h3>
+                    <div style="font-size: 48px; font-weight: 800; margin-bottom: 5px;">
+                        $29.99
+                        <span style="font-size: 18px; font-weight: 400; opacity: 0.9;">/lifetime</span>
+                    </div>
+                    <div style="font-size: 14px; opacity: 0.9; margin-bottom: 20px; text-decoration: line-through;">Regular: $7.99/year</div>
+                    <ul style="list-style: none; padding: 0; margin: 0 0 30px 0;">
+                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span><strong>Everything in Free</strong></span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span><strong>AI Semantic Search</strong> — find by meaning</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span><strong>Context Detection</strong> — auto project grouping</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>Unlimited clipboard items</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>Unlimited retention</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>Priority support</span>
+                        </li>
+                        <li style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); display: flex; align-items: flex-start;">
+                            <span style="color: #10B981; margin-right: 10px; font-weight: bold;">✓</span>
+                            <span>Early access to new features</span>
+                        </li>
+                    </ul>
+                    <a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.0/Clipso-v1.0.0-macOS.dmg" style="background: white; color: #6366F1; width: 100%; justify-content: center; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 12px; font-weight: 600; font-size: 16px; transition: all 0.2s;">
+                        Get Lifetime Pro
+                    </a>
+                    <div style="text-align: center; margin-top: 15px; font-size: 13px; opacity: 0.9;">
+                        ⏰ Limited to first 500 users
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px; color: #6B7280; font-size: 14px;">
+                💳 After launch special ends: $7.99/year or $0.99/month • 7-day free trial • Cancel anytime
+            </div>
+        </div>
+    </section>
+
     <!-- Comparison -->
     <section class="comparison">
         <div class="container">
@@ -511,7 +604,7 @@
                     <div class="comparison-feature">Feature</div>
                     <div class="comparison-column">
                         <strong>Clipso</strong>
-                        <span class="badge-new">Free + Premium</span>
+                        <span class="badge-new">$7.99/year</span>
                     </div>
                     <div class="comparison-column">Paste</div>
                     <div class="comparison-column">Copied</div>
@@ -595,7 +688,7 @@
                 <div class="comparison-row">
                     <div class="comparison-feature">Price</div>
                     <div class="comparison-column">
-                        <strong>Free or $7.99/year</strong>
+                        <strong>Free / $7.99 Pro</strong>
                     </div>
                     <div class="comparison-column">$14.99/year</div>
                     <div class="comparison-column">$9.99/year</div>
@@ -609,7 +702,7 @@
     <section id="pricing" class="pricing">
         <div class="container">
             <h2 class="section-title">Simple, Fair Pricing</h2>
-            <p class="section-subtitle">Planned pricing when we launch. Join the waitlist for early access.</p>
+            <p class="section-subtitle">Start free forever. Upgrade anytime for unlimited AI-powered search.</p>
 
             <div class="pricing-cards">
                 <!-- Free Tier -->
@@ -634,7 +727,7 @@
                         <li><span class="feature-icon">❌</span> Custom snippets</li>
                     </ul>
 
-                    <a href="#waitlist" class="btn-pricing btn-outline">Get Notified</a>
+                    <a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.0/Clipso-v1.0.0-macOS.dmg" class="btn-pricing btn-outline">Download Free</a>
                 </div>
 
                 <!-- Premium Tier -->
@@ -659,8 +752,8 @@
                         <li><span class="feature-icon">✅</span> Early access to features</li>
                     </ul>
 
-                    <a href="#waitlist" class="btn-pricing btn-primary">Join Waitlist for Early Access</a>
-                    <p class="pricing-note">Be first to know when we launch</p>
+                    <button onclick="openAnnualCheckout()" class="btn-pricing btn-primary">Get Annual Pro - $7.99/year</button>
+                    <p class="pricing-note">Cancel anytime, 14-day money-back guarantee</p>
                 </div>
 
                 <!-- Lifetime Tier -->
@@ -684,7 +777,8 @@
                         <li><span class="feature-icon">💎</span> Early beta access</li>
                     </ul>
 
-                    <a href="#waitlist" class="btn-pricing btn-outline">Get Notified</a>
+                    <button onclick="openLifetimeCheckout()" class="btn-pricing btn-outline">Get Lifetime Pro - $29.99</button>
+                    <p class="pricing-note">Pay once, own forever</p>
                 </div>
             </div>
 
@@ -753,7 +847,7 @@
             <p class="section-subtitle">Be the first to know when Clipso launches. Get early access and exclusive launch pricing.</p>
 
             <div class="waitlist-form-container">
-                <form action="https://formspree.io/f/mzdznlnp" method="POST">
+                <form class="waitlist-form" action="https://formspree.io/f/mzdznlnp" method="POST">
                     <div class="form-group">
                         <input type="email" name="email" placeholder="Enter your email address" required class="email-input">
                         <button type="submit" class="btn-submit">Join Waitlist</button>
@@ -785,20 +879,20 @@
                 <h2>Ready to Transform Your Clipboard?</h2>
                 <p>Join the waitlist and be among the first to experience intelligent clipboard management.</p>
                 <div class="cta-buttons">
-                    <a href="#waitlist" class="btn-large btn-primary">
+                    <a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.0/Clipso-v1.0.0-macOS.dmg" class="btn-large btn-primary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        Join Waitlist
+                        Download Free
                     </a>
-                    <a href="https://github.com/dcrivac/Clipso" class="btn-large btn-secondary">
+                    <a href="#pricing" class="btn-large btn-secondary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M10 2c-4.4 0-8 3.6-8 8 0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1.1-2.7-1.1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3.1-1.9 3.7-3.7 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.5.4 3.2-1.1 5.5-4.1 5.5-7.6 0-4.4-3.6-8-8-8z" fill="currentColor"/>
+                            <path d="M12 2l3 7 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="currentColor"/>
                         </svg>
-                        Star on GitHub
+                        Get Pro ($29.99 Lifetime)
                     </a>
                 </div>
-                <p class="cta-note">Coming Soon • Free tier + Premium $7.99/year • macOS 13.0+ • Open Source</p>
+                <p class="cta-note">Free to start • Pro from $7.99/year • macOS 13.0+ • Open Source</p>
             </div>
         </div>
     </section>
@@ -810,28 +904,14 @@
                 <div class="footer-brand">
                     <div class="logo">
                         <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="8" fill="url(#gradient2)"/>
+                            <path d="M10 12h12M10 16h12M10 20h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
                             <defs>
                                 <linearGradient id="gradient2" x1="0" y1="0" x2="32" y2="32">
                                     <stop offset="0%" stop-color="#6366F1"/>
-                                    <stop offset="50%" stop-color="#7C3AED"/>
                                     <stop offset="100%" stop-color="#8B5CF6"/>
                                 </linearGradient>
-                                <linearGradient id="aiGrad2" x1="0" y1="0" x2="8" y2="8">
-                                    <stop offset="0%" stop-color="#06B6D4"/>
-                                    <stop offset="100%" stop-color="#10B981"/>
-                                </linearGradient>
                             </defs>
-                            <rect x="2" y="2" width="28" height="28" rx="7" fill="url(#gradient2)"/>
-                            <rect x="12" y="5" width="8" height="2" rx="1" fill="white" opacity="0.9"/>
-                            <rect x="8" y="13" width="16" height="2" rx="1" fill="white" opacity="0.2"/>
-                            <rect x="7" y="11.5" width="18" height="2.5" rx="1" fill="white" opacity="0.3"/>
-                            <rect x="6" y="10" width="20" height="12" rx="2" fill="white" opacity="0.95"/>
-                            <rect x="8" y="12" width="12" height="1.2" rx="0.6" fill="url(#gradient2)" opacity="0.35"/>
-                            <rect x="8" y="14" width="14" height="1.2" rx="0.6" fill="url(#gradient2)" opacity="0.3"/>
-                            <rect x="8" y="16" width="10" height="1.2" rx="0.6" fill="url(#gradient2)" opacity="0.25"/>
-                            <rect x="8" y="18" width="13" height="1.2" rx="0.6" fill="url(#gradient2)" opacity="0.2"/>
-                            <circle cx="24.5" cy="6.5" r="3.5" fill="url(#aiGrad2)"/>
-                            <path d="M24.5 4.5 L25 6 L26.5 6.5 L25 7 L24.5 8.5 L24 7 L22.5 6.5 L24 6 Z" fill="white" opacity="0.9"/>
                         </svg>
                         <span>Clipso</span>
                     </div>
@@ -841,7 +921,7 @@
                     <div class="footer-column">
                         <h4>Product</h4>
                         <a href="#features">Features</a>
-                        <a href="https://github.com/dcrivac/Clipso/releases">Download</a>
+                        <a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.0/Clipso-v1.0.0-macOS.dmg">Download</a>
                         <a href="https://github.com/dcrivac/Clipso#readme">Documentation</a>
                     </div>
                     <div class="footer-column">
@@ -852,15 +932,15 @@
                     </div>
                     <div class="footer-column">
                         <h4>Legal</h4>
-                        <a href="privacy-policy.html">Privacy Policy</a>
                         <a href="terms.html">Terms of Service</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
                         <a href="refund-policy.html">Refund Policy</a>
-                        <a href="https://github.com/dcrivac/Clipso/blob/main/README.md#license">Open Source License</a>
+                        <a href="https://github.com/dcrivac/Clipso/blob/main/README.md#license">License</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>Made with ❤️ using Swift and SwiftUI • 🤖 AI powered by Apple's on-device ML</p>
+                <p>Made with ❤️ using Swift and SwiftUI</p>
                 <p>&copy; 2025 Clipso. Open Source Project.</p>
             </div>
         </div>

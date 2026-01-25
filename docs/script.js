@@ -14,6 +14,84 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
+// Paddle Configuration - SANDBOX (for testing)
+const PADDLE_VENDOR_ID = 'test_859aa26dd9d5c623ccccf54e0c7'; // Paddle Sandbox client-side token
+const PADDLE_ENVIRONMENT = 'sandbox'; // Use 'sandbox' for testing, 'production' for live
+const LIFETIME_PRICE_ID = 'pri_01kfr145r1eh8f7m8w0nfkvz74'; // Lifetime (one-time $29.99) - Sandbox
+const ANNUAL_PRICE_ID = 'pri_01kfr12rgvdnhpr52zspmqvnk1'; // Annual subscription ($7.99/year) - Sandbox
+
+// Initialize Paddle
+function initializePaddle() {
+    if (window.Paddle) {
+        Paddle.Environment.set(PADDLE_ENVIRONMENT);
+        Paddle.Initialize({
+            token: PADDLE_VENDOR_ID,
+            eventCallback: function(event) {
+                if (event.name === 'checkout.completed') {
+                    // Show success message
+                    alert('Thank you for your purchase! Check your email for your license key.');
+                    console.log('Purchase successful', event);
+                }
+            }
+        });
+    }
+}
+
+// Wait for Paddle to load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePaddle);
+} else {
+    initializePaddle();
+}
+
+// Paddle Checkout Functions
+function openLifetimeCheckout() {
+    if (typeof window.Paddle === 'undefined') {
+        alert('Payment system loading... Please try again in a moment.');
+        return;
+    }
+
+    // Open Paddle checkout
+    Paddle.Checkout.open({
+        items: [{ priceId: LIFETIME_PRICE_ID, quantity: 1 }]
+    });
+}
+
+function openAnnualCheckout() {
+    if (typeof window.Paddle === 'undefined') {
+        alert('Payment system loading... Please try again in a moment.');
+        return;
+    }
+
+    // Open Paddle checkout
+    Paddle.Checkout.open({
+        items: [{ priceId: ANNUAL_PRICE_ID, quantity: 1 }]
+    });
+}
+
+// Attach checkout functions to buttons (after DOM loads)
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all "Get Pro" buttons and attach checkout
+    const proButtons = document.querySelectorAll('a[href*="Get Lifetime Pro"], a[href*="Get Pro"]');
+    proButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            openLifetimeCheckout();
+        });
+    });
+
+    // Annual pro buttons
+    const annualButtons = document.querySelectorAll('a[href*="annual"]');
+    annualButtons.forEach(button => {
+        if (button.textContent.includes('Annual') || button.textContent.includes('$7.99')) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                openAnnualCheckout();
+            });
+        }
+    });
+});
+
 // Animated typing effect for demo search
 const demoSearch = document.querySelector('.demo-search');
 const searchQueries = [
