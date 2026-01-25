@@ -72,8 +72,8 @@ struct PaddleConfig {
     static var production: PaddleEnvironment {
         PaddleEnvironment(
             vendorID: "live_fc98babc1d8bb9e39a3482fd2bc",
-            lifetimePriceID: "pri_01kfqf40kc2jn9cgx9a6naenk7", // Lifetime: one-time $29.99
-            annualPriceID: "pri_01kfqf26bqncwbr7nvrg445esy", // Annual: $7.99/year subscription
+            lifetimePriceID: "pri_01kfqf26bqncwbr7nvrg445esy", // Lifetime: one-time $29.99
+            annualPriceID: "pri_01kfqf40kc2jn9cgx9a6naenk7", // Annual: $7.99/year subscription
             apiKey: "", // API key should be loaded from secure source
             useSandbox: false
         )

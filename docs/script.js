@@ -17,8 +17,8 @@ window.addEventListener('scroll', () => {
 // Paddle Configuration - PRODUCTION (live payments)
 const PADDLE_VENDOR_ID = 'live_fc98babc1d8bb9e39a3482fd2bc'; // Paddle Production client-side token
 const PADDLE_ENVIRONMENT = 'production'; // Use 'sandbox' for testing, 'production' for live
-const LIFETIME_PRICE_ID = 'pri_01kfqf40kc2jn9cgx9a6naenk7'; // Lifetime (one-time $29.99) - Production
-const ANNUAL_PRICE_ID = 'pri_01kfqf26bqncwbr7nvrg445esy'; // Annual subscription ($7.99/year) - Production
+const LIFETIME_PRICE_ID = 'pri_01kfqf26bqncwbr7nvrg445esy'; // Lifetime (one-time $29.99) - Production
+const ANNUAL_PRICE_ID = 'pri_01kfqf40kc2jn9cgx9a6naenk7'; // Annual subscription ($7.99/year) - Production
 
 // Initialize Paddle
 function initializePaddle() {
