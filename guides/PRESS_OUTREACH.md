@@ -87,8 +87,10 @@ Happy to provide:
 Let me know if you'd like more information!
 
 Best,
-[Your Name]
-[Twitter/Email]
+David
+Creator of Clipso
+
+clipso.app · david@clipso.app
 ```
 
 ---
@@ -142,8 +144,10 @@ Links:
 I'd love to write a technical post about implementing semantic search with NLEmbedding if you're interested.
 
 Thanks,
-[Your Name]
-[GitHub handle]
+David
+Creator of Clipso
+
+clipso.app · github.com/dcrivac
 ```
 
 ---
@@ -191,7 +195,10 @@ Links:
 I can provide a demo or answer any technical questions about the privacy architecture.
 
 Best regards,
-[Your Name]
+David
+Creator of Clipso
+
+clipso.app · david@clipso.app
 ```
 
 ---
@@ -224,7 +231,10 @@ Happy to provide:
 Let me know if you'd like more information!
 
 Thanks,
-[Your Name]
+David
+Creator of Clipso
+
+clipso.app · david@clipso.app
 ```
 
 ---
@@ -349,9 +359,9 @@ Open-source clipboard manager for macOS with AI-powered semantic search and auto
 - Launch date: [Date]
 
 ## Contact
-- Email: [your email]
-- Twitter: @[handle]
-- Website: [URL]
+- Email: david@clipso.app
+- GitHub: github.com/dcrivac
+- Website: clipso.app
 
 ## Media Assets
 - Screenshots: [link]
@@ -404,7 +414,10 @@ I can provide:
 Let me know if you're interested!
 
 Best,
-[Your Name]
+David
+Creator of Clipso
+
+clipso.app · david@clipso.app
 ```
 
 ---
@@ -456,7 +469,9 @@ Potential discussion topics:
 
 I'm available [dates/times]. Let me know if you're interested!
 
-[Your Name]
+David
+Creator of Clipso
+clipso.app
 ```
 
 ### Guest Post Pitch
@@ -480,7 +495,10 @@ I've open-sourced the full implementation for reference.
 Would this fit your editorial calendar?
 
 Thanks,
-[Your Name]
+David
+Creator of Clipso
+
+clipso.app · github.com/dcrivac
 ```
 
 ---
@@ -498,7 +516,7 @@ In the meantime, here's a workaround: [if applicable]
 
 I really appreciate you taking the time to test and report this.
 
-[Your Name]
+David
 ```
 
 ### If Someone Has Privacy Concerns
