@@ -1,6 +1,8 @@
-# Lemon Squeezy credentials
+# Environment variables and credentials
 .env.local
 .env
+backend/.env
+backend/node_modules/
 
 # macOS
 .DS_Store
@@ -31,3 +33,5 @@ secrets/
 credentials.json
 config.local.swift
 PADDLE_CREDENTIALS.md
+Info-*.plist
+*-Secrets.plist
