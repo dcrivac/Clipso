@@ -262,7 +262,7 @@ Update landing page download links to point to GitHub release:
 <a href="https://github.com/dcrivac/Clipso/releases">Download Free</a>
 
 <!-- To: -->
-<a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.0/Clipso-v1.0.0-macOS.dmg">Download Free</a>
+<a href="https://github.com/dcrivac/Clipso/releases/download/v1.0.2/Clipso-1.0.2.dmg">Download Free</a>
 ```
 
 ## Quick Command Summary
