@@ -17,7 +17,7 @@ window.addEventListener('scroll', () => {
 // Paddle Configuration - SANDBOX (for testing)
 const PADDLE_VENDOR_ID = 'test_859aa26dd9d5c623ccccf54e0c7'; // Paddle Sandbox client-side token
 const PADDLE_ENVIRONMENT = 'sandbox'; // Use 'sandbox' for testing, 'production' for live
-const LIFETIME_PRICE_ID = 'pri_01kfr145r1eh8f7m8w0nfkvz74uf'; // Lifetime (one-time $29.99) - Sandbox
+const LIFETIME_PRICE_ID = 'pri_01kfr145r1eh8f7m8w0nfkvz74'; // Lifetime (one-time $29.99) - Sandbox
 const ANNUAL_PRICE_ID = 'pri_01kfr12rgvdnhpr52zspmqvnk1'; // Annual subscription ($7.99/year) - Sandbox
 
 // Initialize Paddle
