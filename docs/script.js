@@ -23,7 +23,10 @@ const ANNUAL_PRICE_ID = 'pri_01kfqf40kc2jn9cgx9a6naenk7'; // Annual subscription
 // Initialize Paddle
 function initializePaddle() {
     if (window.Paddle) {
-        Paddle.Environment.set(PADDLE_ENVIRONMENT);
+        // Only set environment for sandbox, production is default
+        if (PADDLE_ENVIRONMENT === 'sandbox') {
+            Paddle.Environment.set('sandbox');
+        }
         Paddle.Initialize({
             token: PADDLE_VENDOR_ID,
             eventCallback: function(event) {
