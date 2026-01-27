@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clipso Pro - Checkout</title>
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .loading {
+            text-align: center;
+            color: white;
+        }
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <div class="spinner"></div>
+        <h2>Opening Checkout...</h2>
+        <p>Please wait while we prepare your purchase.</p>
+    </div>
+
+    <script>
+        // Get price ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const priceId = urlParams.get('price_id');
+
+        if (!priceId) {
+            document.querySelector('.loading').innerHTML = `
+                <h2>Error</h2>
+                <p>No price specified. Please return to the app and try again.</p>
+            `;
+        } else {
+            // Initialize Paddle
+            // IMPORTANT: Replace with your actual Paddle client-side token
+            Paddle.Setup({
+                // For sandbox, use your sandbox client-side token
+                token: 'test_859aa26dd9d5c623ccccf54e0c7', // Replace with your token
+
+                // For production, change to:
+                // token: 'live_fc98babc1d8bb9e39a3482fd2bc',
+
+                eventCallback: function(data) {
+                    if (data.name === "checkout.completed") {
+                        document.querySelector('.loading').innerHTML = `
+                            <h2>✅ Purchase Complete!</h2>
+                            <p>Thank you for your purchase. You can close this window.</p>
+                            <p>Check your email for your license key.</p>
+                        `;
+                    } else if (data.name === "checkout.closed") {
+                        document.querySelector('.loading').innerHTML = `
+                            <h2>Checkout Closed</h2>
+                            <p>You can close this window or <a href="#" onclick="location.reload(); return false;" style="color:white">try again</a>.</p>
+                        `;
+                    }
+                }
+            });
+
+            // Open checkout with the price ID
+            Paddle.Checkout.open({
+                items: [
+                    {
+                        priceId: priceId,
+                        quantity: 1
+                    }
+                ]
+            });
+        }
+    </script>
+</body>
+</html>

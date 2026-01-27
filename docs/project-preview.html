@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clipso - Project Preview Image</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .preview-container {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 80px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative background elements */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .bg-circle-1 {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            right: -100px;
+        }
+
+        .bg-circle-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            left: -100px;
+        }
+
+        .content {
+            flex: 1;
+            z-index: 1;
+            color: white;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .logo-text {
+            font-size: 36px;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: 24px;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 35px;
+            line-height: 1.4;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .feature-icon {
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .mockup {
+            flex: 1;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-window {
+            width: 420px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .window-header {
+            background: #f5f5f5;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .window-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .window-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .btn-red { background: #FF5F56; }
+        .btn-yellow { background: #FFBD2E; }
+        .btn-green { background: #27C93F; }
+
+        .window-title {
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .window-content {
+            padding: 20px;
+        }
+
+        .search-bar {
+            background: #f5f5f5;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .search-icon {
+            color: #9CA3AF;
+            font-size: 16px;
+        }
+
+        .search-input {
+            border: none;
+            background: none;
+            font-size: 14px;
+            color: #666;
+            flex: 1;
+        }
+
+        .search-badge {
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .clipboard-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .clipboard-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px;
+            transition: all 0.2s;
+        }
+
+        .clipboard-item:hover {
+            background: #f3f4f6;
+            border-color: #6366F1;
+        }
+
+        .item-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .item-badge {
+            background: #DBEAFE;
+            color: #1E40AF;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .item-time {
+            font-size: 11px;
+            color: #9CA3AF;
+            margin-left: auto;
+        }
+
+        .item-content {
+            font-size: 13px;
+            color: #374151;
+            font-family: 'Monaco', monospace;
+        }
+
+        .item-meta {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .project-tag {
+            background: #D1FAE5;
+            color: #065F46;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .footer-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <div class="bg-circle bg-circle-1"></div>
+        <div class="bg-circle bg-circle-2"></div>
+
+        <div class="content">
+            <div class="logo-section">
+                <div class="logo">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="4" fill="url(#gradient)"/>
+                        <path d="M6 8h12M6 12h12M6 16h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="24" y2="24">
+                                <stop offset="0%" stop-color="#6366F1"/>
+                                <stop offset="100%" stop-color="#8B5CF6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">Clipso</div>
+            </div>
+
+            <h1>Intelligent Clipboard<br>for macOS</h1>
+
+            <div class="tagline">
+                Find clipboard items by meaning, not just keywords.<br>
+                AI-powered, 100% private, 100% local.
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🧠</div>
+                    <span>Semantic AI Search</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <span>100% Private & Local</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <span>Built with Swift & SwiftUI</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💎</div>
+                    <span>Open Source</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mockup">
+            <div class="app-window">
+                <div class="window-header">
+                    <div class="window-buttons">
+                        <div class="window-button btn-red"></div>
+                        <div class="window-button btn-yellow"></div>
+                        <div class="window-button btn-green"></div>
+                    </div>
+                    <div class="window-title">⌘⇧V Clipboard History</div>
+                </div>
+
+                <div class="window-content">
+                    <div class="search-bar">
+                        <div class="search-icon">🔍</div>
+                        <div class="search-input">Search by meaning...</div>
+                        <div class="search-badge">AI</div>
+                    </div>
+
+                    <div class="clipboard-items">
+                        <div class="clipboard-item">
+                            <div class="item-header">
+                                <div class="item-badge">Code</div>
+                                <div class="item-time">2m ago</div>
+                            </div>
+                            <div class="item-content">func trainNeuralNetwork(data: [Double])</div>
+                            <div class="item-meta">
+                                <div class="project-tag">ML Project</div>
+                            </div>
+                        </div>
+
+                        <div class="clipboard-item">
+                            <div class="item-header">
+                                <div class="item-badge">Text</div>
+                                <div class="item-time">5m ago</div>
+                            </div>
+                            <div class="item-content">Deep learning with TensorFlow</div>
+                            <div class="item-meta">
+                                <div class="project-tag">ML Project</div>
+                            </div>
+                        </div>
+
+                        <div class="clipboard-item">
+                            <div class="item-header">
+                                <div class="item-badge">Link</div>
+                                <div class="item-time">12m ago</div>
+                            </div>
+                            <div class="item-content">pytorch.org/docs/stable/nn.html</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-badge">Free & Open Source</div>
+            <div class="footer-badge">$7.99/year Pro</div>
+        </div>
+    </div>
+
+    <script>
+        // Instructions for capturing the image
+        console.log('%c📸 To capture this as an image:', 'font-size: 16px; font-weight: bold; color: #6366F1;');
+        console.log('%c1. Press Cmd+Shift+4 (macOS) or use screenshot tool', 'font-size: 14px;');
+        console.log('%c2. Select the preview container area', 'font-size: 14px;');
+        console.log('%c3. The image will be 1200x630px (perfect for OG image)', 'font-size: 14px;');
+        console.log('%c4. Save as og-image.png or clipso-preview.png', 'font-size: 14px;');
+    </script>
+</body>
+</html>

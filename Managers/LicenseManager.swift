@@ -8,25 +8,38 @@
 import Foundation
 import Security
 
-// MARK: - Simple Paddle Configuration
-// No backend needed - just paste your Paddle payment links here
+// MARK: - Paddle Configuration
+// Uses a simple checkout page on your website (website/checkout.html)
+// Deploy checkout.html to your website, then it will open Paddle.js checkout
 
 struct PaddleConfig {
-    // Sandbox payment links (get these from Paddle Dashboard)
-    static let sandboxLifetimeURL = "PASTE_YOUR_SANDBOX_LIFETIME_PAYMENT_LINK_HERE"
-    static let sandboxAnnualURL = "PASTE_YOUR_SANDBOX_ANNUAL_PAYMENT_LINK_HERE"
+    // Your website checkout page URL
+    static let checkoutPageURL = "https://clipso.app/checkout.html" // Change to your actual website URL
 
-    // Production payment links
-    static let productionLifetimeURL = "PASTE_YOUR_PRODUCTION_LIFETIME_PAYMENT_LINK_HERE"
-    static let productionAnnualURL = "PASTE_YOUR_PRODUCTION_ANNUAL_PAYMENT_LINK_HERE"
+    // Paddle price IDs from Catalog → Products
+    static let lifetimePriceID = "pri_01kfr145r1eh8f7m8w0nfkvz74" // Sandbox lifetime price
+    static let annualPriceID = "pri_01kfr12rgvdnhpr52zspmqvnk1"   // Sandbox annual price
 
-    #if DEBUG
-    static var lifetimeCheckoutURL: String { sandboxLifetimeURL }
-    static var annualCheckoutURL: String { sandboxAnnualURL }
-    #else
-    static var lifetimeCheckoutURL: String { productionLifetimeURL }
-    static var annualCheckoutURL: String { productionAnnualURL }
-    #endif
+    // Production price IDs (update when ready for production)
+    static let productionLifetimePriceID = "pri_01kfqf26bqncwbr7nvrg445esy"
+    static let productionAnnualPriceID = "pri_01kfqf40kc2jn9cgx9a6naenk7"
+
+    // Generate checkout URLs with price_id parameter
+    static var lifetimeCheckoutURL: String {
+        #if DEBUG
+        return "\(checkoutPageURL)?price_id=\(lifetimePriceID)"
+        #else
+        return "\(checkoutPageURL)?price_id=\(productionLifetimePriceID)"
+        #endif
+    }
+
+    static var annualCheckoutURL: String {
+        #if DEBUG
+        return "\(checkoutPageURL)?price_id=\(annualPriceID)"
+        #else
+        return "\(checkoutPageURL)?price_id=\(productionAnnualPriceID)"
+        #endif
+    }
 }
 
 // MARK: - License Manager
