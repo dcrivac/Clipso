@@ -9,7 +9,7 @@ set -e  # Exit on any error
 VERSION="1.0.3"
 APP_NAME="Clipso"
 BUNDLE_ID="com.clipso.ClipboardManager"
-SCHEME="ClipboardManager"
+SCHEME="Clipso"
 BUILD_DIR="build"
 RELEASE_DIR="release"
 DMG_NAME="${APP_NAME}-${VERSION}.dmg"
