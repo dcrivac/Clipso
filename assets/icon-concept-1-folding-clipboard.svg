@@ -1,0 +1,61 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept 1: The Folding Clipboard
+       A minimalist clipboard that appears to be unfolding/fanning out,
+       representing multiple clipboard items being organized -->
+  <defs>
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.25"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="16" y="16" width="224" height="224" rx="56" fill="url(#mainGradient)" filter="url(#softShadow)"/>
+
+  <!-- Folding clipboard cards - back to front -->
+  <!-- Card 3 (back, rotated right) -->
+  <g transform="translate(128, 128) rotate(15) translate(-128, -128)" opacity="0.25">
+    <rect x="72" y="56" width="112" height="144" rx="12" fill="white"/>
+    <rect x="100" y="44" width="56" height="24" rx="8" fill="white"/>
+  </g>
+
+  <!-- Card 2 (middle, rotated left) -->
+  <g transform="translate(128, 128) rotate(-8) translate(-128, -128)" opacity="0.5">
+    <rect x="72" y="56" width="112" height="144" rx="12" fill="white"/>
+    <rect x="100" y="44" width="56" height="24" rx="8" fill="white"/>
+  </g>
+
+  <!-- Card 1 (front, main clipboard) -->
+  <g opacity="1">
+    <rect x="72" y="56" width="112" height="144" rx="12" fill="white"/>
+    <!-- Clipboard clip at top -->
+    <rect x="100" y="44" width="56" height="24" rx="8" fill="white"/>
+    <rect x="108" y="52" width="40" height="8" rx="4" fill="url(#mainGradient)"/>
+
+    <!-- Content lines -->
+    <rect x="88" y="84" width="80" height="8" rx="4" fill="#E0E0FF"/>
+    <rect x="88" y="100" width="64" height="8" rx="4" fill="#E0E0FF"/>
+    <rect x="88" y="116" width="72" height="8" rx="4" fill="#E0E0FF"/>
+  </g>
+
+  <!-- AI indicator dot -->
+  <circle cx="192" cy="64" r="20" fill="url(#accentGradient)">
+    <animate attributeName="r" values="20;22;20" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <path d="M192 54 L192 74 M182 64 L202 64" stroke="white" stroke-width="4" stroke-linecap="round"/>
+</svg>

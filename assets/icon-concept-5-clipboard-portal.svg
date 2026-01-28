@@ -1,0 +1,88 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept 5: The Clipboard Portal
+       A clipboard with a glowing portal/circle effect,
+       representing the magical aspect of semantic search -->
+  <defs>
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <radialGradient id="portalGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:0.1"/>
+      <stop offset="70%" style="stop-color:#10B981;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.25"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="portalGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="16" y="16" width="224" height="224" rx="56" fill="url(#mainGradient)" filter="url(#softShadow)"/>
+
+  <!-- Clipboard base shape -->
+  <g opacity="1">
+    <!-- Clipboard body -->
+    <rect x="64" y="56" width="128" height="160" rx="16" fill="white" opacity="0.95"/>
+
+    <!-- Clipboard clip -->
+    <rect x="96" y="44" width="64" height="28" rx="8" fill="white"/>
+    <rect x="108" y="52" width="40" height="12" rx="6" fill="url(#mainGradient)"/>
+  </g>
+
+  <!-- Portal effect (concentric rings) -->
+  <g filter="url(#portalGlow)">
+    <circle cx="128" cy="140" r="50" stroke="url(#accentGradient)" stroke-width="3" fill="url(#portalGradient)" opacity="0.8">
+      <animate attributeName="r" values="50;54;50" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0.5;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="128" cy="140" r="38" stroke="url(#accentGradient)" stroke-width="2" fill="none" opacity="0.6">
+      <animate attributeName="r" values="38;42;38" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="128" cy="140" r="26" stroke="url(#accentGradient)" stroke-width="2" fill="none" opacity="0.4">
+      <animate attributeName="r" values="26;30;26" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Center AI sparkle -->
+  <g fill="url(#accentGradient)">
+    <circle cx="128" cy="140" r="10" fill="url(#accentGradient)">
+      <animate attributeName="r" values="10;12;10" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Star burst -->
+    <path d="M128 126 L130 136 L140 140 L130 144 L128 154 L126 144 L116 140 L126 136 Z" fill="white" opacity="0.9"/>
+  </g>
+
+  <!-- Floating particles around portal -->
+  <circle cx="100" cy="110" r="3" fill="white" opacity="0.6">
+    <animate attributeName="cy" values="110;105;110" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="156" cy="120" r="2" fill="white" opacity="0.5">
+    <animate attributeName="cy" values="120;115;120" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="145" cy="170" r="2.5" fill="white" opacity="0.5">
+    <animate attributeName="cy" values="170;175;170" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="108" cy="165" r="2" fill="white" opacity="0.4">
+    <animate attributeName="cy" values="165;170;165" dur="2.2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

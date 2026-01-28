@@ -1,0 +1,71 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept 3: The Smart Loop
+       An infinity/loop symbol integrated with clipboard elements,
+       representing infinite clipboard history and smart connections -->
+  <defs>
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <linearGradient id="loopGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFFFFF"/>
+      <stop offset="50%" style="stop-color:#10B981"/>
+      <stop offset="100%" style="stop-color:#FFFFFF"/>
+    </linearGradient>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.25"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="16" y="16" width="224" height="224" rx="56" fill="url(#mainGradient)" filter="url(#softShadow)"/>
+
+  <!-- Clipboard content lines (subtle in background) -->
+  <g opacity="0.3">
+    <rect x="64" y="60" width="128" height="10" rx="5" fill="white"/>
+    <rect x="64" y="80" width="100" height="10" rx="5" fill="white"/>
+    <rect x="64" y="156" width="128" height="10" rx="5" fill="white"/>
+    <rect x="64" y="176" width="90" height="10" rx="5" fill="white"/>
+  </g>
+
+  <!-- Infinity loop -->
+  <g filter="url(#glow)">
+    <path d="M76 128
+             C76 100, 100 100, 128 128
+             C156 156, 180 156, 180 128
+             C180 100, 156 100, 128 128
+             C100 156, 76 156, 76 128"
+          stroke="white" stroke-width="12" fill="none" stroke-linecap="round">
+      <animate attributeName="stroke-dasharray" values="0 1000;500 500;0 1000" dur="4s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Center crossing point with AI indicator -->
+  <circle cx="128" cy="128" r="16" fill="url(#accentGradient)">
+    <animate attributeName="r" values="16;18;16" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Sparkle/star in center -->
+  <g fill="white">
+    <path d="M128 120 L130 126 L136 128 L130 130 L128 136 L126 130 L120 128 L126 126 Z"/>
+  </g>
+</svg>

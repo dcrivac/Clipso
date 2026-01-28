@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clipso App Icon Concepts</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #8B5CF6;
+      font-size: 1.1rem;
+      margin-bottom: 50px;
+    }
+
+    .icons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+    }
+
+    .icon-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 30px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .icon-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    }
+
+    .icon-card h2 {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .icon-card .concept-num {
+      color: #10B981;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .icon-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .icon-wrapper img {
+      width: 180px;
+      height: 180px;
+      border-radius: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .description {
+      color: #9CA3AF;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .sizes-demo {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 15px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sizes-demo img {
+      border-radius: 20%;
+    }
+
+    .size-label {
+      color: #6B7280;
+      font-size: 0.7rem;
+      margin-top: 5px;
+    }
+
+    .size-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .current-icon {
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .current-icon h2 {
+      color: #6B7280;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .current-icon img {
+      width: 120px;
+      height: 120px;
+      border-radius: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .comparison-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 60px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 24px;
+    }
+
+    .comparison-row h3 {
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .comparison-row img {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .comparison-row img:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Clipso App Icon Concepts</h1>
+    <p class="subtitle">5 Design Directions for the Intelligent Clipboard Manager</p>
+
+    <div class="current-icon">
+      <h2>Current Icon</h2>
+      <img src="logo.svg" alt="Current Clipso Icon">
+    </div>
+
+    <div class="icons-grid">
+      <div class="icon-card">
+        <div class="concept-num">Concept 1</div>
+        <h2>The Folding Clipboard</h2>
+        <div class="icon-wrapper">
+          <img src="icon-concept-1-folding-clipboard.svg" alt="Folding Clipboard Icon">
+        </div>
+        <p class="description">A minimalist clipboard that appears to be unfolding, with stacked cards representing multiple clipboard items. The green "+" indicator suggests smart additions.</p>
+        <div class="sizes-demo">
+          <div class="size-item">
+            <img src="icon-concept-1-folding-clipboard.svg" width="64" height="64" alt="64px">
+            <span class="size-label">64px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-1-folding-clipboard.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-1-folding-clipboard.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16px</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="icon-card">
+        <div class="concept-num">Concept 2</div>
+        <h2>The Neural Stack</h2>
+        <div class="icon-wrapper">
+          <img src="icon-concept-2-neural-stack.svg" alt="Neural Stack Icon">
+        </div>
+        <p class="description">Connected nodes forming a neural network grid, emphasizing the AI-powered semantic search. The glowing center node represents the intelligent brain.</p>
+        <div class="sizes-demo">
+          <div class="size-item">
+            <img src="icon-concept-2-neural-stack.svg" width="64" height="64" alt="64px">
+            <span class="size-label">64px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-2-neural-stack.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-2-neural-stack.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16px</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="icon-card">
+        <div class="concept-num">Concept 3</div>
+        <h2>The Smart Loop</h2>
+        <div class="icon-wrapper">
+          <img src="icon-concept-3-smart-loop.svg" alt="Smart Loop Icon">
+        </div>
+        <p class="description">An infinity symbol flowing over clipboard lines, representing infinite history and seamless connections. The center sparkle indicates AI magic.</p>
+        <div class="sizes-demo">
+          <div class="size-item">
+            <img src="icon-concept-3-smart-loop.svg" width="64" height="64" alt="64px">
+            <span class="size-label">64px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-3-smart-loop.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-3-smart-loop.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16px</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="icon-card">
+        <div class="concept-num">Concept 4</div>
+        <h2>The Pixel Grid C</h2>
+        <div class="icon-wrapper">
+          <img src="icon-concept-4-pixel-grid.svg" alt="Pixel Grid C Icon">
+        </div>
+        <p class="description">Dots forming a stylized "C" for Clipso, with an animated scanning line. Green highlights represent AI identifying and organizing content.</p>
+        <div class="sizes-demo">
+          <div class="size-item">
+            <img src="icon-concept-4-pixel-grid.svg" width="64" height="64" alt="64px">
+            <span class="size-label">64px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-4-pixel-grid.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-4-pixel-grid.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16px</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="icon-card">
+        <div class="concept-num">Concept 5</div>
+        <h2>The Clipboard Portal</h2>
+        <div class="icon-wrapper">
+          <img src="icon-concept-5-clipboard-portal.svg" alt="Clipboard Portal Icon">
+        </div>
+        <p class="description">A clipboard with a glowing portal effect, representing the "magical" ability to find anything through semantic search. Floating particles add depth.</p>
+        <div class="sizes-demo">
+          <div class="size-item">
+            <img src="icon-concept-5-clipboard-portal.svg" width="64" height="64" alt="64px">
+            <span class="size-label">64px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-5-clipboard-portal.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32px</span>
+          </div>
+          <div class="size-item">
+            <img src="icon-concept-5-clipboard-portal.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16px</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comparison-row">
+      <h3>Side-by-Side Comparison</h3>
+      <img src="logo.svg" alt="Current" title="Current">
+      <img src="icon-concept-1-folding-clipboard.svg" alt="Concept 1" title="Concept 1: Folding Clipboard">
+      <img src="icon-concept-2-neural-stack.svg" alt="Concept 2" title="Concept 2: Neural Stack">
+      <img src="icon-concept-3-smart-loop.svg" alt="Concept 3" title="Concept 3: Smart Loop">
+      <img src="icon-concept-4-pixel-grid.svg" alt="Concept 4" title="Concept 4: Pixel Grid C">
+      <img src="icon-concept-5-clipboard-portal.svg" alt="Concept 5" title="Concept 5: Clipboard Portal">
+    </div>
+  </div>
+</body>
+</html>

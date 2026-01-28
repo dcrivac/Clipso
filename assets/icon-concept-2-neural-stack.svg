@@ -1,0 +1,76 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept 2: The Neural Stack
+       Connected nodes forming a clipboard/list shape,
+       emphasizing the AI/neural network aspect of semantic search -->
+  <defs>
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.25"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="16" y="16" width="224" height="224" rx="56" fill="url(#mainGradient)" filter="url(#softShadow)"/>
+
+  <!-- Neural connection lines -->
+  <g stroke="white" stroke-width="2" opacity="0.4">
+    <!-- Vertical connections -->
+    <line x1="88" y1="80" x2="88" y2="112"/>
+    <line x1="88" y1="144" x2="88" y2="176"/>
+    <line x1="128" y1="80" x2="128" y2="112"/>
+    <line x1="128" y1="144" x2="128" y2="176"/>
+    <line x1="168" y1="80" x2="168" y2="112"/>
+    <line x1="168" y1="144" x2="168" y2="176"/>
+
+    <!-- Cross connections (neural links) -->
+    <line x1="88" y1="128" x2="128" y2="80"/>
+    <line x1="128" y1="128" x2="168" y2="80"/>
+    <line x1="88" y1="128" x2="128" y2="176"/>
+    <line x1="128" y1="128" x2="168" y2="176"/>
+    <line x1="88" y1="80" x2="128" y2="128"/>
+    <line x1="168" y1="80" x2="128" y2="128"/>
+  </g>
+
+  <!-- Top row nodes -->
+  <circle cx="88" cy="80" r="12" fill="white" opacity="0.9"/>
+  <circle cx="128" cy="80" r="12" fill="white" opacity="0.9"/>
+  <circle cx="168" cy="80" r="12" fill="white" opacity="0.9"/>
+
+  <!-- Middle row nodes (center is the "brain") -->
+  <circle cx="88" cy="128" r="12" fill="white" opacity="0.9"/>
+  <circle cx="128" cy="128" r="18" fill="url(#accentGradient)" filter="url(#glow)">
+    <animate attributeName="opacity" values="1;0.8;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="168" cy="128" r="12" fill="white" opacity="0.9"/>
+
+  <!-- Bottom row nodes -->
+  <circle cx="88" cy="176" r="12" fill="white" opacity="0.9"/>
+  <circle cx="128" cy="176" r="12" fill="white" opacity="0.9"/>
+  <circle cx="168" cy="176" r="12" fill="white" opacity="0.9"/>
+
+  <!-- Brain icon in center node -->
+  <path d="M128 120 Q124 120 122 124 Q120 128 122 132 Q124 136 128 136 Q132 136 134 132 Q136 128 134 124 Q132 120 128 120"
+        fill="white" stroke="white" stroke-width="1"/>
+</svg>

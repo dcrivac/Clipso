@@ -1,0 +1,83 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept 4: The Pixel Grid C
+       A grid of dots/pixels forming a stylized "C" for Clipso,
+       with some dots highlighted to represent AI scanning content -->
+  <defs>
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.25"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="dotGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="16" y="16" width="224" height="224" rx="56" fill="url(#mainGradient)" filter="url(#softShadow)"/>
+
+  <!-- Grid of dots forming "C" shape -->
+  <!-- Row 1 -->
+  <circle cx="112" cy="56" r="8" fill="white" opacity="0.3"/>
+  <circle cx="136" cy="56" r="8" fill="white" opacity="0.4"/>
+  <circle cx="160" cy="56" r="8" fill="white" opacity="0.5"/>
+  <circle cx="184" cy="56" r="8" fill="white" opacity="0.4"/>
+
+  <!-- Row 2 -->
+  <circle cx="88" cy="80" r="8" fill="white" opacity="0.5"/>
+  <circle cx="112" cy="80" r="8" fill="white" opacity="0.6"/>
+  <circle cx="184" cy="80" r="8" fill="white" opacity="0.3"/>
+
+  <!-- Row 3 -->
+  <circle cx="72" cy="104" r="8" fill="white" opacity="0.7"/>
+  <circle cx="96" cy="104" r="8" fill="url(#accentGradient)" filter="url(#dotGlow)">
+    <animate attributeName="opacity" values="1;0.7;1" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Row 4 (middle) -->
+  <circle cx="64" cy="128" r="10" fill="white" opacity="0.9"/>
+  <circle cx="88" cy="128" r="8" fill="white" opacity="0.8"/>
+
+  <!-- Row 5 -->
+  <circle cx="72" cy="152" r="8" fill="white" opacity="0.7"/>
+  <circle cx="96" cy="152" r="8" fill="url(#accentGradient)" filter="url(#dotGlow)">
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Row 6 -->
+  <circle cx="88" cy="176" r="8" fill="white" opacity="0.5"/>
+  <circle cx="112" cy="176" r="8" fill="white" opacity="0.6"/>
+  <circle cx="184" cy="176" r="8" fill="white" opacity="0.3"/>
+
+  <!-- Row 7 -->
+  <circle cx="112" cy="200" r="8" fill="white" opacity="0.3"/>
+  <circle cx="136" cy="200" r="8" fill="white" opacity="0.4"/>
+  <circle cx="160" cy="200" r="8" fill="url(#accentGradient)" filter="url(#dotGlow)">
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" begin="1s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="184" cy="200" r="8" fill="white" opacity="0.4"/>
+
+  <!-- Scanning line effect -->
+  <rect x="56" y="124" width="144" height="3" fill="url(#accentGradient)" opacity="0.6" rx="1.5">
+    <animate attributeName="y" values="56;200;56" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0.9;0.6" dur="3s" repeatCount="indefinite"/>
+  </rect>
+</svg>
