@@ -17,8 +17,8 @@ struct PaddleConfig {
     static let checkoutPageURL = "https://clipso.app/checkout.html"
 
     // Production Paddle price IDs from Catalog → Products
-    static let lifetimePriceID = "pri_01kfqf26bqncwbr7nvrg445esy"  // Lifetime: $29.99
-    static let annualPriceID = "pri_01kfqf40kc2jn9cgx9a6naenk7"    // Annual: $7.99/year
+    static let lifetimePriceID = "pri_01kfqf40kc2jn9cgx9a6naenk7"  // Lifetime: $29.99 one-time
+    static let annualPriceID = "pri_01kfqf26bqncwbr7nvrg445esy"    // Annual: $7.99/year
 
     // Generate checkout URLs with price_id parameter
     static var lifetimeCheckoutURL: String {
