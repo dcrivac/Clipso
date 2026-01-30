@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1000005000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2000006000000000000001 /* Assets.xcassets */; };
 		8EDA3A672F15E09C00E308B6 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA3A632F15E09C00E308B6 /* FlowLayout.swift */; };
 		8EDA3A682F15E09C00E308B6 /* TagInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA3A652F15E09C00E308B6 /* TagInputSheet.swift */; };
 		8EDA3A692F15E09C00E308B6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA3A642F15E09C00E308B6 /* SettingsView.swift */; };
@@ -57,6 +58,7 @@
 		A2000003000000000000001 /* ClipboardItemEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClipboardItemEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A2000004000000000000001 /* ClipboardManager.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; path = ClipboardManager.xcdatamodeld; sourceTree = "<group>"; };
 		A2000005000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2000006000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3000001000000000000001 /* Clipso.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clipso.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -154,6 +156,7 @@
 				A2000003000000000000001 /* ClipboardItemEntity+CoreDataProperties.swift */,
 				A2000004000000000000001 /* ClipboardManager.xcdatamodeld */,
 				A2000005000000000000001 /* Info.plist */,
+				A2000006000000000000001 /* Assets.xcassets */,
 			);
 			sourceTree = "<group>";
 		};
@@ -223,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000005000000000000001 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

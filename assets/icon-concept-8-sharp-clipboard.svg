@@ -1,0 +1,27 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept 8: Sharp Clipboard
+       Bold magenta/pink with sharp modern clipboard
+       Clean lines, professional -->
+  <defs>
+    <linearGradient id="boldGradient8" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E040FB"/>
+      <stop offset="100%" style="stop-color:#7C4DFF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="16" y="16" width="224" height="224" rx="52" fill="url(#boldGradient8)"/>
+
+  <!-- Clipboard body -->
+  <rect x="56" y="64" width="144" height="152" rx="16" fill="white"/>
+
+  <!-- Clipboard clip (top) -->
+  <rect x="88" y="48" width="80" height="32" rx="8" fill="white"/>
+  <rect x="104" y="56" width="48" height="16" rx="8" fill="url(#boldGradient8)"/>
+
+  <!-- Content lines -->
+  <rect x="76" y="100" width="104" height="12" rx="6" fill="url(#boldGradient8)" opacity="0.7"/>
+  <rect x="76" y="124" width="80" height="12" rx="6" fill="#E5E7EB"/>
+  <rect x="76" y="148" width="104" height="12" rx="6" fill="#E5E7EB"/>
+  <rect x="76" y="172" width="56" height="12" rx="6" fill="#E5E7EB"/>
+</svg>

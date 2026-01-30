@@ -1,0 +1,27 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept 7: Geometric C
+       Bold cyan/teal with geometric C shape
+       Ultra modern and clean -->
+  <defs>
+    <linearGradient id="boldGradient7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4AA"/>
+      <stop offset="100%" style="stop-color:#00B4D8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="16" y="16" width="224" height="224" rx="52" fill="url(#boldGradient7)"/>
+
+  <!-- Geometric C made of rounded rectangles -->
+  <!-- Top horizontal bar -->
+  <rect x="72" y="56" width="112" height="28" rx="14" fill="white"/>
+
+  <!-- Left vertical bar -->
+  <rect x="56" y="56" width="32" height="144" rx="16" fill="white"/>
+
+  <!-- Bottom horizontal bar -->
+  <rect x="72" y="172" width="112" height="28" rx="14" fill="white"/>
+
+  <!-- Small accent dot -->
+  <circle cx="176" cy="128" r="16" fill="white" opacity="0.4"/>
+</svg>

@@ -1,14 +1,16 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Clipso App Icon - Dual Cards Design -->
+  <!-- Concept 9: Dual Cards
+       Bold electric blue with two overlapping cards
+       Represents copy/paste duality -->
   <defs>
-    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="boldGradient9" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#3B82F6"/>
       <stop offset="100%" style="stop-color:#1D4ED8"/>
     </linearGradient>
   </defs>
 
   <!-- Background rounded square -->
-  <rect x="16" y="16" width="224" height="224" rx="52" fill="url(#mainGradient)"/>
+  <rect x="16" y="16" width="224" height="224" rx="52" fill="url(#boldGradient9)"/>
 
   <!-- Back card (slightly rotated effect via position) -->
   <rect x="80" y="72" width="120" height="140" rx="16" fill="white" opacity="0.5"/>
@@ -17,12 +19,12 @@
   <rect x="56" y="56" width="120" height="140" rx="16" fill="white"/>
 
   <!-- Content on front card -->
-  <rect x="72" y="80" width="72" height="10" rx="5" fill="url(#mainGradient)" opacity="0.8"/>
+  <rect x="72" y="80" width="72" height="10" rx="5" fill="url(#boldGradient9)" opacity="0.8"/>
   <rect x="72" y="100" width="88" height="8" rx="4" fill="#D1D5DB"/>
   <rect x="72" y="116" width="88" height="8" rx="4" fill="#D1D5DB"/>
   <rect x="72" y="132" width="56" height="8" rx="4" fill="#D1D5DB"/>
 
   <!-- Checkmark on front card -->
-  <circle cx="116" cy="168" r="16" fill="url(#mainGradient)" opacity="0.15"/>
-  <path d="M108 168 L114 174 L126 162" stroke="url(#mainGradient)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="116" cy="168" r="16" fill="url(#boldGradient9)" opacity="0.15"/>
+  <path d="M108 168 L114 174 L126 162" stroke="url(#boldGradient9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>

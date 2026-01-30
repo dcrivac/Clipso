@@ -13,13 +13,13 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
       min-height: 100vh;
       padding: 40px 20px;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
@@ -28,45 +28,57 @@
       color: #fff;
       font-size: 2.5rem;
       margin-bottom: 10px;
+      font-weight: 700;
     }
 
     .subtitle {
       text-align: center;
-      color: #8B5CF6;
+      color: #888;
       font-size: 1.1rem;
       margin-bottom: 50px;
     }
 
+    .section-title {
+      color: #fff;
+      font-size: 1.5rem;
+      margin: 60px 0 30px 0;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #333;
+    }
+
     .icons-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
     }
 
     .icon-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 24px;
-      padding: 30px;
+      background: #1e1e1e;
+      border-radius: 20px;
+      padding: 25px;
       text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #2a2a2a;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
     .icon-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+      transform: translateY(-4px);
+      border-color: #444;
     }
 
     .icon-card h2 {
       color: #fff;
-      font-size: 1.3rem;
-      margin-bottom: 8px;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+      font-weight: 600;
     }
 
     .icon-card .concept-num {
-      color: #10B981;
-      font-size: 0.9rem;
+      color: #666;
+      font-size: 0.8rem;
       margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .icon-wrapper {
@@ -77,26 +89,37 @@
     }
 
     .icon-wrapper img {
-      width: 180px;
-      height: 180px;
-      border-radius: 40px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      width: 160px;
+      height: 160px;
+      border-radius: 36px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
     .description {
-      color: #9CA3AF;
-      font-size: 0.95rem;
-      line-height: 1.6;
+      color: #888;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .color-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-top: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .sizes-demo {
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      gap: 15px;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
     }
 
     .sizes-demo img {
@@ -104,9 +127,9 @@
     }
 
     .size-label {
-      color: #6B7280;
-      font-size: 0.7rem;
-      margin-top: 5px;
+      color: #555;
+      font-size: 0.65rem;
+      margin-top: 4px;
     }
 
     .size-item {
@@ -115,34 +138,17 @@
       align-items: center;
     }
 
-    .current-icon {
-      margin-bottom: 60px;
-      text-align: center;
-    }
-
-    .current-icon h2 {
-      color: #6B7280;
-      font-size: 1rem;
-      margin-bottom: 15px;
-    }
-
-    .current-icon img {
-      width: 120px;
-      height: 120px;
-      border-radius: 28px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
     .comparison-row {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
       margin-top: 60px;
       padding: 40px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 24px;
+      background: #1e1e1e;
+      border-radius: 20px;
+      border: 1px solid #2a2a2a;
     }
 
     .comparison-row h3 {
@@ -150,156 +156,170 @@
       text-align: center;
       color: #fff;
       margin-bottom: 20px;
+      font-weight: 600;
     }
 
     .comparison-row img {
-      width: 80px;
-      height: 80px;
-      border-radius: 18px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s ease;
     }
 
     .comparison-row img:hover {
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
+
+    /* Color tags */
+    .tag-orange { background: rgba(255, 107, 53, 0.2); color: #FF6B35; }
+    .tag-teal { background: rgba(0, 212, 170, 0.2); color: #00D4AA; }
+    .tag-magenta { background: rgba(224, 64, 251, 0.2); color: #E040FB; }
+    .tag-blue { background: rgba(59, 130, 246, 0.2); color: #3B82F6; }
+    .tag-coral { background: rgba(255, 118, 117, 0.2); color: #FF7675; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Clipso App Icon Concepts</h1>
-    <p class="subtitle">5 Design Directions for the Intelligent Clipboard Manager</p>
+    <p class="subtitle">Bold & Modern Design Options</p>
 
-    <div class="current-icon">
-      <h2>Current Icon</h2>
-      <img src="logo.svg" alt="Current Clipso Icon">
-    </div>
+    <h2 class="section-title">New Bold Concepts</h2>
 
     <div class="icons-grid">
       <div class="icon-card">
-        <div class="concept-num">Concept 1</div>
-        <h2>The Folding Clipboard</h2>
+        <div class="concept-num">Concept 6</div>
+        <h2>Bold Stack</h2>
         <div class="icon-wrapper">
-          <img src="icon-concept-1-folding-clipboard.svg" alt="Folding Clipboard Icon">
+          <img src="icon-concept-6-bold-stack.svg" alt="Bold Stack Icon">
         </div>
-        <p class="description">A minimalist clipboard that appears to be unfolding, with stacked cards representing multiple clipboard items. The green "+" indicator suggests smart additions.</p>
+        <p class="description">Clean stacked cards with depth. Minimal and professional with content preview lines.</p>
+        <span class="color-tag tag-orange">Orange / Amber</span>
         <div class="sizes-demo">
           <div class="size-item">
-            <img src="icon-concept-1-folding-clipboard.svg" width="64" height="64" alt="64px">
-            <span class="size-label">64px</span>
+            <img src="icon-concept-6-bold-stack.svg" width="48" height="48" alt="48px">
+            <span class="size-label">48</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-1-folding-clipboard.svg" width="32" height="32" alt="32px">
-            <span class="size-label">32px</span>
+            <img src="icon-concept-6-bold-stack.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-1-folding-clipboard.svg" width="16" height="16" alt="16px">
-            <span class="size-label">16px</span>
+            <img src="icon-concept-6-bold-stack.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16</span>
           </div>
         </div>
       </div>
 
       <div class="icon-card">
-        <div class="concept-num">Concept 2</div>
-        <h2>The Neural Stack</h2>
+        <div class="concept-num">Concept 7</div>
+        <h2>Geometric C</h2>
         <div class="icon-wrapper">
-          <img src="icon-concept-2-neural-stack.svg" alt="Neural Stack Icon">
+          <img src="icon-concept-7-geometric-c.svg" alt="Geometric C Icon">
         </div>
-        <p class="description">Connected nodes forming a neural network grid, emphasizing the AI-powered semantic search. The glowing center node represents the intelligent brain.</p>
+        <p class="description">Bold geometric "C" letterform. Ultra clean with strong brand recognition.</p>
+        <span class="color-tag tag-teal">Teal / Cyan</span>
         <div class="sizes-demo">
           <div class="size-item">
-            <img src="icon-concept-2-neural-stack.svg" width="64" height="64" alt="64px">
-            <span class="size-label">64px</span>
+            <img src="icon-concept-7-geometric-c.svg" width="48" height="48" alt="48px">
+            <span class="size-label">48</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-2-neural-stack.svg" width="32" height="32" alt="32px">
-            <span class="size-label">32px</span>
+            <img src="icon-concept-7-geometric-c.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-2-neural-stack.svg" width="16" height="16" alt="16px">
-            <span class="size-label">16px</span>
+            <img src="icon-concept-7-geometric-c.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16</span>
           </div>
         </div>
       </div>
 
       <div class="icon-card">
-        <div class="concept-num">Concept 3</div>
-        <h2>The Smart Loop</h2>
+        <div class="concept-num">Concept 8</div>
+        <h2>Sharp Clipboard</h2>
         <div class="icon-wrapper">
-          <img src="icon-concept-3-smart-loop.svg" alt="Smart Loop Icon">
+          <img src="icon-concept-8-sharp-clipboard.svg" alt="Sharp Clipboard Icon">
         </div>
-        <p class="description">An infinity symbol flowing over clipboard lines, representing infinite history and seamless connections. The center sparkle indicates AI magic.</p>
+        <p class="description">Modern clipboard with clip detail. Clear metaphor with polished execution.</p>
+        <span class="color-tag tag-magenta">Magenta / Purple</span>
         <div class="sizes-demo">
           <div class="size-item">
-            <img src="icon-concept-3-smart-loop.svg" width="64" height="64" alt="64px">
-            <span class="size-label">64px</span>
+            <img src="icon-concept-8-sharp-clipboard.svg" width="48" height="48" alt="48px">
+            <span class="size-label">48</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-3-smart-loop.svg" width="32" height="32" alt="32px">
-            <span class="size-label">32px</span>
+            <img src="icon-concept-8-sharp-clipboard.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-3-smart-loop.svg" width="16" height="16" alt="16px">
-            <span class="size-label">16px</span>
+            <img src="icon-concept-8-sharp-clipboard.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16</span>
           </div>
         </div>
       </div>
 
       <div class="icon-card">
-        <div class="concept-num">Concept 4</div>
-        <h2>The Pixel Grid C</h2>
+        <div class="concept-num">Concept 9</div>
+        <h2>Dual Cards</h2>
         <div class="icon-wrapper">
-          <img src="icon-concept-4-pixel-grid.svg" alt="Pixel Grid C Icon">
+          <img src="icon-concept-9-dual-cards.svg" alt="Dual Cards Icon">
         </div>
-        <p class="description">Dots forming a stylized "C" for Clipso, with an animated scanning line. Green highlights represent AI identifying and organizing content.</p>
+        <p class="description">Overlapping cards with checkmark. Represents copy/paste duality and completion.</p>
+        <span class="color-tag tag-blue">Electric Blue</span>
         <div class="sizes-demo">
           <div class="size-item">
-            <img src="icon-concept-4-pixel-grid.svg" width="64" height="64" alt="64px">
-            <span class="size-label">64px</span>
+            <img src="icon-concept-9-dual-cards.svg" width="48" height="48" alt="48px">
+            <span class="size-label">48</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-4-pixel-grid.svg" width="32" height="32" alt="32px">
-            <span class="size-label">32px</span>
+            <img src="icon-concept-9-dual-cards.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-4-pixel-grid.svg" width="16" height="16" alt="16px">
-            <span class="size-label">16px</span>
+            <img src="icon-concept-9-dual-cards.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16</span>
           </div>
         </div>
       </div>
 
       <div class="icon-card">
-        <div class="concept-num">Concept 5</div>
-        <h2>The Clipboard Portal</h2>
+        <div class="concept-num">Concept 10</div>
+        <h2>Abstract Layers</h2>
         <div class="icon-wrapper">
-          <img src="icon-concept-5-clipboard-portal.svg" alt="Clipboard Portal Icon">
+          <img src="icon-concept-10-abstract-layers.svg" alt="Abstract Layers Icon">
         </div>
-        <p class="description">A clipboard with a glowing portal effect, representing the "magical" ability to find anything through semantic search. Floating particles add depth.</p>
+        <p class="description">Stylized C with layered arcs. Unique silhouette with depth and motion feel.</p>
+        <span class="color-tag tag-coral">Coral / Red</span>
         <div class="sizes-demo">
           <div class="size-item">
-            <img src="icon-concept-5-clipboard-portal.svg" width="64" height="64" alt="64px">
-            <span class="size-label">64px</span>
+            <img src="icon-concept-10-abstract-layers.svg" width="48" height="48" alt="48px">
+            <span class="size-label">48</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-5-clipboard-portal.svg" width="32" height="32" alt="32px">
-            <span class="size-label">32px</span>
+            <img src="icon-concept-10-abstract-layers.svg" width="32" height="32" alt="32px">
+            <span class="size-label">32</span>
           </div>
           <div class="size-item">
-            <img src="icon-concept-5-clipboard-portal.svg" width="16" height="16" alt="16px">
-            <span class="size-label">16px</span>
+            <img src="icon-concept-10-abstract-layers.svg" width="16" height="16" alt="16px">
+            <span class="size-label">16</span>
           </div>
         </div>
       </div>
     </div>
 
     <div class="comparison-row">
-      <h3>Side-by-Side Comparison</h3>
-      <img src="logo.svg" alt="Current" title="Current">
-      <img src="icon-concept-1-folding-clipboard.svg" alt="Concept 1" title="Concept 1: Folding Clipboard">
-      <img src="icon-concept-2-neural-stack.svg" alt="Concept 2" title="Concept 2: Neural Stack">
-      <img src="icon-concept-3-smart-loop.svg" alt="Concept 3" title="Concept 3: Smart Loop">
-      <img src="icon-concept-4-pixel-grid.svg" alt="Concept 4" title="Concept 4: Pixel Grid C">
-      <img src="icon-concept-5-clipboard-portal.svg" alt="Concept 5" title="Concept 5: Clipboard Portal">
+      <h3>All Bold Concepts Side-by-Side</h3>
+      <img src="icon-concept-6-bold-stack.svg" alt="Concept 6" title="Bold Stack">
+      <img src="icon-concept-7-geometric-c.svg" alt="Concept 7" title="Geometric C">
+      <img src="icon-concept-8-sharp-clipboard.svg" alt="Concept 8" title="Sharp Clipboard">
+      <img src="icon-concept-9-dual-cards.svg" alt="Concept 9" title="Dual Cards">
+      <img src="icon-concept-10-abstract-layers.svg" alt="Concept 10" title="Abstract Layers">
+    </div>
+
+    <div class="comparison-row" style="margin-top: 30px;">
+      <h3>vs Current Icon</h3>
+      <img src="logo.svg" alt="Current" title="Current Icon">
     </div>
   </div>
 </body>

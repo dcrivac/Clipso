@@ -1,0 +1,46 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept 10: Abstract Layers
+       Bold coral/salmon with abstract layered shapes
+       Very modern, unique silhouette -->
+  <defs>
+    <linearGradient id="boldGradient10" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF7675"/>
+      <stop offset="100%" style="stop-color:#D63031"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="16" y="16" width="224" height="224" rx="52" fill="url(#boldGradient10)"/>
+
+  <!-- Abstract layered C shape -->
+  <!-- Outer arc -->
+  <path d="M168 64
+           C200 80, 208 112, 208 128
+           C208 144, 200 176, 168 192
+           L168 168
+           C184 160, 188 144, 188 128
+           C188 112, 184 96, 168 88
+           Z"
+        fill="white" opacity="0.25"/>
+
+  <!-- Middle arc layer -->
+  <path d="M148 72
+           C180 88, 188 108, 188 128
+           C188 148, 180 168, 148 184
+           L148 160
+           C168 152, 172 140, 172 128
+           C172 116, 168 104, 148 96
+           Z"
+        fill="white" opacity="0.4"/>
+
+  <!-- Inner solid shape - stylized C -->
+  <path d="M64 128
+           C64 80, 96 48, 144 48
+           L144 76
+           C112 76, 92 100, 92 128
+           C92 156, 112 180, 144 180
+           L144 208
+           C96 208, 64 176, 64 128
+           Z"
+        fill="white"/>
+</svg>

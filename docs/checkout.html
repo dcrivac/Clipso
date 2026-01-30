@@ -52,14 +52,9 @@
                 <p>No price specified. Please return to the app and try again.</p>
             `;
         } else {
-            // Initialize Paddle
-            // IMPORTANT: Replace with your actual Paddle client-side token
+            // Initialize Paddle with production token
             Paddle.Setup({
-                // For sandbox, use your sandbox client-side token
-                token: 'test_859aa26dd9d5c623ccccf54e0c7', // Replace with your token
-
-                // For production, change to:
-                // token: 'live_fc98babc1d8bb9e39a3482fd2bc',
+                token: 'live_fc98babc1d8bb9e39a3482fd2bc',
 
                 eventCallback: function(data) {
                     if (data.name === "checkout.completed") {
