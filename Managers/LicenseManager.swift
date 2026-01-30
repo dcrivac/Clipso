@@ -13,8 +13,8 @@ import Security
 // Deploy checkout.html to your website, then it will open Paddle.js checkout
 
 struct PaddleConfig {
-    // Your website checkout page URL (GitHub Pages)
-    static let checkoutPageURL = "https://dcrivac.github.io/Clipso/checkout.html"
+    // Your website checkout page URL
+    static let checkoutPageURL = "https://clipso.app/checkout.html"
 
     // Production Paddle price IDs from Catalog → Products
     static let lifetimePriceID = "pri_01kfqf26bqncwbr7nvrg445esy"  // Lifetime: $29.99
