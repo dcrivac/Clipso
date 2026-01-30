@@ -13,32 +13,20 @@ import Security
 // Deploy checkout.html to your website, then it will open Paddle.js checkout
 
 struct PaddleConfig {
-    // Your website checkout page URL
-    static let checkoutPageURL = "https://clipso.app/checkout.html" // Change to your actual website URL
+    // Your website checkout page URL (GitHub Pages)
+    static let checkoutPageURL = "https://dcrivac.github.io/Clipso/checkout.html"
 
-    // Paddle price IDs from Catalog → Products
-    static let lifetimePriceID = "pri_01kfr145r1eh8f7m8w0nfkvz74" // Sandbox lifetime price
-    static let annualPriceID = "pri_01kfr12rgvdnhpr52zspmqvnk1"   // Sandbox annual price
-
-    // Production price IDs (update when ready for production)
-    static let productionLifetimePriceID = "pri_01kfqf26bqncwbr7nvrg445esy"
-    static let productionAnnualPriceID = "pri_01kfqf40kc2jn9cgx9a6naenk7"
+    // Production Paddle price IDs from Catalog → Products
+    static let lifetimePriceID = "pri_01kfqf26bqncwbr7nvrg445esy"  // Lifetime: $29.99
+    static let annualPriceID = "pri_01kfqf40kc2jn9cgx9a6naenk7"    // Annual: $7.99/year
 
     // Generate checkout URLs with price_id parameter
     static var lifetimeCheckoutURL: String {
-        #if DEBUG
         return "\(checkoutPageURL)?price_id=\(lifetimePriceID)"
-        #else
-        return "\(checkoutPageURL)?price_id=\(productionLifetimePriceID)"
-        #endif
     }
 
     static var annualCheckoutURL: String {
-        #if DEBUG
         return "\(checkoutPageURL)?price_id=\(annualPriceID)"
-        #else
-        return "\(checkoutPageURL)?price_id=\(productionAnnualPriceID)"
-        #endif
     }
 }
 
