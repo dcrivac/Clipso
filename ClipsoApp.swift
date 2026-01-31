@@ -39,7 +39,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         if let button = statusItem?.button {
             button.image = NSImage(systemSymbolName: "doc.on.clipboard", accessibilityDescription: "Clipso")
-            button.action = #selector(togglePopover)
+            button.action = #selector(handleStatusItemClick)
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
             button.target = self
         }
 
@@ -114,6 +115,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }, 1, &eventTypes, Unmanaged.passUnretained(self).toOpaque(), &eventHandler)
     }
 
+    @objc func handleStatusItemClick() {
+        guard let event = NSApp.currentEvent else { return }
+
+        if event.type == .rightMouseUp {
+            // Right-click: show menu
+            showStatusMenu()
+        } else {
+            // Left-click: toggle popover
+            togglePopover()
+        }
+    }
+
     @objc func togglePopover() {
         if let button = statusItem?.button {
             if popover?.isShown == true {
@@ -125,8 +138,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
     }
 
+    private func showStatusMenu() {
+        guard let button = statusItem?.button else { return }
+
+        let menu = buildStatusMenu()
+        statusItem?.menu = menu
+        button.performClick(nil)
+        statusItem?.menu = nil  // Remove menu so left-click works again
+    }
+
     // MARK: - License Menu Setup
     private func setupMenuBarMenu() {
+        // Menu is built dynamically when needed
+    }
+
+    private func buildStatusMenu() -> NSMenu {
         let menu = NSMenu()
 
         // License status
@@ -171,7 +197,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             keyEquivalent: "q"
         ))
 
-        statusItem?.menu = menu
+        return menu
     }
 
     @objc private func showUpgrade() {
