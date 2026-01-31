@@ -74,7 +74,7 @@ struct ContentView: View {
                     Image(systemName: "doc.on.clipboard.fill")
                         .font(.title2)
                         .foregroundColor(.blue)
-                    Text("Clipboard Manager")
+                    Text("Clipso")
                         .font(.headline)
                     Spacer()
 

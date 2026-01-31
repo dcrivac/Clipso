@@ -38,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         if let button = statusItem?.button {
-            button.image = NSImage(systemSymbolName: "doc.on.clipboard", accessibilityDescription: "Clipboard Manager")
+            button.image = NSImage(systemSymbolName: "doc.on.clipboard", accessibilityDescription: "Clipso")
             button.action = #selector(togglePopover)
             button.target = self
         }
