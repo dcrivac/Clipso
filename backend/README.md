@@ -201,6 +201,93 @@ Example: CLIPSO-A1B2-C3D4-E5F6-G7H8
 
 Generated using SHA256 hash of transaction ID.
 
+## Manual License Generation
+
+For gifting licenses or special promotions, you can manually generate lifetime licenses using the included admin tool.
+
+### Generate a Lifetime License
+
+```bash
+# Interactive mode (prompts for email)
+node generate-license.js
+
+# Or provide email directly
+node generate-license.js friend@example.com
+```
+
+**Example output:**
+```
+✅ Lifetime license created successfully!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📧 Email:        friend@example.com
+🔑 License Key:  CLIPSO-A1B2-C3D4-E5F6-G7H8
+🎫 Type:         lifetime
+✓  Status:       active
+📱 Device Limit: 3 devices
+📅 Created:      2025-01-24T12:00:00.000Z
+⏰ Expires:      Never (Lifetime)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 Send this information to your friend:
+
+   Subject: Your Clipso Lifetime License
+   ─────────────────────────────────────────────────
+   Email: friend@example.com
+   License Key: CLIPSO-A1B2-C3D4-E5F6-G7H8
+   ─────────────────────────────────────────────────
+   To activate:
+   1. Open Clipso app
+   2. Go to Settings → License
+   3. Enter the email and license key above
+   4. Click "Activate License"
+```
+
+**What it does:**
+- Generates a unique license key in the CLIPSO format
+- Creates a lifetime license entry in the database
+- Sets device limit to 3 by default
+- No expiration date (lifetime access)
+- Checks for existing licenses and warns if email already has one
+
+**Requirements:**
+- Database must be running and accessible
+- `.env` file must be configured with database credentials
+- `npm install` must have been run
+
+### Direct SQL Method
+
+Alternatively, you can insert a license directly via SQL:
+
+```sql
+INSERT INTO licenses (
+    license_key,
+    email,
+    transaction_id,
+    product_id,
+    price_id,
+    license_type,
+    status,
+    device_limit,
+    purchased_at,
+    expires_at,
+    custom_data
+)
+VALUES (
+    'CLIPSO-XXXX-XXXX-XXXX-XXXX',  -- Generate unique key
+    'friend@example.com',
+    'manual_' || extract(epoch from now()) || '_' || md5(random()::text),
+    'prod_clipso_lifetime',
+    'manual',
+    'lifetime',
+    'active',
+    3,
+    NOW(),
+    NULL,
+    '{"source": "manual", "generated_by": "admin"}'::jsonb
+);
+```
+
 ## Device Limits
 
 - Default: 3 devices per license
