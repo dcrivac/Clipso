@@ -97,6 +97,27 @@ Content-Type: application/json
 }
 ```
 
+### Retrieve License by Email
+```bash
+POST /api/licenses/retrieve
+Content-Type: application/json
+
+{
+  "email": "user@example.com"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "License key has been sent to your email address",
+  "licenses_found": 1
+}
+```
+
+**Use case:** Customer lost their license key email and needs it resent.
+
 ### Get License Info
 ```bash
 GET /api/licenses/:license_key
@@ -181,6 +202,9 @@ See [DEPLOYMENT_GUIDE.md](../DEPLOYMENT_GUIDE.md) for detailed deployment instru
 | `DB_USER` | Database user | Yes |
 | `DB_PASSWORD` | Database password | Yes |
 | `PADDLE_WEBHOOK_SECRET` | Paddle webhook signing secret | Yes |
+| `RESEND_API_KEY` | Resend email API key (recommended) | No |
+| `SENDGRID_API_KEY` | SendGrid email API key (alternative) | No |
+| `EMAIL_FROM` | Email sender address | No |
 
 ## Paddle Webhook Events Handled
 

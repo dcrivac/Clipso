@@ -13,6 +13,7 @@ const express = require('express');
 const cors = require('cors');
 const crypto = require('crypto');
 const { Pool } = require('pg');
+const { sendLicenseEmail } = require('./email-service');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -507,6 +508,73 @@ app.get('/api/licenses/:license_key', async (req, res) => {
 });
 
 /**
+ * Retrieve license by email (resend license key)
+ * POST /api/licenses/retrieve
+ */
+app.post('/api/licenses/retrieve', async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({
+            success: false,
+            error: 'MISSING_PARAMETER',
+            message: 'email is required'
+        });
+    }
+
+    try {
+        // Get active licenses for this email
+        const result = await pool.query(
+            `SELECT license_key, license_type, status, expires_at
+             FROM licenses
+             WHERE email = $1 AND status = 'active'
+             ORDER BY purchased_at DESC`,
+            [email]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                error: 'NO_LICENSE_FOUND',
+                message: 'No active licenses found for this email address'
+            });
+        }
+
+        // Get the most recent license
+        const license = result.rows[0];
+
+        // Resend license email
+        const emailSent = await sendLicenseEmail(email, license.license_key, license.license_type);
+
+        if (emailSent) {
+            res.json({
+                success: true,
+                message: 'License key has been sent to your email address',
+                licenses_found: result.rows.length
+            });
+        } else {
+            // Email service not configured, return license in response
+            res.json({
+                success: true,
+                message: 'License retrieved successfully',
+                license_key: license.license_key,
+                license_type: license.license_type,
+                expires_at: license.expires_at,
+                licenses_found: result.rows.length
+            });
+        }
+
+    } catch (error) {
+        console.error('License retrieval error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'SERVER_ERROR',
+            message: 'Failed to retrieve license'
+        });
+    }
+});
+
+/**
  * Paddle webhook handler
  * POST /webhook/paddle
  */
@@ -670,8 +738,13 @@ async function handleTransactionCompleted(client, event) {
 
     console.log(`License created: ${licenseKey} for ${customerEmail} (type: ${licenseType})`);
 
-    // TODO: Send email with license key to customer
-    // You would integrate with an email service here (SendGrid, AWS SES, etc.)
+    // Send license email to customer
+    try {
+        await sendLicenseEmail(customerEmail, licenseKey, licenseType);
+    } catch (error) {
+        console.error(`Failed to send license email to ${customerEmail}:`, error);
+        // License is still created in database, email failure doesn't stop the process
+    }
 }
 
 async function handleTransactionUpdated(client, event) {
