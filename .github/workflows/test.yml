@@ -15,15 +15,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Test on multiple macOS versions
-        os: [macos-13, macos-14, macos-latest]
+        # Test on supported macOS versions (macos-13 runner was retired by
+        # GitHub in Dec 2025 and hangs indefinitely waiting for a runner)
+        os: [macos-14, macos-latest]
         # Test both Debug and Release configurations
         configuration: [Debug, Release]
         # Reduce combinations for faster CI on non-main branches
         exclude:
           # Only test Release on latest macOS for non-PR builds
-          - os: macos-13
-            configuration: Release
           - os: macos-14
             configuration: Release
 
