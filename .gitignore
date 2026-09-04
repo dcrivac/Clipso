@@ -1,8 +1,15 @@
 # Environment variables and credentials
 .env.local
 .env
+.env.*
+!.env.example
+!.env.template
 backend/.env
+backend/.env.*
+!backend/.env.example
 backend/node_modules/
+node_modules/
+coverage/
 
 # macOS
 .DS_Store
