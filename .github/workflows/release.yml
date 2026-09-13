@@ -44,13 +44,20 @@ jobs:
 
     - name: Check for signing secrets
       id: check_secrets
+      env:
+        APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+        APPLE_ID_EMAIL: ${{ secrets.APPLE_ID_EMAIL }}
+        APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       run: |
-        if [ -n "${{ secrets.APPLE_CERTIFICATE_BASE64 }}" ]; then
+        # Signing requires the cert AND the full notarization credential set.
+        if [ -n "$APPLE_CERTIFICATE_BASE64" ] && [ -n "$APPLE_ID_EMAIL" ] \
+           && [ -n "$APPLE_ID_PASSWORD" ] && [ -n "$APPLE_TEAM_ID" ]; then
           echo "HAS_SIGNING_SECRETS=true" >> $GITHUB_OUTPUT
-          echo "✅ Signing secrets found - will create signed build"
+          echo "✅ Signing + notarization secrets present - will create a signed, notarized build"
         else
           echo "HAS_SIGNING_SECRETS=false" >> $GITHUB_OUTPUT
-          echo "⚠️  No signing secrets - will create unsigned build"
+          echo "⚠️  Signing secrets incomplete - will create an unsigned build (see docs/SIGNING_SETUP.md)"
         fi
 
     - name: Import Code Signing Certificate
@@ -93,6 +100,7 @@ jobs:
       env:
         SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY || 'Developer ID Application' }}
       run: |
+        # Hardened runtime is required for notarization.
         xcodebuild clean build \
           -project Clipso.xcodeproj \
           -scheme Clipso \
@@ -100,7 +108,9 @@ jobs:
           -derivedDataPath ./DerivedData \
           CODE_SIGN_IDENTITY="$SIGNING_IDENTITY" \
           CODE_SIGN_STYLE=Manual \
-          DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}"
+          DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}" \
+          ENABLE_HARDENED_RUNTIME=YES \
+          OTHER_CODE_SIGN_FLAGS="--timestamp --options=runtime"
 
     - name: Build Xcode project (Unsigned)
       if: steps.check_secrets.outputs.HAS_SIGNING_SECRETS == 'false'
@@ -132,20 +142,28 @@ jobs:
     - name: Install create-dmg
       run: brew install create-dmg
 
-    - name: Sign Application
+    - name: Re-sign Application (safety net) and verify
       if: steps.check_secrets.outputs.HAS_SIGNING_SECRETS == 'true'
       env:
         SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY || 'Developer ID Application' }}
       run: |
-        echo "Signing Clipso.app..."
-        codesign --deep --force --verify --verbose \
+        # xcodebuild already signed the bundle; this re-signs inside-out with the
+        # entitlements + hardened runtime so nested code can't be left unsigned.
+        # (`--deep` is deliberately avoided — Apple deprecated it.)
+        ENT="Clipso.entitlements"
+        find build/Clipso.app/Contents/Frameworks -type f \( -name "*.dylib" -o -perm +111 \) 2>/dev/null \
+          | while read -r f; do
+              codesign --force --timestamp --options=runtime --sign "$SIGNING_IDENTITY" "$f" || true
+            done
+
+        codesign --force --timestamp --options=runtime \
+          --entitlements "$ENT" \
           --sign "$SIGNING_IDENTITY" \
-          --options runtime \
           build/Clipso.app
 
         echo "Verifying signature..."
-        codesign --verify --verbose build/Clipso.app
-        spctl -a -vv build/Clipso.app || true
+        codesign --verify --strict --verbose=2 build/Clipso.app
+        spctl -a -vvv --type exec build/Clipso.app || true
 
     - name: Create DMG
       run: |

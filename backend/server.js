@@ -11,28 +11,29 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const crypto = require('crypto');
-const { Pool } = require('pg');
+const pool = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Database connection
-const pool = new Pool({
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5432,
-    database: process.env.DB_NAME || 'clipso_licenses',
-    user: process.env.DB_USER || 'postgres',
-    password: process.env.DB_PASSWORD,
-    max: 20,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
-});
+// Behind Fly's proxy (and most PaaS load balancers): trust the first hop so
+// req.ip / rate-limiting see the real client address, not the proxy's.
+app.set('trust proxy', 1);
 
-// Middleware
+// Security headers. This is a JSON API, so the restrictive CSP default is fine.
+app.use(helmet());
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+// The Paddle webhook signature is computed over the RAW request body, so that
+// route must see the unparsed bytes. Register it before the JSON parser and
+// capture the raw buffer for verification.
+app.use('/webhook/paddle', express.raw({ type: '*/*', limit: '1mb' }));
+
+app.use(express.json({ limit: '256kb' }));
+app.use(express.urlencoded({ extended: true, limit: '256kb' }));
 
 // Request logging
 app.use((req, res, next) => {
@@ -40,25 +41,45 @@ app.use((req, res, next) => {
     next();
 });
 
+// Rate limiters — license endpoints are the brute-force surface (guessing keys).
+const licenseLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: parseInt(process.env.RATE_LIMIT_MAX || '60', 10),
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, error: 'RATE_LIMITED', message: 'Too many requests, try again later' },
+});
+
 // ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
 
 /**
- * Verify Paddle webhook signature
+ * Verify a Paddle (Billing) webhook signature.
+ *
+ * Paddle signs `${ts}:${rawRequestBody}` with HMAC-SHA256 using the
+ * notification destination's secret. The signature MUST be checked against the
+ * exact bytes received — hence express.raw() on this route.
+ *
+ * @param {Buffer} rawBody  unparsed request body
+ * @param {string} signatureHeader  value of the `Paddle-Signature` header
  */
-function verifyPaddleSignature(req) {
-    const signature = req.headers['paddle-signature'];
-    if (!signature) {
+function verifyPaddleSignature(rawBody, signatureHeader) {
+    const secret = process.env.PADDLE_WEBHOOK_SECRET;
+    if (!secret) {
+        console.error('PADDLE_WEBHOOK_SECRET is not set — rejecting webhook');
+        return false;
+    }
+    if (!signatureHeader || !Buffer.isBuffer(rawBody)) {
         return false;
     }
 
-    // Extract timestamp and signature
-    const parts = signature.split(';');
     let ts, h1;
-
-    parts.forEach(part => {
-        const [key, value] = part.split('=');
+    signatureHeader.split(';').forEach(part => {
+        const idx = part.indexOf('=');
+        if (idx === -1) return;
+        const key = part.slice(0, idx);
+        const value = part.slice(idx + 1);
         if (key === 'ts') ts = value;
         if (key === 'h1') h1 = value;
     });
@@ -67,20 +88,21 @@ function verifyPaddleSignature(req) {
         return false;
     }
 
-    // Reconstruct signed payload
-    const signedPayload = `${ts}:${JSON.stringify(req.body)}`;
+    // Reject stale signatures (replay protection) — 5 minute window.
+    const age = Math.abs(Date.now() / 1000 - Number(ts));
+    if (!Number.isFinite(age) || age > 300) {
+        console.error('Webhook signature timestamp outside tolerance');
+        return false;
+    }
 
-    // Calculate expected signature
-    const expectedSignature = crypto
-        .createHmac('sha256', process.env.PADDLE_WEBHOOK_SECRET)
-        .update(signedPayload)
+    const expected = crypto
+        .createHmac('sha256', secret)
+        .update(`${ts}:${rawBody.toString('utf8')}`)
         .digest('hex');
 
-    // Compare signatures
-    return crypto.timingSafeEqual(
-        Buffer.from(h1),
-        Buffer.from(expectedSignature)
-    );
+    const a = Buffer.from(h1, 'hex');
+    const b = Buffer.from(expected, 'hex');
+    return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
 /**
@@ -118,17 +140,32 @@ async function checkLicenseStatus(license) {
 // ============================================================================
 
 /**
- * Health check
+ * Liveness check — always 200 while the process is up. Used by Fly's HTTP
+ * health check; must not depend on the database or a brief DB blip would pull
+ * the whole service out of rotation.
  */
 app.get('/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 /**
+ * Readiness check — verifies the database is reachable.
+ */
+app.get('/health/ready', async (req, res) => {
+    try {
+        await pool.query('SELECT 1');
+        res.json({ status: 'ok', database: 'ok', timestamp: new Date().toISOString() });
+    } catch (error) {
+        console.error('Readiness check failed:', error.message);
+        res.status(503).json({ status: 'degraded', database: 'error', timestamp: new Date().toISOString() });
+    }
+});
+
+/**
  * Activate license on a device
  * POST /api/licenses/activate
  */
-app.post('/api/licenses/activate', async (req, res) => {
+app.post('/api/licenses/activate', licenseLimiter, async (req, res) => {
     const { license_key, device_id, device_name, device_model, os_version, app_version } = req.body;
 
     if (!license_key || !device_id) {
@@ -286,7 +323,7 @@ app.post('/api/licenses/activate', async (req, res) => {
  * Validate license (for periodic revalidation)
  * POST /api/licenses/validate
  */
-app.post('/api/licenses/validate', async (req, res) => {
+app.post('/api/licenses/validate', licenseLimiter, async (req, res) => {
     const { license_key, device_id } = req.body;
 
     if (!license_key || !device_id) {
@@ -380,7 +417,7 @@ app.post('/api/licenses/validate', async (req, res) => {
  * Deactivate device
  * POST /api/licenses/deactivate
  */
-app.post('/api/licenses/deactivate', async (req, res) => {
+app.post('/api/licenses/deactivate', licenseLimiter, async (req, res) => {
     const { license_key, device_id } = req.body;
 
     if (!license_key || !device_id) {
@@ -441,10 +478,29 @@ app.post('/api/licenses/deactivate', async (req, res) => {
 });
 
 /**
- * Get license info (including activated devices)
+ * Require a bearer token matching ADMIN_TOKEN. Guards endpoints that expose
+ * customer data (email, device list). If ADMIN_TOKEN is unset the endpoint is
+ * disabled rather than left open.
+ */
+function requireAdmin(req, res, next) {
+    const expected = process.env.ADMIN_TOKEN;
+    if (!expected) {
+        return res.status(404).json({ success: false, error: 'NOT_FOUND' });
+    }
+    const provided = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    const a = Buffer.from(provided);
+    const b = Buffer.from(expected);
+    if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
+        return res.status(401).json({ success: false, error: 'UNAUTHORIZED' });
+    }
+    next();
+}
+
+/**
+ * Get license info (including activated devices) — admin only.
  * GET /api/licenses/:license_key
  */
-app.get('/api/licenses/:license_key', async (req, res) => {
+app.get('/api/licenses/:license_key', requireAdmin, async (req, res) => {
     const { license_key } = req.params;
 
     try {
@@ -511,13 +567,20 @@ app.get('/api/licenses/:license_key', async (req, res) => {
  * POST /webhook/paddle
  */
 app.post('/webhook/paddle', async (req, res) => {
-    // Verify webhook signature
-    if (!verifyPaddleSignature(req)) {
+    // req.body is a Buffer here (express.raw was mounted on this path).
+    if (!verifyPaddleSignature(req.body, req.headers['paddle-signature'])) {
         console.error('Invalid webhook signature');
         return res.status(401).json({ error: 'Invalid signature' });
     }
 
-    const event = req.body;
+    let event;
+    try {
+        event = JSON.parse(req.body.toString('utf8'));
+    } catch (err) {
+        console.error('Webhook body is not valid JSON');
+        return res.status(400).json({ error: 'Invalid payload' });
+    }
+
     const eventType = event.event_type;
     const eventId = event.event_id;
 
@@ -750,17 +813,25 @@ app.use((err, req, res, next) => {
 // START SERVER
 // ============================================================================
 
-app.listen(PORT, () => {
-    console.log(`🚀 Clipso License Server running on port ${PORT}`);
-    console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`🗄️  Database: ${process.env.DB_NAME || 'clipso_licenses'}`);
-});
+// Only bind a port when run directly (`node server.js`). Under Jest the app is
+// imported and driven via supertest without a live socket.
+if (require.main === module) {
+    const server = app.listen(PORT, () => {
+        console.log(`🚀 Clipso License Server running on port ${PORT}`);
+        console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`🔌 Database: ${process.env.DATABASE_URL ? 'DATABASE_URL' : (process.env.DB_HOST || 'localhost')}`);
+    });
 
-// Graceful shutdown
-process.on('SIGTERM', () => {
-    console.log('SIGTERM received, closing server...');
-    pool.end();
-    process.exit(0);
-});
+    const shutdown = (signal) => {
+        console.log(`${signal} received, closing server...`);
+        server.close(() => {
+            pool.end().finally(() => process.exit(0));
+        });
+        // Failsafe if connections hang.
+        setTimeout(() => process.exit(0), 10000).unref();
+    };
+    process.on('SIGTERM', () => shutdown('SIGTERM'));
+    process.on('SIGINT', () => shutdown('SIGINT'));
+}
 
 module.exports = app; // For testing
